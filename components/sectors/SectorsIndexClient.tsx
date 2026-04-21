@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useLocale, useTranslation } from '@/contexts/LocaleContext';
 import { SECTORS } from '@/lib/sectors';
 import type { Sector } from '@/types/database';
@@ -22,11 +22,11 @@ export function SectorsIndexClient({
     const db = sectors.find((s) => s.slug === meta.slug);
     return {
       slug: meta.slug,
-      numeral: db?.numeral ?? meta.numeral,
       name: locale === 'es' ? (db?.name_es ?? meta.nameEs) : (db?.name ?? meta.name),
-      description: locale === 'es'
-        ? (db?.short_description_es ?? meta.shortDescriptionEs)
-        : (db?.short_description ?? meta.shortDescription),
+      description:
+        locale === 'es'
+          ? (db?.short_description_es ?? meta.shortDescriptionEs)
+          : (db?.short_description ?? meta.shortDescription),
       accent: db?.accent_color ?? meta.accentHex,
       status: db?.status ?? 'forming',
       orgCount: orgCounts[meta.slug] ?? 0,
@@ -36,79 +36,59 @@ export function SectorsIndexClient({
 
   return (
     <div>
-      <section className="border-b border-rule/50">
-        <div className="mx-auto max-w-6xl px-6 py-16 md:py-24 grid grid-cols-12 gap-6">
-          <div className="col-span-12 md:col-span-7">
-            <p className="text-[11px] uppercase tracking-[0.25em] text-muted-text mb-4">
-              {t('sectors.overlineLabel')}
-            </p>
-            <h1 className="font-display text-5xl md:text-7xl leading-[0.95] tracking-[-0.02em] text-ink">
-              {t('sectors.sectionTitle')}
-            </h1>
-          </div>
-          <div className="col-span-12 md:col-span-4 md:col-start-9 md:mt-20">
-            <p className="text-base text-body-text leading-[1.7] max-w-sm">
-              {t('sectors.sectionLede')}
-            </p>
-          </div>
+      <section className="bg-sand border-b border-divider">
+        <div className="container-readable py-12 md:py-16">
+          <h1 className="text-3xl md:text-4xl font-bold text-ink mb-3">
+            {t('sectors.sectionTitle')}
+          </h1>
+          <p className="text-base text-body-text leading-relaxed max-w-2xl">
+            {t('sectors.sectionLede')}
+          </p>
         </div>
       </section>
 
-      <section>
-        <ol className="mx-auto max-w-6xl px-6">
-          {rows.map((row) => (
-            <li key={row.slug} className="group border-b border-rule/50">
+      <section className="bg-background">
+        <div className="container-readable py-10 md:py-14">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {rows.map((row) => (
               <Link
+                key={row.slug}
                 href={`/sectors/${row.slug}`}
-                className="grid grid-cols-12 gap-6 items-baseline py-8 md:py-10 transition-colors"
+                className="group bg-surface border border-divider rounded-xl p-5 hover:border-ink/30 hover:shadow-sm transition-all"
               >
-                <div className="col-span-12 md:col-span-2 flex items-center gap-3">
+                <div className="flex items-center justify-between mb-3">
                   <span
-                    className="inline-block w-3 h-3 rounded-[1px]"
+                    className="inline-block w-2.5 h-2.5 rounded-full"
                     style={{ backgroundColor: row.accent }}
                   />
-                  <span className="sector-numeral text-sm text-rule tabular-nums">
-                    {row.numeral}
-                  </span>
                   <span
-                    className="ml-auto text-[9px] uppercase tracking-[0.22em] text-muted-text px-2 py-0.5 rounded-sm border border-rule/50"
-                    style={row.status === 'active' ? { color: row.accent, borderColor: row.accent } : {}}
+                    className={`text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full ${
+                      row.status === 'active'
+                        ? 'text-primary-600 bg-primary-100'
+                        : 'text-muted-text bg-sand'
+                    }`}
                   >
-                    {row.status === 'active' ? t('sectors.active') :
-                     row.status === 'archived' ? t('sectors.archived') :
-                     t('sectors.forming')}
+                    {row.status === 'active' ? t('sectors.active') : row.status === 'archived' ? t('sectors.archived') : t('sectors.forming')}
                   </span>
                 </div>
-                <div className="col-span-12 md:col-span-5">
-                  <h2
-                    className="font-display text-3xl md:text-[2.5rem] leading-[1.05] tracking-[-0.015em] text-ink transition-colors"
-                    onMouseEnter={(e) => (e.currentTarget.style.color = row.accent)}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = '')}
-                  >
-                    {row.name}
-                  </h2>
-                </div>
-                <div className="col-span-12 md:col-span-3">
-                  <p className="text-sm text-body-text leading-[1.6] max-w-xs">{row.description}</p>
-                </div>
-                <div className="col-span-12 md:col-span-2 flex items-baseline justify-between md:justify-end gap-4 md:gap-6">
-                  <div className="flex flex-col items-start md:items-end gap-1">
-                    <p className="font-display text-lg text-ink tabular-nums leading-none">
-                      {row.orgCount} / {row.needCount}
-                    </p>
-                    <p className="text-[9px] uppercase tracking-[0.2em] text-muted-text">
-                      orgs / roles
-                    </p>
-                  </div>
-                  <ArrowUpRight
-                    className="h-5 w-5 text-rule shrink-0 transition-transform group-hover:rotate-45"
-                    style={{ color: row.accent }}
-                  />
+                <h2 className="text-[17px] font-semibold text-ink mb-1.5 group-hover:text-primary transition-colors">
+                  {row.name}
+                </h2>
+                <p className="text-sm text-body-text leading-relaxed line-clamp-2 mb-4">
+                  {row.description}
+                </p>
+                <div className="flex items-center justify-between pt-3 border-t border-divider">
+                  <p className="text-xs text-muted-text">
+                    <span className="font-semibold text-ink tabular-nums">{row.orgCount}</span> orgs
+                    <span className="mx-1.5 text-rule">·</span>
+                    <span className="font-semibold text-ink tabular-nums">{row.needCount}</span> roles
+                  </p>
+                  <ArrowRight className="h-4 w-4 text-muted-text group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
                 </div>
               </Link>
-            </li>
-          ))}
-        </ol>
+            ))}
+          </div>
+        </div>
       </section>
     </div>
   );
