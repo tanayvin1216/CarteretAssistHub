@@ -47,7 +47,7 @@ export function Hero({ sectorCount, orgCount, townCount }: Props) {
             <div className="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Link
                 href="/get-help"
-                className="inline-flex items-center justify-between gap-6 h-12 pl-5 pr-4 bg-ink text-ivory text-sm font-medium tracking-wide rounded-full hover:bg-navy transition-colors group"
+                className="inline-flex items-center justify-between gap-6 h-12 pl-5 pr-4 bg-ink text-ivory text-sm font-medium tracking-wide rounded-sm hover:bg-navy transition-colors group"
               >
                 <span className="flex items-center gap-2">
                   <Heart className="h-4 w-4" />
@@ -57,7 +57,7 @@ export function Hero({ sectorCount, orgCount, townCount }: Props) {
               </Link>
               <Link
                 href="/volunteer"
-                className="inline-flex items-center justify-between gap-6 h-12 pl-5 pr-4 border border-ink/30 text-ink text-sm font-medium tracking-wide rounded-full hover:border-ink hover:bg-ink/5 transition-colors group"
+                className="inline-flex items-center justify-between gap-6 h-12 pl-5 pr-4 border border-ink/30 text-ink text-sm font-medium tracking-wide rounded-sm hover:border-ink hover:bg-ink/5 transition-colors group"
               >
                 <span className="flex items-center gap-2">
                   <HandHeart className="h-4 w-4" />

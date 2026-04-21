@@ -62,7 +62,7 @@ export function Header() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button
-                className="hidden md:inline-flex items-center gap-1.5 h-9 px-4 text-sm font-medium text-ink border border-ink/30 rounded-full hover:bg-ink hover:text-ivory transition-colors"
+                className="hidden md:inline-flex items-center gap-1.5 h-9 px-4 text-sm font-medium text-ink border border-ink/30 rounded-sm hover:bg-ink hover:text-ivory transition-colors"
                 aria-label={t('nav.signIn')}
               >
                 {t('nav.signIn')}
