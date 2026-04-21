@@ -1,6 +1,6 @@
 import { LoginForm } from '@/components/admin/LoginForm';
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Heart } from 'lucide-react';
 
 export default async function AdminLoginPage({
   searchParams,
@@ -14,37 +14,37 @@ export default async function AdminLoginPage({
       : null;
 
   return (
-    <div className="min-h-screen bg-ivory grid grid-cols-1 md:grid-cols-2">
-      <div className="hidden md:flex relative flex-col justify-between bg-ink text-ivory p-12">
+    <div className="min-h-screen bg-background grid grid-cols-1 md:grid-cols-2">
+      <div className="hidden md:flex flex-col justify-between bg-primary text-white p-12">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.22em] text-ivory/60 hover:text-ivory transition-colors w-fit"
+          className="inline-flex items-center gap-1.5 text-sm text-white/80 hover:text-white transition-colors w-fit"
         >
-          <ArrowLeft className="h-3 w-3" />
+          <ArrowLeft className="h-4 w-4" />
           Back to site
         </Link>
         <div>
-          <p className="text-[11px] uppercase tracking-[0.25em] text-ivory/50 mb-6">
-            Community Service Committee
-          </p>
-          <h1 className="font-display text-5xl leading-[1.02] tracking-[-0.01em] mb-6">
-            Carteret <span className="italic text-sector-food">Assist</span> Hub — Admin
+          <span className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 mb-6">
+            <Heart className="h-5 w-5" strokeWidth={2.5} fill="currentColor" />
+          </span>
+          <h1 className="text-4xl font-bold leading-tight mb-4">
+            Admin dashboard
           </h1>
-          <p className="text-sm text-ivory/70 max-w-md leading-relaxed">
-            Manage sectors, organizations, subcommittee leadership, volunteer roles, and applications
-            across every issue area in the county.
+          <p className="text-base text-white/80 leading-relaxed max-w-md">
+            Manage sectors, organizations, subcommittee leadership, volunteer roles, and
+            applications across Carteret County.
           </p>
         </div>
-        <p className="text-[10px] uppercase tracking-[0.25em] text-ivory/30">
-          · admin · v1
+        <p className="text-xs text-white/50">
+          Carteret County Community Service Committee
         </p>
       </div>
       <div className="flex items-center justify-center p-6 md:p-12">
         <div className="w-full max-w-sm">
           {errorMessage && (
-            <p className="mb-5 text-xs text-destructive border-l-2 border-destructive pl-3">
+            <div className="mb-5 text-sm text-destructive bg-destructive/5 border border-destructive/20 px-4 py-3 rounded-lg">
               {errorMessage}
-            </p>
+            </div>
           )}
           <LoginForm />
         </div>

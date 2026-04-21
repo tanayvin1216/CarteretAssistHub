@@ -8,43 +8,68 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <div>
-      <section className="bg-ivory border-b border-rule/40">
-        <div className="mx-auto max-w-5xl px-6 py-16 md:py-24 grid grid-cols-12 gap-6">
-          <div className="col-span-12 md:col-span-8">
-            <p className="text-[11px] uppercase tracking-[0.25em] text-muted-text mb-3">
-              · About the Hub
-            </p>
-            <h1 className="font-display text-5xl md:text-7xl leading-[0.95] tracking-[-0.02em] text-ink">
-              A single index of where Carteret County takes care of its own.
-            </h1>
-          </div>
+      <section className="bg-sand border-b border-divider">
+        <div className="container-readable max-w-3xl py-12 md:py-16">
+          <h1 className="text-3xl md:text-5xl font-bold text-ink leading-tight mb-4">
+            About Assist Hub
+          </h1>
+          <p className="text-base md:text-lg text-body-text leading-relaxed max-w-2xl">
+            A single directory of the people and organizations taking care of Carteret County, NC.
+          </p>
         </div>
       </section>
 
-      <section>
-        <div className="mx-auto max-w-3xl px-6 py-16 md:py-24 space-y-10 text-body-text text-base md:text-[17px] leading-[1.8]">
+      <section className="bg-background">
+        <div className="container-readable max-w-3xl py-12 md:py-16 space-y-6 text-[17px] text-body-text leading-[1.75]">
           <p>
-            Carteret Assist Hub is a county-wide directory of the non-profits, committees, and
-            volunteers working on every kind of community need — from food and housing to veterans
-            and the coast. It&apos;s a project of the Carteret County Community Service Committee,
-            organized alongside the county Democratic Party and a growing roster of local non-profit
-            partners.
+            Assist Hub is a county-wide directory of the non-profits, committees, and volunteers
+            working on every kind of community need — from food and housing to veterans and the
+            coast. It&apos;s a project of the Carteret County Community Service Committee,
+            organized alongside the county Democratic Party and a growing roster of local
+            non-profit partners.
           </p>
+
+          <div className="bg-sand border-l-4 border-primary rounded-r-lg p-5 my-8">
+            <p className="text-[15px] text-ink leading-relaxed">
+              The hub is organized into <strong>thirteen sectors</strong>. Each sector is a
+              volunteer subcommittee that curates the organizations listed there — keeping the
+              directory current, onboarding new non-profits, and posting volunteer opportunities
+              as they come up.
+            </p>
+          </div>
+
           <p>
-            The hub is organized into <strong className="font-display text-ink">thirteen sectors</strong>.
-            Each sector is a volunteer subcommittee that curates the organizations listed there —
-            keeping the directory current, onboarding new non-profits, and posting volunteer
-            opportunities as they come up.
+            Our sister site,{' '}
+            <a
+              href="https://github.com/tanayvin1216/FoodAssist_V2"
+              className="text-primary font-semibold underline-offset-4 hover:underline"
+            >
+              Food Assist
+            </a>
+            , is a standalone directory focused on the food-insecurity sector. Both sites share
+            the same database — an organization enters its information once and appears in both
+            places. No duplicate updates, no syncing.
           </p>
-          <p>
-            Our sister site, <Link href="https://github.com/tanayvin1216/FoodAssist_V2" className="underline hover:text-ink">Food Assist</Link>,
-            is a standalone directory focused on the food-insecurity sector. Both sites share the
-            same database — an organization enters its information once and appears in both places.
-          </p>
+
           <p>
             If you run a Carteret County non-profit and would like to be listed, or if you&apos;d
             like to help lead a subcommittee, reach out to the community-service committee.
           </p>
+
+          <div className="pt-8 flex items-center gap-4 flex-wrap">
+            <Link
+              href="/sectors"
+              className="inline-flex items-center gap-2 h-11 px-5 bg-primary text-white text-sm font-semibold rounded-lg hover:bg-primary-500 transition-colors"
+            >
+              Browse sectors
+            </Link>
+            <Link
+              href="/get-help"
+              className="inline-flex items-center gap-2 h-11 px-5 bg-surface border border-divider text-ink text-sm font-semibold rounded-lg hover:bg-sand transition-colors"
+            >
+              Find help
+            </Link>
+          </div>
         </div>
       </section>
     </div>

@@ -33,19 +33,15 @@ export function LoginForm() {
   };
 
   return (
-    <form onSubmit={onSubmit} className="w-full max-w-sm space-y-6">
+    <form onSubmit={onSubmit} className="w-full space-y-5">
       <div>
-        <p className="text-[11px] uppercase tracking-[0.22em] text-muted-text mb-2">
-          · Admin sign-in
-        </p>
-        <h2 className="font-display text-3xl text-ink leading-tight">
-          Welcome back.
-        </h2>
+        <p className="text-sm font-semibold text-primary mb-1">Admin sign-in</p>
+        <h2 className="text-2xl font-bold text-ink">Welcome back</h2>
       </div>
 
       <div className="space-y-4">
         <div>
-          <label className="block text-[11px] uppercase tracking-[0.18em] text-muted-text mb-2">
+          <label className="block text-sm font-semibold text-ink mb-2">
             Email
           </label>
           <input
@@ -54,11 +50,11 @@ export function LoginForm() {
             onChange={(e) => setEmail(e.target.value)}
             required
             autoComplete="email"
-            className="w-full h-11 px-4 bg-card border border-rule/60 rounded-sm text-sm text-ink focus:outline-none focus:border-ink"
+            className="w-full h-11 px-3.5 bg-surface border border-divider rounded-lg text-sm text-ink focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary-100 transition-all"
           />
         </div>
         <div>
-          <label className="block text-[11px] uppercase tracking-[0.18em] text-muted-text mb-2">
+          <label className="block text-sm font-semibold text-ink mb-2">
             Password
           </label>
           <input
@@ -67,7 +63,7 @@ export function LoginForm() {
             onChange={(e) => setPassword(e.target.value)}
             required
             autoComplete="current-password"
-            className="w-full h-11 px-4 bg-card border border-rule/60 rounded-sm text-sm text-ink focus:outline-none focus:border-ink"
+            className="w-full h-11 px-3.5 bg-surface border border-divider rounded-lg text-sm text-ink focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary-100 transition-all"
           />
         </div>
       </div>
@@ -75,7 +71,7 @@ export function LoginForm() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full h-11 bg-ink text-ivory text-sm font-medium rounded-full hover:bg-navy transition-colors disabled:opacity-60"
+        className="w-full h-11 bg-primary text-white text-sm font-semibold rounded-lg hover:bg-primary-500 transition-colors disabled:opacity-60 shadow-sm"
       >
         {loading ? 'Signing in…' : 'Sign in'}
       </button>

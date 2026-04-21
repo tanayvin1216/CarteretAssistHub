@@ -2,8 +2,7 @@
 
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
-import { ArrowUpRight, Clock, Calendar, MapPin } from 'lucide-react';
-import { format } from 'date-fns';
+import { ArrowRight, Clock, MapPin } from 'lucide-react';
 import { useLocale, useTranslation } from '@/contexts/LocaleContext';
 import { SECTORS, sectorBySlug } from '@/lib/sectors';
 import type { Sector, VolunteerNeed, Organization } from '@/types/database';
@@ -17,7 +16,7 @@ interface Props {
   sectors: Sector[];
 }
 
-export function VolunteerBrowse({ needs, sectors }: Props) {
+export function VolunteerBrowse({ needs }: Props) {
   const { t } = useTranslation();
   const locale = useLocale();
   const [filterSector, setFilterSector] = useState<string | null>(null);
@@ -29,43 +28,38 @@ export function VolunteerBrowse({ needs, sectors }: Props) {
 
   return (
     <div>
-      <section className="bg-ivory border-b border-rule/40">
-        <div className="mx-auto max-w-6xl px-6 py-14 md:py-20 grid grid-cols-12 gap-6">
-          <div className="col-span-12 md:col-span-8">
-            <p className="text-[11px] uppercase tracking-[0.25em] text-muted-text mb-3">
-              · {t('nav.volunteer')} ·
-            </p>
-            <h1 className="font-display text-5xl md:text-7xl leading-[0.95] tracking-[-0.02em] text-ink">
+      <section className="bg-sand border-b border-divider">
+        <div className="container-readable py-12 md:py-16 flex flex-col md:flex-row items-start justify-between gap-6">
+          <div className="max-w-2xl">
+            <h1 className="text-3xl md:text-4xl font-bold text-ink mb-3">
               {t('volunteer.title')}
             </h1>
-            <p className="mt-6 text-base md:text-lg text-body-text leading-[1.65] max-w-xl">
+            <p className="text-base text-body-text leading-relaxed">
               {t('volunteer.lede')}
             </p>
           </div>
-          <div className="col-span-12 md:col-span-3 md:col-start-10 md:mt-14">
-            <Link
-              href="/volunteer/apply"
-              className="inline-flex items-center gap-2 h-11 px-5 bg-ink text-ivory text-sm font-medium rounded-full hover:bg-navy transition-colors"
-            >
-              {t('volunteer.applyGeneral')}
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </div>
+          <Link
+            href="/volunteer/apply"
+            className="inline-flex items-center gap-2 h-11 px-4 bg-primary text-white text-sm font-semibold rounded-lg hover:bg-primary-500 transition-colors shadow-sm"
+          >
+            {t('volunteer.applyGeneral')}
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </section>
 
-      <section className="bg-background">
-        <div className="mx-auto max-w-6xl px-6 py-10">
-          <p className="text-[10px] uppercase tracking-[0.22em] text-muted-text mb-4">
+      <section className="bg-background border-b border-divider">
+        <div className="container-readable py-5">
+          <p className="text-xs font-semibold text-muted-text uppercase tracking-wide mb-3">
             {t('volunteer.filterBySector')}
           </p>
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setFilterSector(null)}
-              className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
+              className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
                 filterSector === null
-                  ? 'bg-ink text-ivory border-ink'
-                  : 'border-rule/50 text-muted-text hover:border-ink hover:text-ink'
+                  ? 'bg-ink text-white border-ink'
+                  : 'border-divider text-muted-text hover:border-ink hover:text-ink bg-surface'
               }`}
             >
               All ({needs.length})
@@ -78,13 +72,15 @@ export function VolunteerBrowse({ needs, sectors }: Props) {
                 <button
                   key={s.slug}
                   onClick={() => setFilterSector(s.slug)}
-                  className="text-xs px-3 py-1.5 rounded-full border transition-colors"
-                  style={
-                    active
-                      ? { backgroundColor: s.accentHex, color: 'var(--color-ivory)', borderColor: s.accentHex }
-                      : { borderColor: 'var(--color-rule)' }
-                  }
+                  className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors flex items-center gap-1.5 ${
+                    active ? 'text-white border-transparent' : 'border-divider text-body-text hover:border-ink hover:text-ink bg-surface'
+                  }`}
+                  style={active ? { backgroundColor: s.accentHex } : {}}
                 >
+                  <span
+                    className="inline-block w-1.5 h-1.5 rounded-full"
+                    style={{ backgroundColor: active ? 'white' : s.accentHex }}
+                  />
                   {s.name} ({count})
                 </button>
               );
@@ -94,48 +90,48 @@ export function VolunteerBrowse({ needs, sectors }: Props) {
       </section>
 
       <section className="bg-background">
-        <div className="mx-auto max-w-6xl px-6 pb-20">
+        <div className="container-readable py-10 md:py-12">
           {filtered.length === 0 ? (
-            <div className="border border-dashed border-rule rounded-sm p-12 text-center">
-              <p className="font-display text-2xl text-ink mb-2">{t('volunteer.empty')}</p>
-              <p className="text-sm text-muted-text">{t('volunteer.emptyBody')}</p>
+            <div className="bg-sand border border-divider rounded-xl p-12 text-center">
+              <p className="text-lg font-semibold text-ink mb-2">{t('volunteer.empty')}</p>
+              <p className="text-sm text-body-text">{t('volunteer.emptyBody')}</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {filtered.map((need) => {
                 const sector = need.sector_slug ? sectorBySlug(need.sector_slug) : null;
-                const accent = sector?.accentHex ?? '#1E3A5F';
                 return (
                   <article
                     key={need.id}
-                    className="group bg-card border border-rule/40 p-7 hover:-translate-y-0.5 transition-transform"
+                    className="bg-surface border border-divider rounded-xl p-6 hover:border-ink/30 hover:shadow-sm transition-all flex flex-col"
                   >
-                    <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center justify-between mb-3">
                       {sector && (
-                        <span
-                          className="text-[10px] uppercase tracking-[0.22em]"
-                          style={{ color: accent }}
-                        >
-                          · {sector.numeral} · {sector.name}
+                        <span className="flex items-center gap-1.5 text-xs text-muted-text">
+                          <span
+                            className="inline-block w-1.5 h-1.5 rounded-full"
+                            style={{ backgroundColor: sector.accentHex }}
+                          />
+                          {sector.name}
                         </span>
                       )}
                       {need.time_commitment && (
-                        <span className="text-[10px] uppercase tracking-[0.18em] text-muted-text flex items-center gap-1">
+                        <span className="text-xs text-muted-text flex items-center gap-1">
                           <Clock className="h-3 w-3" />
                           {need.time_commitment}
                         </span>
                       )}
                     </div>
-                    <h2 className="font-display text-2xl text-ink leading-tight mb-3 group-hover:italic transition-all">
+                    <h2 className="font-semibold text-ink text-lg leading-snug mb-2">
                       {locale === 'es' && need.title_es ? need.title_es : need.title}
                     </h2>
-                    <p className="text-sm text-body-text leading-relaxed line-clamp-3 mb-5">
+                    <p className="text-sm text-body-text leading-relaxed line-clamp-3 mb-4 flex-1">
                       {locale === 'es' && need.description_es ? need.description_es : need.description}
                     </p>
 
                     {need.organization && (
-                      <div className="text-xs text-muted-text mb-5 pb-5 border-b border-rule/30 flex items-center gap-3">
-                        <span className="font-medium text-ink">{need.organization.name}</span>
+                      <div className="text-xs text-muted-text mb-4 pb-4 border-b border-divider flex items-center gap-2 flex-wrap">
+                        <span className="font-semibold text-ink">{need.organization.name}</span>
                         <span className="flex items-center gap-1">
                           <MapPin className="h-3 w-3" />
                           {need.organization.town}
@@ -147,18 +143,17 @@ export function VolunteerBrowse({ needs, sectors }: Props) {
                       {need.organization && (
                         <Link
                           href={`/organizations/${need.organization.id}`}
-                          className="text-xs text-muted-text hover:text-ink transition-colors"
+                          className="text-xs text-muted-text hover:text-primary transition-colors"
                         >
                           {t('volunteer.viewOrg')} →
                         </Link>
                       )}
                       <Link
                         href={`/volunteer/apply?need=${need.id}`}
-                        className="inline-flex items-center gap-1.5 text-sm font-medium border-b pb-0.5 ml-auto"
-                        style={{ color: accent, borderColor: accent }}
+                        className="ml-auto inline-flex items-center gap-1.5 h-9 px-3.5 bg-primary text-white text-sm font-semibold rounded-lg hover:bg-primary-500 transition-colors"
                       >
                         {t('volunteer.apply')}
-                        <ArrowUpRight className="h-3.5 w-3.5" />
+                        <ArrowRight className="h-3.5 w-3.5" />
                       </Link>
                     </div>
                   </article>
