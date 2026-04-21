@@ -1,0 +1,187 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * ASSIST HUB — DESIGN TOKENS
+ *
+ * Aesthetic: editorial, magazine-inspired. Serif display (Fraunces) + clean
+ * sans (Inter). Warm ivory background rather than pure white — softer, less
+ * sterile. Navy anchor (#1E3A5F) for continuity with Food Assist.
+ *
+ * The 13 sectors each have a distinct muted accent. NONE of them are the
+ * generic Tailwind blue/purple/pink — every value is chosen to feel like
+ * editorial illustration, not a UI kit.
+ */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-heading);
+  --font-mono: var(--font-mono);
+
+  /* Brand anchor */
+  --color-ink: #14213D;
+  --color-navy: #1E3A5F;
+  --color-navy-light: #2A4A6F;
+  --color-ivory: #FBF9F4;
+  --color-ivory-deep: #F3EFE6;
+  --color-parchment: #EDE6D6;
+  --color-body-text: #3C4A5B;
+  --color-muted-text: #7B8799;
+  --color-divider: #D8D2C3;
+  --color-rule: #B9B09A;
+
+  /* Sector palette — 13 muted, editorial accents */
+  --color-sector-food: #B8622A;
+  --color-sector-housing: #4A6B82;
+  --color-sector-foster: #A85569;
+  --color-sector-youth: #4A6E4F;
+  --color-sector-senior: #7F659A;
+  --color-sector-animals: #6B7A3F;
+  --color-sector-environment: #2E5D4F;
+  --color-sector-violence: #6B3F5E;
+  --color-sector-health: #A05842;
+  --color-sector-veterans: #2C4763;
+  --color-sector-recovery: #9D6A3C;
+  --color-sector-civic: #833932;
+  --color-sector-arts: #A8832E;
+
+  /* shadcn primitives */
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+}
+
+:root {
+  --radius: 0.375rem;
+  --background: #FBF9F4;
+  --foreground: #14213D;
+  --card: #FFFFFF;
+  --card-foreground: #14213D;
+  --popover: #FFFFFF;
+  --popover-foreground: #14213D;
+  --primary: #1E3A5F;
+  --primary-foreground: #FBF9F4;
+  --secondary: #F3EFE6;
+  --secondary-foreground: #14213D;
+  --muted: #EDE6D6;
+  --muted-foreground: #7B8799;
+  --accent: #F3EFE6;
+  --accent-foreground: #14213D;
+  --destructive: #A13D2D;
+  --border: #D8D2C3;
+  --input: #D8D2C3;
+  --ring: #1E3A5F;
+  --chart-1: #B8622A;
+  --chart-2: #4A6B82;
+  --chart-3: #4A6E4F;
+  --chart-4: #7F659A;
+  --chart-5: #A05842;
+  --sidebar: #FBF9F4;
+  --sidebar-foreground: #14213D;
+  --sidebar-primary: #1E3A5F;
+  --sidebar-primary-foreground: #FBF9F4;
+  --sidebar-accent: #F3EFE6;
+  --sidebar-accent-foreground: #14213D;
+  --sidebar-border: #D8D2C3;
+  --sidebar-ring: #1E3A5F;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "ss01", "cv01";
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  }
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-ivory);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-heading), Georgia, 'Times New Roman', serif;
+    font-feature-settings: "ss01", "ss02", "cv01";
+  }
+  .font-mono {
+    font-family: var(--font-mono), ui-monospace, monospace;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Editorial helpers */
+  .rule-top {
+    position: relative;
+  }
+  .rule-top::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--color-rule);
+  }
+  .grid-lines {
+    background-image:
+      linear-gradient(var(--color-rule) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-rule) 1px, transparent 1px);
+    background-size: 32px 32px;
+    opacity: 0.15;
+  }
+
+  /* Numbered sector markers — drawn, not stock */
+  .sector-numeral {
+    font-family: var(--font-heading), serif;
+    font-feature-settings: "onum", "pnum";
+    font-variant-numeric: oldstyle-nums;
+    letter-spacing: -0.02em;
+  }
+}
