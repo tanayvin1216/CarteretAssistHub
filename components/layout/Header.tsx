@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Menu, X, ChevronDown, Shield, Building2, ArrowRight } from 'lucide-react';
 import { useTranslation } from '@/contexts/LocaleContext';
 import { LanguageToggle } from './LanguageToggle';
@@ -23,25 +23,62 @@ const NAV_ITEMS = [
 ];
 
 /**
- * Floating pill-style header inspired by editorial-modern sites (CapEQ).
- * Sits above the content with margin on all sides, white background, soft
- * shadow, rounded-full. Collapses to a clean full-width top bar on mobile.
+ * Floating pill header with graceful scroll behavior:
+ * - At top: the outer band is transparent so the pill appears to float on
+ *   the hero's warm sand background.
+ * - Once scrolled past ~20px: the outer band fades in a frosted-glass
+ *   backdrop (background/75 + blur) plus a hairline border. Content slides
+ *   underneath smoothly rather than jumping around the pill edges.
+ * - The pill itself slightly compacts (less outer padding) so the overall
+ *   header "settles" into place instead of staying oversized.
  */
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { t } = useTranslation();
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 16);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-40 w-full">
-      <div className="container-readable pt-4 md:pt-6">
-        <div className="flex items-center gap-2 bg-surface border border-divider rounded-full shadow-[0_2px_24px_-8px_rgba(28,31,38,0.08)] px-3 md:px-4 h-14 md:h-16">
+    <header
+      className={`sticky top-0 z-40 w-full transition-[background-color,backdrop-filter,box-shadow,border-color] duration-300 ease-out ${
+        scrolled
+          ? 'bg-background/75 backdrop-blur-md border-b border-divider/60 shadow-[0_1px_0_0_rgba(28,31,38,0.02)]'
+          : 'bg-transparent border-b border-transparent'
+      }`}
+    >
+      <div
+        className={`container-readable transition-[padding] duration-300 ease-out ${
+          scrolled ? 'pt-2 md:pt-3 pb-2 md:pb-3' : 'pt-4 md:pt-6 pb-0'
+        }`}
+      >
+        <div
+          className={`flex items-center gap-2 bg-surface border border-divider rounded-full px-3 md:px-4 transition-[height,box-shadow] duration-300 ease-out ${
+            scrolled
+              ? 'h-12 md:h-14 shadow-[0_2px_16px_-6px_rgba(28,31,38,0.12)]'
+              : 'h-14 md:h-16 shadow-[0_2px_24px_-8px_rgba(28,31,38,0.08)]'
+          }`}
+        >
           {/* Logo */}
           <Link href="/" className="flex items-baseline gap-0.5 pr-2 md:pr-3 shrink-0">
-            <span className="text-[22px] md:text-[26px] font-extrabold tracking-tight text-ink leading-none">
+            <span
+              className={`font-extrabold tracking-tight text-ink leading-none transition-[font-size] duration-300 ease-out ${
+                scrolled ? 'text-[20px] md:text-[22px]' : 'text-[22px] md:text-[26px]'
+              }`}
+            >
               Assist
             </span>
-            <span className="text-[22px] md:text-[26px] font-extrabold tracking-tight text-primary leading-none">
+            <span
+              className={`font-extrabold tracking-tight text-primary leading-none transition-[font-size] duration-300 ease-out ${
+                scrolled ? 'text-[20px] md:text-[22px]' : 'text-[22px] md:text-[26px]'
+              }`}
+            >
               Hub
             </span>
             <span className="hidden md:inline text-[9px] font-semibold text-muted-text tracking-widest ml-1 uppercase">
@@ -69,7 +106,7 @@ export function Header() {
             })}
           </nav>
 
-          {/* Right side — lang toggle, signin, CTA */}
+          {/* Right side */}
           <div className="flex items-center gap-2 ml-auto md:ml-0 shrink-0">
             <LanguageToggle className="hidden sm:inline-flex" />
 
@@ -106,7 +143,7 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Primary CTA — pill with dark circle */}
+            {/* Primary CTA */}
             <Link
               href="/get-help"
               className="hidden md:inline-flex items-center gap-2 h-10 pl-4 pr-1 bg-sand hover:bg-sand-deep rounded-full transition-colors group"
