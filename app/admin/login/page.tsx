@@ -2,7 +2,17 @@ import { LoginForm } from '@/components/admin/LoginForm';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
-export default function AdminLoginPage() {
+export default async function AdminLoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
+  const { error } = await searchParams;
+  const errorMessage =
+    error === 'not_admin'
+      ? 'That account is not an admin. Ask the community-service committee to upgrade it.'
+      : null;
+
   return (
     <div className="min-h-screen bg-ivory grid grid-cols-1 md:grid-cols-2">
       <div className="hidden md:flex relative flex-col justify-between bg-ink text-ivory p-12">
@@ -30,7 +40,14 @@ export default function AdminLoginPage() {
         </p>
       </div>
       <div className="flex items-center justify-center p-6 md:p-12">
-        <LoginForm />
+        <div className="w-full max-w-sm">
+          {errorMessage && (
+            <p className="mb-5 text-xs text-destructive border-l-2 border-destructive pl-3">
+              {errorMessage}
+            </p>
+          )}
+          <LoginForm />
+        </div>
       </div>
     </div>
   );

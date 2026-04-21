@@ -11,6 +11,7 @@ export function SectorsAdmin({ sectors: initial }: { sectors: Sector[] }) {
   const [sectors, setSectors] = useState<Sector[]>(initial);
 
   const onStatusChange = async (id: string, next: Sector['status']) => {
+    const prev = sectors.find((s) => s.id === id)?.status;
     setSectors((cur) => cur.map((s) => (s.id === id ? { ...s, status: next } : s)));
     const supabase = createClient();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -18,6 +19,10 @@ export function SectorsAdmin({ sectors: initial }: { sectors: Sector[] }) {
       .update({ status: next })
       .eq('id', id);
     if (error) {
+      // Roll back so UI matches DB — avoids silent drift when RLS blocks the write.
+      if (prev !== undefined) {
+        setSectors((cur) => cur.map((s) => (s.id === id ? { ...s, status: prev } : s)));
+      }
       toast.error('Update failed.');
       console.error(error);
     } else {
