@@ -50,7 +50,7 @@ export function ApplicationsAdmin({ applications: initial }: { applications: App
               key={s}
               onClick={() => setFilter(s)}
               className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
-                active ? 'bg-ink text-ivory border-ink' : 'border-rule/50 text-muted-text hover:border-ink hover:text-ink'
+                active ? 'bg-ink text-white border-ink' : 'border-divider text-muted-text hover:border-ink hover:text-ink'
               }`}
             >
               {s === 'all' ? 'All' : s.charAt(0).toUpperCase() + s.slice(1)} ({count})
@@ -59,7 +59,7 @@ export function ApplicationsAdmin({ applications: initial }: { applications: App
         })}
       </div>
 
-      <div className="bg-card border border-rule/40 rounded-sm overflow-hidden">
+      <div className="bg-card border border-divider rounded-sm overflow-hidden">
         {visible.length === 0 ? (
           <p className="p-10 text-sm text-muted-text text-center">No applications yet.</p>
         ) : (
@@ -67,13 +67,13 @@ export function ApplicationsAdmin({ applications: initial }: { applications: App
             {visible.map((app) => {
               const isOpen = expanded === app.id;
               return (
-                <li key={app.id} className="border-b border-rule/40 last:border-b-0">
+                <li key={app.id} className="border-b border-divider last:border-b-0">
                   <button
                     onClick={() => setExpanded(isOpen ? null : app.id)}
-                    className="w-full grid grid-cols-12 gap-4 px-5 py-4 text-left hover:bg-ivory-deep/30 transition-colors"
+                    className="w-full grid grid-cols-12 gap-4 px-5 py-4 text-left hover:bg-sand/50 transition-colors"
                   >
                     <div className="col-span-12 md:col-span-4">
-                      <p className="font-display text-base text-ink">{app.applicant_name}</p>
+                      <p className="text-base text-ink">{app.applicant_name}</p>
                       <p className="text-xs text-muted-text">{app.applicant_email}</p>
                     </div>
                     <div className="col-span-12 md:col-span-4 text-sm">
@@ -94,7 +94,7 @@ export function ApplicationsAdmin({ applications: initial }: { applications: App
                     </div>
                   </button>
                   {isOpen && (
-                    <div className="px-5 pb-5 grid grid-cols-12 gap-6 bg-ivory-deep/20 border-t border-rule/40">
+                    <div className="px-5 pb-5 grid grid-cols-12 gap-6 bg-sand/40 border-t border-divider">
                       <div className="col-span-12 md:col-span-8">
                         <p className="text-[10px] uppercase tracking-[0.22em] text-muted-text mb-2 mt-4">
                           What they&apos;re willing to do
@@ -119,8 +119,8 @@ export function ApplicationsAdmin({ applications: initial }: { applications: App
                               onClick={() => setStatus(app.id, s)}
                               className={`h-9 text-xs rounded-sm border transition-colors ${
                                 app.status === s
-                                  ? 'bg-ink text-ivory border-ink'
-                                  : 'border-rule/60 text-muted-text hover:border-ink hover:text-ink'
+                                  ? 'bg-ink text-white border-ink'
+                                  : 'border-divider text-muted-text hover:border-ink hover:text-ink'
                               }`}
                             >
                               {s.charAt(0).toUpperCase() + s.slice(1)}

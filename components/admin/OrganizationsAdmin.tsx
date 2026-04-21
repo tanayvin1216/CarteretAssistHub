@@ -148,7 +148,7 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
         action={
           <button
             onClick={startNew}
-            className="inline-flex items-center gap-2 h-10 px-4 bg-ink text-ivory text-sm font-medium rounded-full hover:bg-navy transition-colors"
+            className="inline-flex items-center gap-2 h-10 px-4 bg-ink text-white text-sm font-medium rounded-full hover:bg-primary-500 transition-colors"
           >
             <Plus className="h-4 w-4" />
             New organization
@@ -163,13 +163,13 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search name, town, email…"
-            className="w-full h-10 pl-10 pr-4 bg-card border border-rule/60 rounded-sm text-sm focus:outline-none focus:border-ink"
+            className="w-full h-10 pl-10 pr-4 bg-card border border-divider rounded-sm text-sm focus:outline-none focus:border-ink"
           />
         </div>
         <select
           value={sectorFilter}
           onChange={(e) => setSectorFilter(e.target.value)}
-          className="h-10 px-3 bg-card border border-rule/60 rounded-sm text-sm"
+          className="h-10 px-3 bg-card border border-divider rounded-sm text-sm"
         >
           <option value="all">All sectors</option>
           {SECTORS.map((s) => (
@@ -179,9 +179,9 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
         <p className="text-xs text-muted-text ml-auto">{filtered.length} of {orgs.length}</p>
       </div>
 
-      <table className="w-full bg-card border border-rule/40 rounded-sm overflow-hidden">
+      <table className="w-full bg-card border border-divider rounded-sm overflow-hidden">
         <thead>
-          <tr className="text-left text-[10px] uppercase tracking-[0.2em] text-muted-text border-b border-rule/40">
+          <tr className="text-left text-[10px] uppercase tracking-[0.2em] text-muted-text border-b border-divider">
             <th className="px-4 py-3">Name</th>
             <th className="px-4 py-3 w-40">Sector</th>
             <th className="px-4 py-3 w-32">Town</th>
@@ -201,9 +201,9 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
             filtered.map((o) => {
               const sector = o.sector_slug ? sectorBySlug(o.sector_slug) : null;
               return (
-                <tr key={o.id} className="border-b border-rule/40 hover:bg-ivory-deep/30">
+                <tr key={o.id} className="border-b border-divider hover:bg-sand/50">
                   <td className="px-4 py-3">
-                    <p className="font-display text-base text-ink">{o.name}</p>
+                    <p className="text-base text-ink">{o.name}</p>
                     {o.mission && (
                       <p className="text-xs text-muted-text italic line-clamp-1">{o.mission}</p>
                     )}
@@ -251,13 +251,13 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
 
       {editing && (
         <div className="fixed inset-0 z-50 bg-ink/40 backdrop-blur-sm flex items-center justify-center p-6 overflow-auto">
-          <div className="bg-ivory w-full max-w-2xl rounded-sm shadow-xl my-8">
-            <div className="px-6 py-4 border-b border-rule/40 flex items-center justify-between">
+          <div className="bg-canvas w-full max-w-2xl rounded-sm shadow-xl my-8">
+            <div className="px-6 py-4 border-b border-divider flex items-center justify-between">
               <div>
                 <p className="text-[10px] uppercase tracking-[0.2em] text-muted-text">
                   {editing.id ? 'Edit' : 'New'}
                 </p>
-                <h3 className="font-display text-xl text-ink">
+                <h3 className="text-xl text-ink">
                   {editing.id ? editing.name || 'Untitled organization' : 'New organization'}
                 </h3>
               </div>
@@ -270,14 +270,14 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
                 <input
                   value={editing.name}
                   onChange={(e) => setEditing({ ...editing, name: e.target.value })}
-                  className="w-full h-10 px-3 bg-card border border-rule/60 rounded-sm text-sm"
+                  className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
                 />
               </DraftField>
               <DraftField label="Sector">
                 <select
                   value={editing.sector_slug ?? ''}
                   onChange={(e) => setEditing({ ...editing, sector_slug: e.target.value || null })}
-                  className="w-full h-10 px-3 bg-card border border-rule/60 rounded-sm text-sm"
+                  className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
                 >
                   <option value="">—</option>
                   {SECTORS.map((s) => (
@@ -290,14 +290,14 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
                   <input
                     value={editing.town}
                     onChange={(e) => setEditing({ ...editing, town: e.target.value })}
-                    className="w-full h-10 px-3 bg-card border border-rule/60 rounded-sm text-sm"
+                    className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
                   />
                 </DraftField>
                 <DraftField label="Zip">
                   <input
                     value={editing.zip}
                     onChange={(e) => setEditing({ ...editing, zip: e.target.value })}
-                    className="w-full h-10 px-3 bg-card border border-rule/60 rounded-sm text-sm"
+                    className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
                   />
                 </DraftField>
               </div>
@@ -305,7 +305,7 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
                 <input
                   value={editing.address}
                   onChange={(e) => setEditing({ ...editing, address: e.target.value })}
-                  className="w-full h-10 px-3 bg-card border border-rule/60 rounded-sm text-sm"
+                  className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
                 />
               </DraftField>
               <div className="grid grid-cols-2 gap-4">
@@ -313,14 +313,14 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
                   <input
                     value={editing.phone}
                     onChange={(e) => setEditing({ ...editing, phone: e.target.value })}
-                    className="w-full h-10 px-3 bg-card border border-rule/60 rounded-sm text-sm"
+                    className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
                   />
                 </DraftField>
                 <DraftField label="Email">
                   <input
                     value={editing.email ?? ''}
                     onChange={(e) => setEditing({ ...editing, email: e.target.value })}
-                    className="w-full h-10 px-3 bg-card border border-rule/60 rounded-sm text-sm"
+                    className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
                   />
                 </DraftField>
               </div>
@@ -329,7 +329,7 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
                   value={editing.website ?? ''}
                   onChange={(e) => setEditing({ ...editing, website: e.target.value })}
                   placeholder="https://…"
-                  className="w-full h-10 px-3 bg-card border border-rule/60 rounded-sm text-sm"
+                  className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
                 />
               </DraftField>
               <DraftField label="Mission">
@@ -337,7 +337,7 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
                   value={editing.mission ?? ''}
                   onChange={(e) => setEditing({ ...editing, mission: e.target.value })}
                   rows={3}
-                  className="w-full p-3 bg-card border border-rule/60 rounded-sm text-sm"
+                  className="w-full p-3 bg-card border border-divider rounded-sm text-sm"
                 />
               </DraftField>
               <DraftField label="Services offered (comma-separated)">
@@ -352,7 +352,7 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
                         .filter(Boolean),
                     })
                   }
-                  className="w-full h-10 px-3 bg-card border border-rule/60 rounded-sm text-sm"
+                  className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
                 />
               </DraftField>
               <div className="flex items-center gap-6 pt-2">
@@ -374,7 +374,7 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
                 </label>
               </div>
             </div>
-            <div className="px-6 py-4 border-t border-rule/40 flex items-center justify-end gap-3">
+            <div className="px-6 py-4 border-t border-divider flex items-center justify-end gap-3">
               <button
                 onClick={() => setEditing(null)}
                 className="h-10 px-4 text-sm text-muted-text hover:text-ink transition-colors"
@@ -383,7 +383,7 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
               </button>
               <button
                 onClick={onSave}
-                className="inline-flex items-center gap-1.5 h-10 px-4 bg-ink text-ivory text-sm font-medium rounded-full hover:bg-navy transition-colors"
+                className="inline-flex items-center gap-1.5 h-10 px-4 bg-ink text-white text-sm font-medium rounded-full hover:bg-primary-500 transition-colors"
               >
                 <Check className="h-4 w-4" />
                 Save

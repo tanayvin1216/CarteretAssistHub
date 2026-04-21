@@ -84,7 +84,7 @@ export function SubcommitteeLeadsAdmin({
             onClick={() =>
               setEditing({ sector_id: sectors[0]?.id ?? '', name: '', role: 'lead', display_order: 0 })
             }
-            className="inline-flex items-center gap-2 h-10 px-4 bg-ink text-ivory text-sm font-medium rounded-full"
+            className="inline-flex items-center gap-2 h-10 px-4 bg-ink text-white text-sm font-medium rounded-full"
           >
             <Plus className="h-4 w-4" /> Add person
           </button>
@@ -101,10 +101,10 @@ export function SubcommitteeLeadsAdmin({
                   className="inline-block w-2 h-2 rounded-[1px]"
                   style={{ backgroundColor: sector.accent_color }}
                 />
-                <span className="sector-numeral text-xs text-rule tabular-nums">
+                <span className="text-xs text-rule tabular-nums">
                   {sector.numeral}
                 </span>
-                <h2 className="font-display text-xl text-ink">{sector.name}</h2>
+                <h2 className="text-xl text-ink">{sector.name}</h2>
                 <span className="text-xs text-muted-text">({rows.length})</span>
               </div>
               {rows.length === 0 ? (
@@ -112,17 +112,17 @@ export function SubcommitteeLeadsAdmin({
               ) : (
                 <ul className="grid grid-cols-1 md:grid-cols-3 gap-3 ml-6">
                   {rows.map((lead) => (
-                    <li key={lead.id} className="bg-card border border-rule/40 p-4 rounded-sm">
+                    <li key={lead.id} className="bg-card border border-divider p-4 rounded-sm">
                       <p className="text-[10px] uppercase tracking-[0.18em] text-muted-text">
                         {lead.role}
                       </p>
-                      <p className="font-display text-base text-ink leading-tight mt-1">
+                      <p className="text-base text-ink leading-tight mt-1">
                         {lead.name}
                       </p>
                       {lead.affiliation && (
                         <p className="text-xs text-muted-text italic">{lead.affiliation}</p>
                       )}
-                      <div className="flex gap-2 mt-3 pt-3 border-t border-rule/40">
+                      <div className="flex gap-2 mt-3 pt-3 border-t border-divider">
                         <button onClick={() => setEditing(lead as Draft)} className="text-xs text-muted-text hover:text-ink flex items-center gap-1">
                           <Pencil className="h-3 w-3" /> Edit
                         </button>
@@ -141,9 +141,9 @@ export function SubcommitteeLeadsAdmin({
 
       {editing && (
         <div className="fixed inset-0 z-50 bg-ink/40 backdrop-blur-sm flex items-center justify-center p-6">
-          <div className="bg-ivory w-full max-w-lg rounded-sm shadow-xl">
-            <div className="px-6 py-4 border-b border-rule/40 flex items-center justify-between">
-              <h3 className="font-display text-xl text-ink">{editing.id ? 'Edit person' : 'Add person'}</h3>
+          <div className="bg-canvas w-full max-w-lg rounded-sm shadow-xl">
+            <div className="px-6 py-4 border-b border-divider flex items-center justify-between">
+              <h3 className="text-xl text-ink">{editing.id ? 'Edit person' : 'Add person'}</h3>
               <button onClick={() => setEditing(null)}>
                 <X className="h-5 w-5" />
               </button>
@@ -153,7 +153,7 @@ export function SubcommitteeLeadsAdmin({
                 <select
                   value={editing.sector_id}
                   onChange={(e) => setEditing({ ...editing, sector_id: e.target.value })}
-                  className="w-full h-10 px-3 bg-card border border-rule/60 rounded-sm text-sm"
+                  className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
                 >
                   {sectors.map((s) => (
                     <option key={s.id} value={s.id}>{s.name}</option>
@@ -164,7 +164,7 @@ export function SubcommitteeLeadsAdmin({
                 <select
                   value={editing.role}
                   onChange={(e) => setEditing({ ...editing, role: e.target.value as SubcommitteeLead['role'] })}
-                  className="w-full h-10 px-3 bg-card border border-rule/60 rounded-sm text-sm"
+                  className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
                 >
                   <option value="lead">Lead</option>
                   <option value="co-lead">Co-Lead</option>
@@ -175,14 +175,14 @@ export function SubcommitteeLeadsAdmin({
                 <input
                   value={editing.name}
                   onChange={(e) => setEditing({ ...editing, name: e.target.value })}
-                  className="w-full h-10 px-3 bg-card border border-rule/60 rounded-sm text-sm"
+                  className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
                 />
               </Row>
               <Row label="Affiliation">
                 <input
                   value={editing.affiliation ?? ''}
                   onChange={(e) => setEditing({ ...editing, affiliation: e.target.value })}
-                  className="w-full h-10 px-3 bg-card border border-rule/60 rounded-sm text-sm"
+                  className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
                 />
               </Row>
               <div className="grid grid-cols-2 gap-4">
@@ -190,14 +190,14 @@ export function SubcommitteeLeadsAdmin({
                   <input
                     value={editing.email ?? ''}
                     onChange={(e) => setEditing({ ...editing, email: e.target.value })}
-                    className="w-full h-10 px-3 bg-card border border-rule/60 rounded-sm text-sm"
+                    className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
                   />
                 </Row>
                 <Row label="Phone">
                   <input
                     value={editing.phone ?? ''}
                     onChange={(e) => setEditing({ ...editing, phone: e.target.value })}
-                    className="w-full h-10 px-3 bg-card border border-rule/60 rounded-sm text-sm"
+                    className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
                   />
                 </Row>
               </div>
@@ -206,17 +206,17 @@ export function SubcommitteeLeadsAdmin({
                   value={editing.bio ?? ''}
                   onChange={(e) => setEditing({ ...editing, bio: e.target.value })}
                   rows={3}
-                  className="w-full p-3 bg-card border border-rule/60 rounded-sm text-sm"
+                  className="w-full p-3 bg-card border border-divider rounded-sm text-sm"
                 />
               </Row>
             </div>
-            <div className="px-6 py-4 border-t border-rule/40 flex items-center justify-end gap-3">
+            <div className="px-6 py-4 border-t border-divider flex items-center justify-end gap-3">
               <button onClick={() => setEditing(null)} className="h-10 px-4 text-sm text-muted-text">
                 Cancel
               </button>
               <button
                 onClick={onSave}
-                className="inline-flex items-center gap-1.5 h-10 px-4 bg-ink text-ivory text-sm font-medium rounded-full"
+                className="inline-flex items-center gap-1.5 h-10 px-4 bg-ink text-white text-sm font-medium rounded-full"
               >
                 <Check className="h-4 w-4" /> Save
               </button>

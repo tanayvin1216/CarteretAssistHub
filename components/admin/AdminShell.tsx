@@ -46,16 +46,21 @@ export function AdminShell({
   };
 
   return (
-    <div className="min-h-screen bg-ivory grid grid-cols-1 md:grid-cols-[240px_1fr]">
-      <aside className="bg-ink text-ivory flex flex-col">
-        <div className="px-6 py-7 border-b border-ivory/10">
+    <div className="min-h-screen bg-canvas grid grid-cols-1 md:grid-cols-[240px_1fr]">
+      <aside className="bg-ink text-white flex flex-col">
+        <div className="px-6 py-6 border-b border-white/10">
           <Link href="/" className="block">
-            <p className="sector-numeral text-[10px] uppercase tracking-[0.22em] text-ivory/40 mb-1">
-              · admin
+            <p className="text-[10px] uppercase tracking-widest text-white/50 mb-2 font-semibold">
+              Admin
             </p>
-            <h2 className="font-display text-xl leading-tight">
-              Carteret <span className="italic text-sector-food">Assist</span> Hub
-            </h2>
+            <div className="flex items-baseline gap-0.5">
+              <span className="text-xl font-extrabold tracking-tight leading-none text-white">
+                Assist
+              </span>
+              <span className="text-xl font-extrabold tracking-tight leading-none text-white/70">
+                Hub
+              </span>
+            </div>
           </Link>
         </div>
         <nav className="flex-1 p-3">
@@ -68,8 +73,8 @@ export function AdminShell({
                 href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 text-sm rounded-sm transition-colors ${
                   active
-                    ? 'bg-ivory/10 text-ivory'
-                    : 'text-ivory/70 hover:bg-ivory/5 hover:text-ivory'
+                    ? 'bg-white/10 text-white'
+                    : 'text-white/70 hover:bg-white/5 hover:text-white'
                 }`}
               >
                 <Icon className="h-4 w-4" />
@@ -78,10 +83,10 @@ export function AdminShell({
             );
           })}
         </nav>
-        <div className="p-3 border-t border-ivory/10 space-y-1">
+        <div className="p-3 border-t border-white/10 space-y-1">
           <Link
             href="/"
-            className="flex items-center gap-3 px-3 py-2 text-xs text-ivory/60 hover:text-ivory transition-colors"
+            className="flex items-center gap-3 px-3 py-2 text-xs text-white/60 hover:text-white transition-colors"
           >
             <ExternalLink className="h-3.5 w-3.5" />
             Public site
@@ -89,18 +94,18 @@ export function AdminShell({
           <button
             onClick={onSignOut}
             disabled={signingOut}
-            className="w-full flex items-center gap-3 px-3 py-2 text-xs text-ivory/60 hover:text-ivory transition-colors text-left"
+            className="w-full flex items-center gap-3 px-3 py-2 text-xs text-white/60 hover:text-white transition-colors text-left"
           >
             <LogOut className="h-3.5 w-3.5" />
             {signingOut ? 'Signing out…' : 'Sign out'}
           </button>
-          <div className="px-3 pt-2 pb-1 text-[10px] text-ivory/30 break-all">
+          <div className="px-3 pt-2 pb-1 text-[10px] text-white/30 break-all">
             {userEmail}
           </div>
         </div>
       </aside>
 
-      <main className="bg-ivory min-w-0">{children}</main>
+      <main className="bg-canvas min-w-0">{children}</main>
     </div>
   );
 }

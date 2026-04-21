@@ -33,9 +33,9 @@ export function SectorsAdmin({ sectors: initial }: { sectors: Sector[] }) {
   return (
     <div className="px-8 py-10 max-w-6xl">
       <AdminPageHeader eyebrow="Manage" title="Sectors" />
-      <table className="w-full bg-card border border-rule/40 rounded-sm overflow-hidden">
+      <table className="w-full bg-card border border-divider rounded-sm overflow-hidden">
         <thead>
-          <tr className="text-left text-[10px] uppercase tracking-[0.2em] text-muted-text border-b border-rule/40">
+          <tr className="text-left text-[10px] uppercase tracking-[0.2em] text-muted-text border-b border-divider">
             <th className="px-4 py-3 w-14">No.</th>
             <th className="px-4 py-3">Sector</th>
             <th className="px-4 py-3 w-28">Accent</th>
@@ -46,12 +46,12 @@ export function SectorsAdmin({ sectors: initial }: { sectors: Sector[] }) {
           {SECTORS.map((meta) => {
             const row = sectors.find((s) => s.slug === meta.slug);
             return (
-              <tr key={meta.slug} id={meta.slug} className="border-b border-rule/40 hover:bg-ivory-deep/30">
-                <td className="px-4 py-3 sector-numeral text-xs text-rule tabular-nums">
+              <tr key={meta.slug} id={meta.slug} className="border-b border-divider hover:bg-sand/50">
+                <td className="px-4 py-3 text-xs text-rule tabular-nums">
                   {meta.numeral}
                 </td>
                 <td className="px-4 py-3">
-                  <p className="font-display text-base text-ink">{meta.name}</p>
+                  <p className="text-base text-ink">{meta.name}</p>
                   <p className="text-xs text-muted-text">{meta.shortDescription}</p>
                 </td>
                 <td className="px-4 py-3">
@@ -68,7 +68,7 @@ export function SectorsAdmin({ sectors: initial }: { sectors: Sector[] }) {
                     <select
                       value={row.status}
                       onChange={(e) => onStatusChange(row.id, e.target.value as Sector['status'])}
-                      className="h-8 px-2 text-xs bg-card border border-rule/60 rounded-sm"
+                      className="h-8 px-2 text-xs bg-card border border-divider rounded-sm"
                     >
                       <option value="forming">Forming</option>
                       <option value="active">Active</option>

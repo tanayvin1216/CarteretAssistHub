@@ -13,7 +13,7 @@ export function AdminPageHeader({
         {eyebrow && (
           <p className="text-[11px] uppercase tracking-[0.22em] text-muted-text mb-2">· {eyebrow}</p>
         )}
-        <h1 className="font-display text-4xl md:text-5xl text-ink tracking-[-0.02em] leading-tight">
+        <h1 className="text-4xl md:text-5xl text-ink tracking-[-0.02em] leading-tight">
           {title}
         </h1>
       </div>

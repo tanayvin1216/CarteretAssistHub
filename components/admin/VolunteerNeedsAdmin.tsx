@@ -90,16 +90,16 @@ export function VolunteerNeedsAdmin({ needs: initial, organizations }: Props) {
         action={
           <button
             onClick={() => setEditing({ ...EMPTY })}
-            className="inline-flex items-center gap-2 h-10 px-4 bg-ink text-ivory text-sm font-medium rounded-full hover:bg-navy transition-colors"
+            className="inline-flex items-center gap-2 h-10 px-4 bg-ink text-white text-sm font-medium rounded-full hover:bg-primary-500 transition-colors"
           >
             <Plus className="h-4 w-4" /> New role
           </button>
         }
       />
 
-      <table className="w-full bg-card border border-rule/40 rounded-sm overflow-hidden">
+      <table className="w-full bg-card border border-divider rounded-sm overflow-hidden">
         <thead>
-          <tr className="text-left text-[10px] uppercase tracking-[0.2em] text-muted-text border-b border-rule/40">
+          <tr className="text-left text-[10px] uppercase tracking-[0.2em] text-muted-text border-b border-divider">
             <th className="px-4 py-3">Role</th>
             <th className="px-4 py-3 w-52">Organization</th>
             <th className="px-4 py-3 w-32">Sector</th>
@@ -117,9 +117,9 @@ export function VolunteerNeedsAdmin({ needs: initial, organizations }: Props) {
           ) : needs.map((n) => {
             const sector = n.sector_slug ? sectorBySlug(n.sector_slug) : null;
             return (
-              <tr key={n.id} className="border-b border-rule/40 hover:bg-ivory-deep/30">
+              <tr key={n.id} className="border-b border-divider hover:bg-sand/50">
                 <td className="px-4 py-3">
-                  <p className="font-display text-base text-ink">{n.title}</p>
+                  <p className="text-base text-ink">{n.title}</p>
                   <p className="text-xs text-muted-text line-clamp-1 mt-0.5">
                     {n.description}
                   </p>
@@ -167,9 +167,9 @@ export function VolunteerNeedsAdmin({ needs: initial, organizations }: Props) {
 
       {editing && (
         <div className="fixed inset-0 z-50 bg-ink/40 backdrop-blur-sm flex items-center justify-center p-6 overflow-auto">
-          <div className="bg-ivory w-full max-w-xl rounded-sm shadow-xl my-8">
-            <div className="px-6 py-4 border-b border-rule/40 flex items-center justify-between">
-              <h3 className="font-display text-xl text-ink">
+          <div className="bg-canvas w-full max-w-xl rounded-sm shadow-xl my-8">
+            <div className="px-6 py-4 border-b border-divider flex items-center justify-between">
+              <h3 className="text-xl text-ink">
                 {editing.id ? 'Edit role' : 'New volunteer role'}
               </h3>
               <button onClick={() => setEditing(null)}>
@@ -184,7 +184,7 @@ export function VolunteerNeedsAdmin({ needs: initial, organizations }: Props) {
                 <select
                   value={editing.organization_id}
                   onChange={(e) => setEditing({ ...editing, organization_id: e.target.value })}
-                  className="w-full h-10 px-3 bg-card border border-rule/60 rounded-sm text-sm"
+                  className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
                 >
                   <option value="">— pick an org —</option>
                   {organizations.map((o) => (
@@ -197,7 +197,7 @@ export function VolunteerNeedsAdmin({ needs: initial, organizations }: Props) {
                 <input
                   value={editing.title}
                   onChange={(e) => setEditing({ ...editing, title: e.target.value })}
-                  className="w-full h-10 px-3 bg-card border border-rule/60 rounded-sm text-sm"
+                  className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
                 />
               </div>
               <div>
@@ -206,7 +206,7 @@ export function VolunteerNeedsAdmin({ needs: initial, organizations }: Props) {
                   value={editing.description}
                   onChange={(e) => setEditing({ ...editing, description: e.target.value })}
                   rows={5}
-                  className="w-full p-3 bg-card border border-rule/60 rounded-sm text-sm leading-relaxed"
+                  className="w-full p-3 bg-card border border-divider rounded-sm text-sm leading-relaxed"
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -216,7 +216,7 @@ export function VolunteerNeedsAdmin({ needs: initial, organizations }: Props) {
                     value={editing.time_commitment ?? ''}
                     onChange={(e) => setEditing({ ...editing, time_commitment: e.target.value })}
                     placeholder="e.g. 3 hrs / week"
-                    className="w-full h-10 px-3 bg-card border border-rule/60 rounded-sm text-sm"
+                    className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
                   />
                 </div>
                 <div>
@@ -225,7 +225,7 @@ export function VolunteerNeedsAdmin({ needs: initial, organizations }: Props) {
                     type="date"
                     value={editing.needed_date ?? ''}
                     onChange={(e) => setEditing({ ...editing, needed_date: e.target.value })}
-                    className="w-full h-10 px-3 bg-card border border-rule/60 rounded-sm text-sm"
+                    className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
                   />
                 </div>
               </div>
@@ -238,13 +238,13 @@ export function VolunteerNeedsAdmin({ needs: initial, organizations }: Props) {
                 Open / visible on public site
               </label>
             </div>
-            <div className="px-6 py-4 border-t border-rule/40 flex items-center justify-end gap-3">
+            <div className="px-6 py-4 border-t border-divider flex items-center justify-end gap-3">
               <button onClick={() => setEditing(null)} className="h-10 px-4 text-sm text-muted-text">
                 Cancel
               </button>
               <button
                 onClick={onSave}
-                className="inline-flex items-center gap-1.5 h-10 px-4 bg-ink text-ivory text-sm font-medium rounded-full"
+                className="inline-flex items-center gap-1.5 h-10 px-4 bg-ink text-white text-sm font-medium rounded-full"
               >
                 <Check className="h-4 w-4" /> Save
               </button>

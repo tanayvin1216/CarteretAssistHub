@@ -1,6 +1,6 @@
 import { LoginForm } from '@/components/admin/LoginForm';
 import Link from 'next/link';
-import { ArrowLeft, Heart } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 export default async function AdminLoginPage({
   searchParams,
@@ -24,9 +24,10 @@ export default async function AdminLoginPage({
           Back to site
         </Link>
         <div>
-          <span className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 mb-6">
-            <Heart className="h-5 w-5" strokeWidth={2.5} fill="currentColor" />
-          </span>
+          <div className="flex items-baseline gap-0.5 mb-8">
+            <span className="text-2xl font-extrabold tracking-tight leading-none">Assist</span>
+            <span className="text-2xl font-extrabold tracking-tight leading-none text-white/70">Hub</span>
+          </div>
           <h1 className="text-4xl font-bold leading-tight mb-4">
             Admin dashboard
           </h1>

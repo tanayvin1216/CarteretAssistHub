@@ -27,7 +27,7 @@ export default async function AdminOverviewPage() {
       <p className="text-[11px] uppercase tracking-[0.22em] text-muted-text mb-2">
         · Overview
       </p>
-      <h1 className="font-display text-4xl md:text-5xl text-ink tracking-[-0.02em] leading-tight mb-10">
+      <h1 className="text-4xl md:text-5xl text-ink tracking-[-0.02em] leading-tight mb-10">
         Dashboard
       </h1>
 
@@ -40,28 +40,28 @@ export default async function AdminOverviewPage() {
 
       <section>
         <div className="flex items-baseline justify-between mb-6">
-          <h2 className="font-display text-2xl text-ink">Sectors</h2>
+          <h2 className="text-2xl text-ink">Sectors</h2>
           <Link href="/admin/sectors" className="text-sm text-muted-text hover:text-ink">
             Manage →
           </Link>
         </div>
-        <ol className="border-t border-rule/40 bg-card rounded-sm overflow-hidden">
+        <ol className="border-t border-divider bg-card rounded-sm overflow-hidden">
           {SECTORS.map((meta) => {
             const row = sectors.find((s) => s.slug === meta.slug);
             return (
-              <li key={meta.slug} className="border-b border-rule/40">
+              <li key={meta.slug} className="border-b border-divider">
                 <Link
                   href={`/admin/sectors#${meta.slug}`}
-                  className="grid grid-cols-12 items-center gap-4 px-5 py-3.5 hover:bg-ivory-deep/40 transition-colors"
+                  className="grid grid-cols-12 items-center gap-4 px-5 py-3.5 hover:bg-sand/60 transition-colors"
                 >
                   <span
                     className="col-span-1 inline-block w-2 h-2 rounded-[1px]"
                     style={{ backgroundColor: row?.accent_color ?? meta.accentHex }}
                   />
-                  <span className="col-span-1 sector-numeral text-xs text-rule tabular-nums">
+                  <span className="col-span-1 text-xs text-rule tabular-nums">
                     {meta.numeral}
                   </span>
-                  <span className="col-span-7 font-display text-base text-ink">{meta.name}</span>
+                  <span className="col-span-7 text-base text-ink">{meta.name}</span>
                   <span className="col-span-2 text-[10px] uppercase tracking-[0.18em] text-muted-text">
                     {row?.status ?? 'not seeded'}
                   </span>
@@ -78,9 +78,9 @@ export default async function AdminOverviewPage() {
 
 function Stat({ label, value, note }: { label: string; value: number; note?: string }) {
   return (
-    <div className="bg-card border border-rule/40 p-5 rounded-sm">
+    <div className="bg-card border border-divider p-5 rounded-sm">
       <p className="text-[10px] uppercase tracking-[0.18em] text-muted-text mb-2">{label}</p>
-      <p className="font-display text-4xl text-ink tabular-nums leading-none">{value}</p>
+      <p className="text-4xl text-ink tabular-nums leading-none">{value}</p>
       {note && <p className="text-[11px] text-muted-text mt-2">{note}</p>}
     </div>
   );

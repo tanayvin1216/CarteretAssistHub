@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { Heart } from 'lucide-react';
 import { useTranslation } from '@/contexts/LocaleContext';
 
 export function Footer() {
@@ -10,11 +9,10 @@ export function Footer() {
     <footer className="mt-24 bg-sand border-t border-divider">
       <div className="container-readable py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
         <div>
-          <div className="flex items-center gap-2 mb-3">
-            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-white">
-              <Heart className="h-4 w-4" strokeWidth={2.5} fill="currentColor" />
-            </span>
-            <span className="font-semibold text-ink text-[17px]">Assist Hub</span>
+          <div className="flex items-baseline gap-0.5 mb-4">
+            <span className="text-2xl font-extrabold tracking-tight text-ink leading-none">Assist</span>
+            <span className="text-2xl font-extrabold tracking-tight text-primary leading-none">Hub</span>
+            <span className="text-[9px] font-semibold text-muted-text tracking-widest ml-1.5 uppercase">NC</span>
           </div>
           <p className="text-sm text-body-text leading-relaxed max-w-sm">
             {t('footer.mission')}
@@ -22,7 +20,7 @@ export function Footer() {
         </div>
 
         <div>
-          <p className="text-xs font-semibold text-ink uppercase tracking-wide mb-3">
+          <p className="text-xs font-semibold text-ink uppercase tracking-widest mb-3">
             {t('footer.quickLinks')}
           </p>
           <ul className="space-y-2 text-sm">
@@ -34,7 +32,7 @@ export function Footer() {
         </div>
 
         <div>
-          <p className="text-xs font-semibold text-ink uppercase tracking-wide mb-3">
+          <p className="text-xs font-semibold text-ink uppercase tracking-widest mb-3">
             {t('nav.signIn')}
           </p>
           <ul className="space-y-2 text-sm">
