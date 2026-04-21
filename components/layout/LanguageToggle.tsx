@@ -9,36 +9,29 @@ export function LanguageToggle({ className }: { className?: string }) {
 
   return (
     <div
-      className={cn(
-        'inline-flex items-center gap-0 border border-divider rounded-full bg-ivory-deep/40 p-0.5',
-        className,
-      )}
+      className={cn('inline-flex items-center rounded-md border border-divider bg-sand/60 p-0.5', className)}
       role="group"
       aria-label="Language"
     >
       <button
         type="button"
         onClick={() => setLocale('en')}
-        className={cn(
-          'h-7 px-3 rounded-full text-xs font-medium transition-colors',
-          locale === 'en'
-            ? 'bg-navy text-ivory'
-            : 'text-muted-text hover:text-navy',
-        )}
         aria-pressed={locale === 'en'}
+        className={cn(
+          'h-7 px-2.5 rounded text-[11px] font-semibold transition-colors',
+          locale === 'en' ? 'bg-surface text-ink shadow-sm' : 'text-muted-text hover:text-ink',
+        )}
       >
         EN
       </button>
       <button
         type="button"
         onClick={() => setLocale('es')}
-        className={cn(
-          'h-7 px-3 rounded-full text-xs font-medium transition-colors',
-          locale === 'es'
-            ? 'bg-navy text-ivory'
-            : 'text-muted-text hover:text-navy',
-        )}
         aria-pressed={locale === 'es'}
+        className={cn(
+          'h-7 px-2.5 rounded text-[11px] font-semibold transition-colors',
+          locale === 'es' ? 'bg-surface text-ink shadow-sm' : 'text-muted-text hover:text-ink',
+        )}
       >
         ES
       </button>

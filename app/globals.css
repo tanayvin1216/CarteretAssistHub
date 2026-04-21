@@ -4,50 +4,55 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * ASSIST HUB — DESIGN TOKENS
+ * ASSIST HUB — DESIGN TOKENS (clean + warm)
  *
- * Aesthetic: editorial, magazine-inspired. Serif display (Fraunces) + clean
- * sans (Inter). Warm ivory background rather than pure white — softer, less
- * sterile. Navy anchor (#1E3A5F) for continuity with Food Assist.
- *
- * The 13 sectors each have a distinct muted accent. NONE of them are the
- * generic Tailwind blue/purple/pink — every value is chosen to feel like
- * editorial illustration, not a UI kit.
+ * Direction: a warm, utility-first community site. Inter throughout, soft
+ * off-white background, one calm teal accent. The 13 sector colors are
+ * kept for small indicator dots only — they don't run the typography or
+ * dominate the UI. Optimized for readability and low cognitive load, not
+ * editorial impact.
  */
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-body);
-  --font-display: var(--font-heading);
   --font-mono: var(--font-mono);
 
-  /* Brand anchor */
-  --color-ink: #14213D;
-  --color-navy: #1E3A5F;
-  --color-navy-light: #2A4A6F;
-  --color-ivory: #FBF9F4;
-  --color-ivory-deep: #F3EFE6;
-  --color-parchment: #EDE6D6;
-  --color-body-text: #3C4A5B;
-  --color-muted-text: #7B8799;
-  --color-divider: #D8D2C3;
-  --color-rule: #B9B09A;
+  /* Neutrals — warm, not cold blue-gray */
+  --color-surface: #FFFFFF;
+  --color-canvas: #FAFAF7;
+  --color-sand: #F5F3EE;
+  --color-sand-deep: #EEEBE2;
+  --color-ink: #1C1F26;
+  --color-body-text: #3A3F4A;
+  --color-muted-text: #6B7280;
+  --color-divider: #E5E3DC;
+  --color-rule: #D4D1C8;
 
-  /* Sector palette — 13 muted, editorial accents */
-  --color-sector-food: #B8622A;
-  --color-sector-housing: #4A6B82;
-  --color-sector-foster: #A85569;
-  --color-sector-youth: #4A6E4F;
-  --color-sector-senior: #7F659A;
-  --color-sector-animals: #6B7A3F;
-  --color-sector-environment: #2E5D4F;
-  --color-sector-violence: #6B3F5E;
-  --color-sector-health: #A05842;
-  --color-sector-veterans: #2C4763;
-  --color-sector-recovery: #9D6A3C;
-  --color-sector-civic: #833932;
-  --color-sector-arts: #A8832E;
+  /* Warm teal as the one primary accent */
+  --color-primary-600: #0F766E;
+  --color-primary-500: #14857C;
+  --color-primary-100: #DDEFE9;
+
+  /* Warm secondary — used sparingly */
+  --color-warm-600: #B45309;
+  --color-warm-100: #FDEFDB;
+
+  /* Sector indicator colors (small dots + borders only — never typography) */
+  --color-sector-food: #C87941;
+  --color-sector-housing: #5B7A8F;
+  --color-sector-foster: #AE6778;
+  --color-sector-youth: #5C7F63;
+  --color-sector-senior: #8D74A3;
+  --color-sector-animals: #798754;
+  --color-sector-environment: #4C7A6B;
+  --color-sector-violence: #7A5770;
+  --color-sector-health: #A5664F;
+  --color-sector-veterans: #425D76;
+  --color-sector-recovery: #A57851;
+  --color-sector-civic: #935049;
+  --color-sector-arts: #B0914A;
 
   /* shadcn primitives */
   --color-sidebar-ring: var(--sidebar-ring);
@@ -87,38 +92,38 @@
 }
 
 :root {
-  --radius: 0.375rem;
-  --background: #FBF9F4;
-  --foreground: #14213D;
+  --radius: 0.625rem; /* 10px — comfortable rounded corners */
+  --background: #FAFAF7;
+  --foreground: #1C1F26;
   --card: #FFFFFF;
-  --card-foreground: #14213D;
+  --card-foreground: #1C1F26;
   --popover: #FFFFFF;
-  --popover-foreground: #14213D;
-  --primary: #1E3A5F;
-  --primary-foreground: #FBF9F4;
-  --secondary: #F3EFE6;
-  --secondary-foreground: #14213D;
-  --muted: #EDE6D6;
-  --muted-foreground: #7B8799;
-  --accent: #F3EFE6;
-  --accent-foreground: #14213D;
-  --destructive: #A13D2D;
-  --border: #D8D2C3;
-  --input: #D8D2C3;
-  --ring: #1E3A5F;
-  --chart-1: #B8622A;
-  --chart-2: #4A6B82;
-  --chart-3: #4A6E4F;
-  --chart-4: #7F659A;
-  --chart-5: #A05842;
-  --sidebar: #FBF9F4;
-  --sidebar-foreground: #14213D;
-  --sidebar-primary: #1E3A5F;
-  --sidebar-primary-foreground: #FBF9F4;
-  --sidebar-accent: #F3EFE6;
-  --sidebar-accent-foreground: #14213D;
-  --sidebar-border: #D8D2C3;
-  --sidebar-ring: #1E3A5F;
+  --popover-foreground: #1C1F26;
+  --primary: #0F766E;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F5F3EE;
+  --secondary-foreground: #1C1F26;
+  --muted: #F5F3EE;
+  --muted-foreground: #6B7280;
+  --accent: #DDEFE9;
+  --accent-foreground: #0F766E;
+  --destructive: #B54339;
+  --border: #E5E3DC;
+  --input: #E5E3DC;
+  --ring: #0F766E;
+  --chart-1: #0F766E;
+  --chart-2: #C87941;
+  --chart-3: #5C7F63;
+  --chart-4: #8D74A3;
+  --chart-5: #5B7A8F;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #1C1F26;
+  --sidebar-primary: #0F766E;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F5F3EE;
+  --sidebar-accent-foreground: #1C1F26;
+  --sidebar-border: #E5E3DC;
+  --sidebar-ring: #0F766E;
 }
 
 @layer base {
@@ -128,23 +133,25 @@
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-feature-settings: "ss01", "cv01";
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-body-text;
     font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-ink;
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.015em;
   }
   ::selection {
-    background: var(--color-ink);
-    color: var(--color-ivory);
+    background: var(--color-primary-100);
+    color: var(--color-ink);
   }
 }
 
 @layer utilities {
-  .font-display {
-    font-family: var(--font-heading), Georgia, 'Times New Roman', serif;
-    font-feature-settings: "ss01", "ss02", "cv01";
-  }
   .font-mono {
     font-family: var(--font-mono), ui-monospace, monospace;
   }
@@ -152,36 +159,12 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
 
-  /* Editorial helpers */
-  .rule-top {
-    position: relative;
-  }
-  .rule-top::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: var(--color-rule);
-  }
-  .grid-lines {
-    background-image:
-      linear-gradient(var(--color-rule) 1px, transparent 1px),
-      linear-gradient(90deg, var(--color-rule) 1px, transparent 1px);
-    background-size: 32px 32px;
-    opacity: 0.15;
-  }
-
-  /* Numbered sector markers — drawn, not stock */
-  .sector-numeral {
-    font-family: var(--font-heading), serif;
-    font-feature-settings: "onum", "pnum";
-    font-variant-numeric: oldstyle-nums;
-    letter-spacing: -0.02em;
+  /* Container helper */
+  .container-readable {
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
   }
 }

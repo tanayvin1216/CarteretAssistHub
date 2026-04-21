@@ -1,56 +1,57 @@
 'use client';
 
 import Link from 'next/link';
+import { Heart } from 'lucide-react';
 import { useTranslation } from '@/contexts/LocaleContext';
 
 export function Footer() {
   const { t } = useTranslation();
   return (
-    <footer className="relative mt-32 bg-ink text-ivory">
-      <div className="mx-auto max-w-6xl px-6 py-20 grid grid-cols-1 md:grid-cols-12 gap-12">
-        <div className="md:col-span-5">
-          <p className="sector-numeral text-xs text-ivory/50 tracking-[0.2em] uppercase mb-4">
-            Carteret County · NC
-          </p>
-          <h3 className="font-display text-3xl md:text-4xl leading-[1.1] text-ivory max-w-md">
-            Carteret <span className="italic text-sector-food">Assist</span> Hub.
-          </h3>
-          <p className="mt-6 text-sm text-ivory/70 max-w-md leading-relaxed">
+    <footer className="mt-24 bg-sand border-t border-divider">
+      <div className="container-readable py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div>
+          <div className="flex items-center gap-2 mb-3">
+            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-white">
+              <Heart className="h-4 w-4" strokeWidth={2.5} fill="currentColor" />
+            </span>
+            <span className="font-semibold text-ink text-[17px]">Assist Hub</span>
+          </div>
+          <p className="text-sm text-body-text leading-relaxed max-w-sm">
             {t('footer.mission')}
           </p>
         </div>
 
-        <div className="md:col-span-3 md:col-start-7">
-          <p className="text-[10px] uppercase tracking-[0.22em] text-ivory/50 mb-4">
+        <div>
+          <p className="text-xs font-semibold text-ink uppercase tracking-wide mb-3">
             {t('footer.quickLinks')}
           </p>
-          <ul className="space-y-2.5 text-sm">
-            <li><Link href="/sectors" className="hover:text-sector-arts transition-colors">{t('nav.directory')}</Link></li>
-            <li><Link href="/get-help" className="hover:text-sector-arts transition-colors">{t('nav.getHelp')}</Link></li>
-            <li><Link href="/volunteer" className="hover:text-sector-arts transition-colors">{t('nav.volunteer')}</Link></li>
-            <li><Link href="/about" className="hover:text-sector-arts transition-colors">{t('nav.about')}</Link></li>
+          <ul className="space-y-2 text-sm">
+            <li><Link href="/sectors" className="text-body-text hover:text-primary">{t('nav.directory')}</Link></li>
+            <li><Link href="/get-help" className="text-body-text hover:text-primary">{t('nav.getHelp')}</Link></li>
+            <li><Link href="/volunteer" className="text-body-text hover:text-primary">{t('nav.volunteer')}</Link></li>
+            <li><Link href="/about" className="text-body-text hover:text-primary">{t('nav.about')}</Link></li>
           </ul>
         </div>
 
-        <div className="md:col-span-3">
-          <p className="text-[10px] uppercase tracking-[0.22em] text-ivory/50 mb-4">
+        <div>
+          <p className="text-xs font-semibold text-ink uppercase tracking-wide mb-3">
             {t('nav.signIn')}
           </p>
-          <ul className="space-y-2.5 text-sm">
-            <li><Link href="/portal/login" className="hover:text-sector-arts transition-colors">{t('nav.signInOrg')}</Link></li>
-            <li><Link href="/admin/login" className="hover:text-sector-arts transition-colors">{t('nav.signInAdmin')}</Link></li>
+          <ul className="space-y-2 text-sm">
+            <li><Link href="/portal/login" className="text-body-text hover:text-primary">{t('nav.signInOrg')}</Link></li>
+            <li><Link href="/admin/login" className="text-body-text hover:text-primary">{t('nav.signInAdmin')}</Link></li>
           </ul>
         </div>
       </div>
 
-      <div className="border-t border-ivory/10">
-        <div className="mx-auto max-w-6xl px-6 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs text-ivory/50">
+      <div className="border-t border-divider">
+        <div className="container-readable py-5 flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-muted-text">
           <p>{t('footer.copyright')}</p>
           <p>
             A sister site of{' '}
             <a
               href="https://github.com/tanayvin1216/FoodAssist_V2"
-              className="underline hover:text-ivory"
+              className="underline hover:text-primary"
               target="_blank"
               rel="noreferrer"
             >
