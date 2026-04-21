@@ -120,8 +120,7 @@ export async function getAllVolunteerNeeds(supabase: Client): Promise<Array<Volu
     console.error('getAllVolunteerNeeds error', error);
     return [];
   }
-  // @ts-expect-error — the nested organization shape is known from the select string
-  return data ?? [];
+  return (data ?? []) as unknown as Array<VolunteerNeed & { organization?: Pick<Organization, 'id' | 'name' | 'town'> | null }>;
 }
 
 export async function countByStatus(supabase: Client) {

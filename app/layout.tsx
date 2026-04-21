@@ -7,7 +7,6 @@ import { LocaleProvider } from '@/contexts/LocaleContext';
 import { getServerLocale } from '@/lib/i18n/server';
 
 const fraunces = Fraunces({
-  weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
   variable: '--font-heading',
   display: 'swap',
