@@ -12,17 +12,40 @@ interface Props {
 }
 
 /**
- * Modern editorial hero: floating centered heading with large bold type,
- * followed by a row of circular image panels flanked by solid teal shapes.
- * Inspired by CapEQ's landing — geometric, confident, generous whitespace.
+ * Hero with a calm Carteret beach backdrop.
+ * The image sits behind the content at full section coverage. A soft warm
+ * overlay (sand-cream 70–80%) keeps the image atmospheric rather than loud,
+ * so the text remains the focal point. No bubbles, no geometry.
  */
 export function Hero({ orgCount }: Props) {
   const { t } = useTranslation();
 
   return (
-    <section className="relative overflow-hidden bg-sand">
-      {/* Top: centered title block */}
-      <div className="relative z-10 container-readable pt-14 md:pt-20 pb-12 md:pb-16 text-center">
+    <section className="relative overflow-hidden">
+      {/* Background image */}
+      <Image
+        src="/carteret.avif"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        aria-hidden
+        className="object-cover object-center -z-10"
+      />
+      {/* Soft warm overlay — calms the image, keeps dark text readable */}
+      <div aria-hidden className="absolute inset-0 bg-canvas/75 -z-10" />
+      {/* Gentle vignette from top to help header blend into image */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-canvas to-transparent -z-10"
+      />
+      {/* Gentle transition at bottom into the next section */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent -z-10"
+      />
+
+      <div className="relative container-readable pt-20 md:pt-28 pb-24 md:pb-36 text-center">
         <p className="text-xs md:text-[13px] font-semibold uppercase tracking-[0.2em] text-muted-text mb-5">
           {t('hero.kicker')}
         </p>
@@ -36,7 +59,7 @@ export function Hero({ orgCount }: Props) {
         <div className="flex items-center justify-center gap-3 mt-8 md:mt-10 flex-wrap">
           <Link
             href="/get-help"
-            className="inline-flex items-center gap-2 h-12 pl-5 pr-2 bg-ink text-white text-sm font-semibold rounded-full hover:bg-primary transition-colors group"
+            className="inline-flex items-center gap-2 h-12 pl-5 pr-2 bg-ink text-white text-sm font-semibold rounded-full hover:bg-primary transition-colors group shadow-sm"
           >
             <span className="px-1">{t('hero.ctaHelp')}</span>
             <span className="flex items-center justify-center w-9 h-9 rounded-full bg-white/10 group-hover:bg-white/20 transition-colors">
@@ -45,55 +68,34 @@ export function Hero({ orgCount }: Props) {
           </Link>
           <Link
             href="/volunteer"
-            className="inline-flex items-center gap-2 h-12 px-5 bg-surface border border-divider text-ink text-sm font-semibold rounded-full hover:bg-sand-deep transition-colors"
+            className="inline-flex items-center gap-2 h-12 px-5 bg-surface/90 backdrop-blur-sm border border-divider text-ink text-sm font-semibold rounded-full hover:bg-surface transition-colors shadow-sm"
           >
             <HandHeart className="h-4 w-4" />
             {t('hero.ctaVolunteer')}
           </Link>
         </div>
-      </div>
 
-      {/* Image + teal-shape composition */}
-      <div className="relative">
-        {/* Left teal half-circle */}
-        <div
-          aria-hidden
-          className="absolute left-0 top-1/2 -translate-y-1/2 w-32 md:w-56 h-[calc(100%-3rem)] bg-primary-100 rounded-r-full hidden sm:block"
-        />
-        {/* Right teal half-circle */}
-        <div
-          aria-hidden
-          className="absolute right-0 top-1/2 -translate-y-1/2 w-32 md:w-56 h-[calc(100%-3rem)] bg-primary rounded-l-full hidden sm:block"
-        />
-
-        <div className="relative z-10 container-readable pb-16 md:pb-24">
-          <div className="flex items-center justify-center gap-4 md:gap-6">
-            {/* Primary circular image */}
-            <div className="relative w-[min(90vw,620px)] aspect-square max-w-[620px] rounded-full overflow-hidden shadow-[0_20px_60px_-20px_rgba(28,31,38,0.25)] ring-[6px] ring-surface">
-              <Image
-                src="/carteret.avif"
-                alt="Carteret County"
-                fill
-                priority
-                sizes="(max-width: 768px) 90vw, 620px"
-                className="object-cover"
-              />
-              {/* Soft inner vignette */}
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/20 via-transparent to-transparent pointer-events-none" />
-            </div>
-
-            {/* Optional secondary circular stat card (desktop only, to balance) */}
-            <div className="hidden lg:flex flex-col items-center justify-center w-64 aspect-square rounded-full bg-primary text-white p-8 text-center shadow-[0_20px_60px_-20px_rgba(15,118,110,0.5)] ring-[6px] ring-surface">
-              <p className="text-5xl font-extrabold tabular-nums leading-none">{orgCount}</p>
-              <p className="text-xs font-semibold uppercase tracking-widest mt-3 text-white/80">
-                local non-profits
-              </p>
-              <div className="w-10 h-px bg-white/30 my-4" />
-              <p className="text-xs font-semibold uppercase tracking-widest text-white/80">
-                13 sectors
-              </p>
-              <p className="text-xs text-white/60 mt-1">Carteret County · NC</p>
-            </div>
+        {/* Small stats row — calm, text-only, no circles */}
+        <div className="mt-14 md:mt-20 flex items-center justify-center gap-8 md:gap-14 flex-wrap text-center">
+          <div>
+            <p className="text-2xl md:text-3xl font-extrabold text-ink tabular-nums leading-none">13</p>
+            <p className="text-[11px] uppercase tracking-wider text-muted-text mt-1.5">
+              {t('hero.stat.sectors')}
+            </p>
+          </div>
+          <span className="hidden md:inline-block w-px h-6 bg-divider" aria-hidden />
+          <div>
+            <p className="text-2xl md:text-3xl font-extrabold text-ink tabular-nums leading-none">{orgCount}</p>
+            <p className="text-[11px] uppercase tracking-wider text-muted-text mt-1.5">
+              {t('hero.stat.orgs')}
+            </p>
+          </div>
+          <span className="hidden md:inline-block w-px h-6 bg-divider" aria-hidden />
+          <div>
+            <p className="text-2xl md:text-3xl font-extrabold text-ink tabular-nums leading-none">EN · ES</p>
+            <p className="text-[11px] uppercase tracking-wider text-muted-text mt-1.5">
+              bilingual
+            </p>
           </div>
         </div>
       </div>
