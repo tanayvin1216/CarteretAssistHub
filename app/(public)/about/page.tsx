@@ -42,7 +42,7 @@ export default function AboutPage() {
           <p>
             Our sister site,{' '}
             <a
-              href="https://food-assist-v2.vercel.app/"
+              href="https://www.carteretfoodandhealthcouncil.org/"
               className="text-primary font-semibold underline-offset-4 hover:underline"
               target="_blank"
               rel="noreferrer"

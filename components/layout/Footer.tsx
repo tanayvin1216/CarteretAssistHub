@@ -58,7 +58,7 @@ export function Footer() {
           <p>
             A sister site of{' '}
             <a
-              href="https://food-assist-v2.vercel.app/"
+              href="https://www.carteretfoodandhealthcouncil.org/"
               className="underline hover:text-primary"
               target="_blank"
               rel="noreferrer"

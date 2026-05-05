@@ -35,7 +35,7 @@ I chair the Community Service Committee for the county Democratic Party and help
 
 Assist Hub is the fix. Thirteen sectors of community need — from **food insecurity** and **housing** to **veterans**, **the arts**, and **the coast itself** — brought under one roof. An organization enters its information once. Residents search one directory. Volunteers see every open role in the county on a single page.
 
-It's a sister site to [Food Assist](https://food-assist-v2.vercel.app/). Both share the same Supabase database — when a food pantry updates its hours on Food Assist, the change shows up here instantly. No syncing, no duplicate work.
+It's a sister site to [Food Assist](https://www.carteretfoodandhealthcouncil.org/). Both share the same Supabase database — when a food pantry updates its hours on Food Assist, the change shows up here instantly. No syncing, no duplicate work.
 
 ---
 
@@ -109,7 +109,7 @@ Bug reports, feature suggestions, Spanish translations, and PRs are all welcome.
 ## Contact
 
 - **Live Site:** [carteret-assist-hub.vercel.app](https://carteret-assist-hub.vercel.app)
-- **Sister Site:** [Food Assist](https://food-assist-v2.vercel.app/)
+- **Sister Site:** [Food Assist](https://www.carteretfoodandhealthcouncil.org/)
 - **GitHub:** [@tanayvin1216](https://github.com/tanayvin1216)
 - **Email:** [Vinaykya27T@ncssm.edu](mailto:Vinaykya27T@ncssm.edu)
 - **Issues:** [Report a bug or request a feature](https://github.com/tanayvin1216/CarteretAssistHub/issues)
