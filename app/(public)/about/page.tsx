@@ -41,8 +41,10 @@ export default function AboutPage() {
           <p>
             Our sister site,{' '}
             <a
-              href="https://github.com/tanayvin1216/FoodAssist_V2"
+              href="https://food-assist-v2.vercel.app/"
               className="text-primary font-semibold underline-offset-4 hover:underline"
+              target="_blank"
+              rel="noreferrer"
             >
               Food Assist
             </a>

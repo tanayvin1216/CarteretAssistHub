@@ -48,7 +48,7 @@ export function Footer() {
           <p>
             A sister site of{' '}
             <a
-              href="https://github.com/tanayvin1216/FoodAssist_V2"
+              href="https://food-assist-v2.vercel.app/"
               className="underline hover:text-primary"
               target="_blank"
               rel="noreferrer"
