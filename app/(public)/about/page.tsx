@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Mail } from 'lucide-react';
 
 export const metadata = {
   title: 'About · Carteret Assist Hub',
@@ -53,15 +54,31 @@ export default function AboutPage() {
             places. No duplicate updates, no syncing.
           </p>
 
-          <p>
-            If you run a Carteret County non-profit and would like to be listed, or if you&apos;d
-            like to help lead a subcommittee, reach out to the community-service committee.
-          </p>
+          <div id="contact" className="bg-surface border border-divider rounded-xl p-6 md:p-7 my-8 scroll-mt-24">
+            <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-2">
+              Get in touch
+            </p>
+            <h2 className="text-xl md:text-2xl font-bold text-ink leading-tight mb-3">
+              Add your organization or volunteer opportunity
+            </h2>
+            <p className="text-[15px] text-body-text leading-relaxed mb-5">
+              Whether you run a Carteret County non-profit, want to post a volunteer role, support
+              other non-profits, or help lead a sector subcommittee — email the committee and
+              we&apos;ll get you set up.
+            </p>
+            <a
+              href="mailto:committee@carteretassisthub.org"
+              className="inline-flex items-center gap-2 h-11 px-5 bg-primary text-white text-sm font-semibold rounded-lg hover:bg-primary-500 transition-colors"
+            >
+              <Mail className="h-4 w-4" />
+              committee@carteretassisthub.org
+            </a>
+          </div>
 
-          <div className="pt-8 flex items-center gap-4 flex-wrap">
+          <div className="pt-4 flex items-center gap-4 flex-wrap">
             <Link
               href="/sectors"
-              className="inline-flex items-center gap-2 h-11 px-5 bg-primary text-white text-sm font-semibold rounded-lg hover:bg-primary-500 transition-colors"
+              className="inline-flex items-center gap-2 h-11 px-5 bg-surface border border-divider text-ink text-sm font-semibold rounded-lg hover:bg-sand transition-colors"
             >
               Browse sectors
             </Link>

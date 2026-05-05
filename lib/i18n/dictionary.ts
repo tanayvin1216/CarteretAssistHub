@@ -97,6 +97,8 @@ export type MessageKey =
   | 'footer.committee'
   | 'footer.quickLinks'
   | 'footer.contact'
+  | 'footer.contactLede'
+  | 'footer.contactEmail'
   | 'footer.copyright'
   | 'common.loading'
   | 'common.error'
@@ -193,7 +195,10 @@ export const messages: Record<Locale, Record<MessageKey, string>> = {
       'A project of the Carteret County Democratic Party — Community Service Committee, in partnership with local non-profit partners. Listing an organization is free.',
     'footer.committee': 'Community Service Committee',
     'footer.quickLinks': 'Quick links',
-    'footer.contact': 'Contact the committee',
+    'footer.contact': 'Get in touch',
+    'footer.contactLede':
+      'Run a non-profit, support other non-profits, or have a volunteer opportunity to post? Email the committee.',
+    'footer.contactEmail': 'committee@carteretassisthub.org',
     'footer.copyright': '© 2026 Carteret County Community Service Committee.',
     'common.loading': 'Loading…',
     'common.error': 'Something went wrong.',
@@ -289,7 +294,10 @@ export const messages: Record<Locale, Record<MessageKey, string>> = {
       'Un proyecto del Partido Demócrata del Condado de Carteret — Comité de Servicio Comunitario, en colaboración con organizaciones sin fines de lucro locales. Listar una organización es gratis.',
     'footer.committee': 'Comité de Servicio Comunitario',
     'footer.quickLinks': 'Enlaces rápidos',
-    'footer.contact': 'Contactar al comité',
+    'footer.contact': 'Comuníquese',
+    'footer.contactLede':
+      '¿Dirige una organización sin fines de lucro, apoya a otras, o tiene una oportunidad de voluntariado para publicar? Escríbale al comité.',
+    'footer.contactEmail': 'committee@carteretassisthub.org',
     'footer.copyright': '© 2026 Comité de Servicio Comunitario del Condado de Carteret.',
     'common.loading': 'Cargando…',
     'common.error': 'Algo salió mal.',
