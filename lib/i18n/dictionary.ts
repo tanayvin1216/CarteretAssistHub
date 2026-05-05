@@ -190,7 +190,7 @@ export const messages: Record<Locale, Record<MessageKey, string>> = {
     'org.spanishAvailable': 'Spanish-language services available',
     'org.activeNeeds': 'Open volunteer roles',
     'footer.mission':
-      'Carteret Assist Hub is a project of the Carteret County community-service committee. Listing an organization is free.',
+      'A project of the Carteret County Democratic Party — Community Service Committee, in partnership with local non-profit partners. Listing an organization is free.',
     'footer.committee': 'Community Service Committee',
     'footer.quickLinks': 'Quick links',
     'footer.contact': 'Contact the committee',
@@ -286,7 +286,7 @@ export const messages: Record<Locale, Record<MessageKey, string>> = {
     'org.spanishAvailable': 'Servicios disponibles en español',
     'org.activeNeeds': 'Puestos de voluntariado abiertos',
     'footer.mission':
-      'Carteret Assist Hub es un proyecto del comité de servicio comunitario del condado de Carteret. Listar una organización es gratis.',
+      'Un proyecto del Partido Demócrata del Condado de Carteret — Comité de Servicio Comunitario, en colaboración con organizaciones sin fines de lucro locales. Listar una organización es gratis.',
     'footer.committee': 'Comité de Servicio Comunitario',
     'footer.quickLinks': 'Enlaces rápidos',
     'footer.contact': 'Contactar al comité',

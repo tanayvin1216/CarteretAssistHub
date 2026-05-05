@@ -24,9 +24,9 @@ export default function AboutPage() {
           <p>
             Assist Hub is a county-wide directory of the non-profits, committees, and volunteers
             working on every kind of community need — from food and housing to veterans and the
-            coast. It&apos;s a project of the Carteret County Community Service Committee,
-            organized alongside the county Democratic Party and a growing roster of local
-            non-profit partners.
+            coast. It&apos;s a project of the{' '}
+            <strong>Carteret County Democratic Party — Community Service Committee</strong>, in
+            partnership with local non-profit partners.
           </p>
 
           <div className="bg-sand border-l-4 border-primary rounded-r-lg p-5 my-8">

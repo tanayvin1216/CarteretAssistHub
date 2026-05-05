@@ -15,8 +15,10 @@ export function CommitteeBand() {
           </p>
           <p className="text-lg md:text-xl text-ink font-medium leading-snug">
             A project of the{' '}
-            <span className="text-primary">Carteret County Community Service Committee</span>,
-            organized with the county Democratic Party and local non-profit partners.
+            <span className="text-primary">
+              Carteret County Democratic Party — Community Service Committee
+            </span>
+            , in partnership with local non-profit partners.
           </p>
         </div>
         <Link
