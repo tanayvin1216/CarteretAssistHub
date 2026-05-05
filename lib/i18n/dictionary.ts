@@ -23,6 +23,7 @@ export type MessageKey =
   | 'nav.volunteer'
   | 'nav.getHelp'
   | 'nav.about'
+  | 'nav.allies'
   | 'nav.signIn'
   | 'nav.signInOrg'
   | 'nav.signInOrgHint'
@@ -114,6 +115,7 @@ export const messages: Record<Locale, Record<MessageKey, string>> = {
     'nav.volunteer': 'Volunteer',
     'nav.getHelp': 'Get help',
     'nav.about': 'About',
+    'nav.allies': 'Allies',
     'nav.signIn': 'Sign in',
     'nav.signInOrg': 'Organization',
     'nav.signInOrgHint': 'Update your listing & review applications',
@@ -213,6 +215,7 @@ export const messages: Record<Locale, Record<MessageKey, string>> = {
     'nav.volunteer': 'Voluntariado',
     'nav.getHelp': 'Obtener ayuda',
     'nav.about': 'Acerca de',
+    'nav.allies': 'Aliados',
     'nav.signIn': 'Iniciar sesión',
     'nav.signInOrg': 'Organización',
     'nav.signInOrgHint': 'Actualizar su listado y revisar solicitudes',
