@@ -17,7 +17,7 @@ You already have migrations 001–008 from FoodAssist_V2. Run only the Assist Hu
 # In the Supabase SQL Editor, run the contents of:
 supabase/migrations/001_assist_hub_schema.sql
 supabase/seed.sql
-supabase/demo-seed.sql          # optional — demo orgs + leads + volunteer roles
+supabase/directory-seed.sql     # real Community Service Committee org directory + volunteer roles
 ```
 
 ### 1b. Fresh Supabase project
@@ -37,7 +37,7 @@ Create a new Supabase project, then run (in order):
 -- Then from THIS repo's supabase/migrations/ + seeds:
 001_assist_hub_schema.sql
 supabase/seed.sql
-supabase/demo-seed.sql    -- optional demo data
+supabase/directory-seed.sql    -- real org directory + volunteer roles
 ```
 
 ### 1c. Create an admin user
