@@ -117,7 +117,9 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
     } else {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const builder = supabase.from('organizations') as any;
-      const { data, error } = await builder.insert(payload).select('*').single();
+      // Stamp the FoodAssist partition column so committee orgs never surface on
+      // the FoodAssist site (which lists only sector = 'food_insecurity').
+      const { data, error } = await builder.insert({ ...payload, sector: 'other' }).select('*').single();
       if (error) {
         toast.error(error.message);
         return;
