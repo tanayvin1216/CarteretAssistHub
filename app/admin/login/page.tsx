@@ -10,7 +10,7 @@ export default async function AdminLoginPage({
   const { error } = await searchParams;
   const errorMessage =
     error === 'not_admin'
-      ? 'That account is not an admin. Ask the community-service committee to upgrade it.'
+      ? 'That account is not authorized for the Assist Hub admin. Access is limited to the Community Service Committee administrators.'
       : null;
 
   return (
