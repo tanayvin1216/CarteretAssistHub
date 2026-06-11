@@ -12,12 +12,12 @@ export function DualCTA() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
           <Link
             href="/get-help"
-            className="group bg-surface rounded-2xl p-7 md:p-9 border border-divider hover:border-primary hover:shadow-sm transition-all"
+            className="group bg-surface rounded-xl p-7 md:p-9 border border-divider hover:border-primary-600/35 hover:shadow-[0_8px_24px_-16px_rgba(28,31,38,0.25)] transition-all duration-200"
           >
-            <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-primary-100 text-primary-600 mb-5">
+            <span className="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-seafoam-tint text-primary-600 mb-5">
               <Heart className="h-5 w-5" />
             </span>
-            <h3 className="text-xl md:text-2xl font-bold text-ink mb-2">
+            <h3 className="font-display text-2xl md:text-[1.75rem] leading-snug text-ink mb-2.5">
               I&apos;m looking for help
             </h3>
             <p className="text-sm md:text-base text-body-text leading-relaxed mb-5">
@@ -32,12 +32,12 @@ export function DualCTA() {
 
           <Link
             href="/volunteer"
-            className="group bg-surface rounded-2xl p-7 md:p-9 border border-divider hover:border-primary hover:shadow-sm transition-all"
+            className="group bg-surface rounded-xl p-7 md:p-9 border border-divider hover:border-primary-600/35 hover:shadow-[0_8px_24px_-16px_rgba(28,31,38,0.25)] transition-all duration-200"
           >
-            <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-warm-100 text-warm-600 mb-5">
+            <span className="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-warm-100 text-warm-600 mb-5">
               <HandHeart className="h-5 w-5" />
             </span>
-            <h3 className="text-xl md:text-2xl font-bold text-ink mb-2">
+            <h3 className="font-display text-2xl md:text-[1.75rem] leading-snug text-ink mb-2.5">
               I want to volunteer
             </h3>
             <p className="text-sm md:text-base text-body-text leading-relaxed mb-5">

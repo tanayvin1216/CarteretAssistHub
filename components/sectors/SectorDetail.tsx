@@ -54,16 +54,16 @@ export function SectorDetail({ meta, sector, leads, activities, organizations, n
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
                 <span
-                  className={`text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full ${
+                  className={`text-[10px] font-semibold uppercase tracking-[0.12em] px-2 py-1 rounded-md ${
                     status === 'active'
-                      ? 'text-primary-600 bg-primary-100'
+                      ? 'text-primary-600 bg-seafoam-tint'
                       : 'text-muted-text bg-surface border border-divider'
                   }`}
                 >
                   {status === 'active' ? t('sectors.active') : status === 'archived' ? t('sectors.archived') : t('sectors.forming')}
                 </span>
               </div>
-              <h1 className="text-3xl md:text-5xl font-bold text-ink leading-tight mb-4">
+              <h1 className="font-display text-4xl md:text-[3.5rem] text-ink leading-[1.08] mb-5">
                 {name}
               </h1>
               <p className="text-base md:text-lg text-body-text leading-relaxed max-w-2xl">
@@ -74,16 +74,16 @@ export function SectorDetail({ meta, sector, leads, activities, organizations, n
 
           <div className="grid grid-cols-3 gap-4 md:gap-6 mt-10 max-w-lg border-t border-divider pt-6">
             <div>
-              <p className="text-2xl md:text-3xl font-bold text-ink tabular-nums">{organizations.length}</p>
-              <p className="text-xs text-muted-text mt-0.5">{t('sectors.orgsCount')}</p>
+              <p className="font-display text-2xl md:text-3xl text-ink tabular-nums">{organizations.length}</p>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-text mt-1.5">{t('sectors.orgsCount')}</p>
             </div>
             <div>
-              <p className="text-2xl md:text-3xl font-bold text-ink tabular-nums">{needs.length}</p>
-              <p className="text-xs text-muted-text mt-0.5">{t('sectors.volunteerNeedsCount')}</p>
+              <p className="font-display text-2xl md:text-3xl text-ink tabular-nums">{needs.length}</p>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-text mt-1.5">{t('sectors.volunteerNeedsCount')}</p>
             </div>
             <div>
-              <p className="text-2xl md:text-3xl font-bold text-ink tabular-nums">{leads.length}</p>
-              <p className="text-xs text-muted-text mt-0.5">{t('sectors.leads')}</p>
+              <p className="font-display text-2xl md:text-3xl text-ink tabular-nums">{leads.length}</p>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-text mt-1.5">{t('sectors.leads')}</p>
             </div>
           </div>
         </div>
@@ -160,14 +160,14 @@ export function SectorDetail({ meta, sector, leads, activities, organizations, n
                 <Link
                   key={org.id}
                   href={`/organizations/${org.id}`}
-                  className="group bg-surface border border-divider rounded-lg p-5 hover:border-ink/30 hover:shadow-sm transition-all"
+                  className="group bg-surface border border-divider rounded-xl p-5 hover:border-primary-600/35 hover:shadow-[0_8px_24px_-16px_rgba(28,31,38,0.25)] transition-all duration-200"
                 >
                   <div className="flex items-start justify-between gap-3 mb-3">
-                    <h3 className="font-semibold text-ink text-[17px] leading-snug group-hover:text-primary transition-colors">
+                    <h3 className="font-display text-[1.1rem] text-ink leading-snug group-hover:text-primary-600 transition-colors">
                       {org.name}
                     </h3>
                     {org.spanish_available && (
-                      <span className="shrink-0 text-[10px] font-semibold text-primary-600 bg-primary-100 px-2 py-0.5 rounded-full">
+                      <span className="shrink-0 text-[10px] font-semibold text-primary-600 bg-seafoam-tint px-2 py-1 rounded-md">
                         ES
                       </span>
                     )}
@@ -206,7 +206,7 @@ export function SectorDetail({ meta, sector, leads, activities, organizations, n
               {needs.map((need) => (
                 <div
                   key={need.id}
-                  className="bg-surface border border-divider rounded-lg p-5 flex flex-col"
+                  className="bg-surface border border-divider rounded-xl p-5 flex flex-col"
                 >
                   {need.time_commitment && (
                     <p className="text-xs text-muted-text mb-2 flex items-center gap-1">
@@ -214,7 +214,7 @@ export function SectorDetail({ meta, sector, leads, activities, organizations, n
                       {need.time_commitment}
                     </p>
                   )}
-                  <h3 className="font-semibold text-ink text-[17px] leading-snug mb-2">
+                  <h3 className="font-display text-[1.1rem] text-ink leading-snug mb-2">
                     {locale === 'es' && need.title_es ? need.title_es : need.title}
                   </h3>
                   <p className="text-sm text-body-text leading-relaxed line-clamp-3 mb-4 flex-1">
@@ -242,11 +242,11 @@ export function SectorDetail({ meta, sector, leads, activities, organizations, n
               {activities.map((act) => (
                 <li
                   key={act.id}
-                  className="bg-surface border border-divider rounded-lg p-5 flex flex-col md:flex-row md:items-start gap-4"
+                  className="bg-surface border border-divider rounded-xl p-5 flex flex-col md:flex-row md:items-start gap-4"
                 >
                   {act.scheduled_for && (
                     <div className="flex md:flex-col items-baseline md:items-start gap-2 md:gap-0 md:w-32 shrink-0">
-                      <p className="text-2xl font-bold text-ink tabular-nums leading-none">
+                      <p className="font-display text-2xl text-ink tabular-nums leading-none">
                         {format(new Date(act.scheduled_for), 'd')}
                       </p>
                       <p className="text-xs text-muted-text">

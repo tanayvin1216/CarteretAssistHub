@@ -73,11 +73,15 @@ export function GetHelpClient({ sectors, organizations }: Props) {
   return (
     <div>
       <section className="bg-sand border-b border-divider">
-        <div className="container-readable py-12 md:py-16">
-          <h1 className="text-3xl md:text-4xl font-bold text-ink mb-3">
+        <div className="container-readable py-14 md:py-20">
+          <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary-600 mb-4">
+            <span aria-hidden className="h-px w-8 bg-seafoam-deep" />
+            {t('nav.getHelp')}
+          </p>
+          <h1 className="font-display text-4xl md:text-[3.5rem] leading-[1.08] text-ink mb-5">
             {t('getHelp.title')}
           </h1>
-          <p className="text-base text-body-text leading-relaxed max-w-2xl">
+          <p className="text-base md:text-lg text-body-text leading-relaxed max-w-2xl">
             {t('getHelp.lede')}
           </p>
         </div>
@@ -92,18 +96,18 @@ export function GetHelpClient({ sectors, organizations }: Props) {
                 <button
                   key={row.slug}
                   onClick={() => setSelectedSlug(row.slug)}
-                  className="group text-left bg-surface border border-divider rounded-xl p-5 hover:border-ink/30 hover:shadow-sm transition-all"
+                  className="group text-left bg-surface border border-divider rounded-xl p-5 hover:border-primary-600/35 hover:shadow-[0_8px_24px_-16px_rgba(28,31,38,0.25)] transition-all duration-200"
                 >
                   <div className="flex items-center justify-between mb-3">
                     <span
-                      className="inline-block w-2.5 h-2.5 rounded-full"
+                      className="inline-block w-2 h-2 rounded-full"
                       style={{ backgroundColor: row.accent }}
                     />
-                    <span className="text-xs text-muted-text tabular-nums">
+                    <span className="font-mono text-xs text-muted-text tabular-nums">
                       {row.count}
                     </span>
                   </div>
-                  <h3 className="font-semibold text-ink text-[15px] leading-tight mb-1.5 group-hover:text-primary transition-colors">
+                  <h3 className="font-display text-[1.05rem] text-ink leading-snug mb-1.5 group-hover:text-primary-600 transition-colors">
                     {row.name}
                   </h3>
                   <p className="text-xs text-muted-text leading-relaxed line-clamp-2">
@@ -139,15 +143,17 @@ export function GetHelpClient({ sectors, organizations }: Props) {
                 <X className="h-3.5 w-3.5" /> Reset
               </button>
               {selectedMeta && (
-                <span
-                  className="text-xs font-semibold px-3 py-1 rounded-full text-white"
-                  style={{ backgroundColor: selectedMeta.accent }}
-                >
+                <span className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-md bg-ink text-surface">
+                  <span
+                    className="inline-block w-1.5 h-1.5 rounded-full"
+                    style={{ backgroundColor: selectedMeta.accent }}
+                    aria-hidden
+                  />
                   {selectedMeta.name}
                 </span>
               )}
               {selectedSlug === '_all_' && (
-                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-ink text-white">
+                <span className="text-xs font-semibold px-3 py-1.5 rounded-md bg-ink text-surface">
                   All sectors
                 </span>
               )}
@@ -189,14 +195,14 @@ export function GetHelpClient({ sectors, organizations }: Props) {
                     <Link
                       key={org.id}
                       href={`/organizations/${org.id}`}
-                      className="group bg-surface border border-divider rounded-lg p-5 hover:border-ink/30 hover:shadow-sm transition-all"
+                      className="group bg-surface border border-divider rounded-xl p-5 hover:border-primary-600/35 hover:shadow-[0_8px_24px_-16px_rgba(28,31,38,0.25)] transition-all duration-200"
                     >
                       <div className="flex items-start justify-between gap-3 mb-2">
-                        <h3 className="font-semibold text-ink text-[16px] leading-snug group-hover:text-primary transition-colors">
+                        <h3 className="font-display text-[1.1rem] text-ink leading-snug group-hover:text-primary-600 transition-colors">
                           {org.name}
                         </h3>
                         {org.spanish_available && (
-                          <span className="shrink-0 text-[10px] font-semibold text-primary-600 bg-primary-100 px-2 py-0.5 rounded-full">
+                          <span className="shrink-0 text-[10px] font-semibold text-primary-600 bg-seafoam-tint px-2 py-1 rounded-md">
                             ES
                           </span>
                         )}

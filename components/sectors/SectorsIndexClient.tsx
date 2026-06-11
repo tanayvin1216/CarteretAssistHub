@@ -37,57 +37,86 @@ export function SectorsIndexClient({
   return (
     <div>
       <section className="bg-sand border-b border-divider">
-        <div className="container-readable py-12 md:py-16">
-          <h1 className="text-3xl md:text-4xl font-bold text-ink mb-3">
+        <div className="container-readable py-14 md:py-20">
+          <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary-600 mb-4">
+            <span aria-hidden className="h-px w-8 bg-seafoam-deep" />
+            {t('nav.directory')}
+          </p>
+          <h1 className="font-display text-4xl md:text-[3.5rem] leading-[1.08] text-ink mb-5">
             {t('sectors.sectionTitle')}
           </h1>
-          <p className="text-base text-body-text leading-relaxed max-w-2xl">
+          <p className="text-base md:text-lg text-body-text leading-relaxed max-w-2xl">
             {t('sectors.sectionLede')}
           </p>
         </div>
       </section>
 
       <section className="bg-background">
-        <div className="container-readable py-10 md:py-14">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {rows.map((row) => (
-              <Link
-                key={row.slug}
-                href={`/sectors/${row.slug}`}
-                className="group bg-surface border border-divider rounded-xl p-5 hover:border-ink/30 hover:shadow-sm transition-all"
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <span
-                    className="inline-block w-2.5 h-2.5 rounded-full"
-                    style={{ backgroundColor: row.accent }}
-                  />
-                  <span
-                    className={`text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full ${
-                      row.status === 'active'
-                        ? 'text-primary-600 bg-primary-100'
-                        : 'text-muted-text bg-sand'
-                    }`}
-                  >
-                    {row.status === 'active' ? t('sectors.active') : row.status === 'archived' ? t('sectors.archived') : t('sectors.forming')}
+        <div className="container-readable py-8 md:py-12">
+          <ol className="divide-y divide-divider">
+            {rows.map((row, index) => (
+              <li key={row.slug}>
+                <Link
+                  href={`/sectors/${row.slug}`}
+                  className="group flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 py-6 md:py-8 px-3 -mx-3 rounded-xl hover:bg-sand/50 transition-colors duration-200"
+                >
+                  <span className="flex items-center gap-4 sm:gap-5 min-w-0 sm:flex-1">
+                    <span className="font-mono text-sm text-muted-text tabular-nums w-6 shrink-0">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <span
+                      className="inline-block w-2 h-2 rounded-full shrink-0"
+                      style={{ backgroundColor: row.accent }}
+                      aria-hidden
+                    />
+                    <span className="min-w-0">
+                      <span className="flex items-center gap-3">
+                        <span className="font-display text-xl md:text-[1.6rem] leading-snug text-ink group-hover:text-primary-600 transition-colors">
+                          {row.name}
+                        </span>
+                        <span
+                          className={`hidden md:inline-block text-[10px] font-semibold uppercase tracking-[0.12em] px-2 py-1 rounded-md ${
+                            row.status === 'active'
+                              ? 'text-primary-600 bg-seafoam-tint'
+                              : 'text-muted-text bg-sand'
+                          }`}
+                        >
+                          {row.status === 'active'
+                            ? t('sectors.active')
+                            : row.status === 'archived'
+                              ? t('sectors.archived')
+                              : t('sectors.forming')}
+                        </span>
+                      </span>
+                      <span className="hidden sm:block text-sm text-muted-text leading-relaxed line-clamp-1 mt-1">
+                        {row.description}
+                      </span>
+                    </span>
                   </span>
-                </div>
-                <h2 className="text-[17px] font-semibold text-ink mb-1.5 group-hover:text-primary transition-colors">
-                  {row.name}
-                </h2>
-                <p className="text-sm text-body-text leading-relaxed line-clamp-2 mb-4">
-                  {row.description}
-                </p>
-                <div className="flex items-center justify-between pt-3 border-t border-divider">
-                  <p className="text-xs text-muted-text">
-                    <span className="font-semibold text-ink tabular-nums">{row.orgCount}</span> orgs
-                    <span className="mx-1.5 text-rule">·</span>
-                    <span className="font-semibold text-ink tabular-nums">{row.needCount}</span> roles
-                  </p>
-                  <ArrowRight className="h-4 w-4 text-muted-text group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
-                </div>
-              </Link>
+
+                  <span className="flex items-center gap-8 sm:gap-10 pl-10 sm:pl-0 shrink-0">
+                    <span>
+                      <span className="block font-display text-xl md:text-2xl text-ink tabular-nums leading-none">
+                        {row.orgCount}
+                      </span>
+                      <span className="block text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-text mt-1.5">
+                        {t('sectors.orgsCount')}
+                      </span>
+                    </span>
+                    <span>
+                      <span className="block font-display text-xl md:text-2xl text-ink tabular-nums leading-none">
+                        {row.needCount}
+                      </span>
+                      <span className="block text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-text mt-1.5">
+                        {t('sectors.volunteerNeedsCount')}
+                      </span>
+                    </span>
+                    <ArrowRight className="hidden sm:block h-5 w-5 text-muted-text group-hover:text-primary-600 group-hover:translate-x-1 transition-all" />
+                  </span>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
     </div>

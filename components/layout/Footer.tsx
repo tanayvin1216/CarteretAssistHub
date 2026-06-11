@@ -3,18 +3,24 @@
 import Link from 'next/link';
 import { Mail } from 'lucide-react';
 import { useTranslation } from '@/contexts/LocaleContext';
+import { useSiteSettings } from '@/contexts/SiteSettingsContext';
 
 export function Footer() {
   const { t } = useTranslation();
+  const { sisterSiteUrl } = useSiteSettings();
   const contactEmail = t('footer.contactEmail');
   return (
     <footer className="mt-24 bg-sand border-t border-divider">
       <div className="container-readable py-12 grid grid-cols-1 md:grid-cols-12 gap-10">
         <div className="md:col-span-5">
-          <div className="flex items-baseline gap-0.5 mb-4">
-            <span className="text-2xl font-extrabold tracking-tight text-ink leading-none">Assist</span>
-            <span className="text-2xl font-extrabold tracking-tight text-primary leading-none">Hub</span>
-            <span className="text-[9px] font-semibold text-muted-text tracking-widest ml-1.5 uppercase">NC</span>
+          <div className="flex items-center gap-2.5 mb-4">
+            <span aria-hidden className="w-2 h-2 rounded-full bg-seafoam-deep" />
+            <span className="flex flex-col leading-none">
+              <span className="font-display text-[22px] text-ink tracking-tight">Assist Hub</span>
+              <span className="text-[9px] font-semibold text-muted-text tracking-[0.22em] uppercase mt-1">
+                Carteret County · NC
+              </span>
+            </span>
           </div>
           <p className="text-sm text-body-text leading-relaxed max-w-sm">
             {t('footer.mission')}
@@ -59,7 +65,7 @@ export function Footer() {
           <p>
             A sister site of{' '}
             <a
-              href="https://www.carteretfoodandhealthcouncil.org/"
+              href={sisterSiteUrl}
               className="underline hover:text-primary"
               target="_blank"
               rel="noreferrer"

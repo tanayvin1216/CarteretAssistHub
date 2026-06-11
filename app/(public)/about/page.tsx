@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Mail } from 'lucide-react';
+import { PageHero } from '@/components/layout/PageHero';
 
 export const metadata = {
   title: 'About · Carteret Assist Hub',
@@ -9,16 +10,7 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <div>
-      <section className="bg-sand border-b border-divider">
-        <div className="container-readable max-w-3xl py-12 md:py-16">
-          <h1 className="text-3xl md:text-5xl font-bold text-ink leading-tight mb-4">
-            About Assist Hub
-          </h1>
-          <p className="text-base md:text-lg text-body-text leading-relaxed max-w-2xl">
-            A single directory of the people and organizations taking care of Carteret County, NC.
-          </p>
-        </div>
-      </section>
+      <PageHero eyebrowKey="about.eyebrow" titleKey="about.title" ledeKey="about.lede" />
 
       <section className="bg-background">
         <div className="container-readable max-w-3xl py-12 md:py-16 space-y-6 text-[17px] text-body-text leading-[1.75]">
@@ -58,7 +50,7 @@ export default function AboutPage() {
             <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-2">
               Get in touch
             </p>
-            <h2 className="text-xl md:text-2xl font-bold text-ink leading-tight mb-3">
+            <h2 className="font-display text-2xl md:text-[1.65rem] text-ink leading-tight mb-3">
               Add your organization or volunteer opportunity
             </h2>
             <p className="text-[15px] text-body-text leading-relaxed mb-5">
@@ -68,7 +60,7 @@ export default function AboutPage() {
             </p>
             <a
               href="mailto:committee@carteretassisthub.org"
-              className="inline-flex items-center gap-2 h-11 px-5 bg-primary text-white text-sm font-semibold rounded-lg hover:bg-primary-500 transition-colors"
+              className="inline-flex items-center gap-2 h-11 px-5 bg-seafoam text-ink text-sm font-semibold rounded-lg hover:bg-seafoam-deep transition-colors"
             >
               <Mail className="h-4 w-4" />
               committee@carteretassisthub.org

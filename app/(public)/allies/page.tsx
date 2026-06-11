@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Mail, ArrowUpRight, HandCoins, Network, Sparkles } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { PageHero } from '@/components/layout/PageHero';
 
 export const metadata = {
   title: 'Allies & Funders · Carteret Assist Hub',
@@ -55,21 +56,12 @@ const ALLIES: Ally[] = [
 export default function AlliesPage() {
   return (
     <div>
-      <section className="bg-sand border-b border-divider">
-        <div className="container-readable max-w-4xl py-12 md:py-16">
-          <p className="text-xs md:text-[13px] font-semibold uppercase tracking-[0.2em] text-muted-text mb-4">
-            The network behind the network
-          </p>
-          <h1 className="text-3xl md:text-5xl font-bold text-ink leading-tight mb-4">
-            Allies &amp; Funders
-          </h1>
-          <p className="text-base md:text-lg text-body-text leading-relaxed max-w-2xl">
-            Local foundations, giving circles, and peer-support networks that fund and resource
-            Carteret County non-profits. They don&apos;t serve residents directly — they make sure
-            the organizations that do can keep going.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrowKey="allies.eyebrow"
+        titleKey="allies.title"
+        ledeKey="allies.lede"
+        width="max-w-4xl"
+      />
 
       <section className="bg-background">
         <div className="container-readable max-w-5xl py-12 md:py-16">
@@ -89,7 +81,7 @@ export default function AlliesPage() {
                       <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-text mb-1.5">
                         {ally.kind}
                       </p>
-                      <h2 className="text-xl md:text-2xl font-bold text-ink leading-tight mb-2">
+                      <h2 className="font-display text-2xl md:text-[1.65rem] text-ink leading-tight mb-2">
                         {ally.name}
                       </h2>
                       <p className="text-[15px] md:text-base text-ink leading-relaxed mb-3">
@@ -102,7 +94,7 @@ export default function AlliesPage() {
                         {ally.supports.map((tag) => (
                           <span
                             key={tag}
-                            className="inline-flex items-center h-7 px-2.5 bg-sand border border-divider rounded-full text-[12px] font-medium text-body-text"
+                            className="inline-flex items-center h-7 px-2.5 bg-sand border border-divider rounded-md text-[12px] font-medium text-body-text"
                           >
                             {tag}
                           </span>
@@ -128,7 +120,7 @@ export default function AlliesPage() {
           <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-2">
             Are you a supporting organization?
           </p>
-          <h2 className="text-2xl md:text-3xl font-bold text-ink leading-tight mb-3">
+          <h2 className="font-display text-3xl md:text-[2.25rem] text-ink leading-tight mb-3">
             If your group funds, trains, or backs Carteret County non-profits, you belong here.
           </h2>
           <p className="text-[15px] md:text-base text-body-text leading-relaxed mb-6 max-w-2xl">
@@ -138,7 +130,7 @@ export default function AlliesPage() {
           </p>
           <a
             href="mailto:committee@carteretassisthub.org"
-            className="inline-flex items-center gap-2 h-11 px-5 bg-primary text-white text-sm font-semibold rounded-lg hover:bg-primary-500 transition-colors"
+            className="inline-flex items-center gap-2 h-11 px-5 bg-seafoam text-ink text-sm font-semibold rounded-lg hover:bg-seafoam-deep transition-colors"
           >
             <Mail className="h-4 w-4" />
             committee@carteretassisthub.org

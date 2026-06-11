@@ -4,13 +4,14 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * ASSIST HUB — DESIGN TOKENS (clean + warm)
+ * ASSIST HUB — DESIGN TOKENS (coastal editorial)
  *
- * Direction: a warm, utility-first community site. Inter throughout, soft
- * off-white background, one calm teal accent. The 13 sector colors are
- * kept for small indicator dots only — they don't run the typography or
- * dominate the UI. Optimized for readability and low cognitive load, not
- * editorial impact.
+ * Direction: a civic directory with magazine bones. Fraunces display serif
+ * for headlines, Inter for body. Warm paper neutrals, one soft seafoam
+ * accent for primary actions (ink text on seafoam — never white-on-teal),
+ * deep harbor teal for links and interactive states. Hairline rules,
+ * controlled 6/8/12px radii — no pills, no gradients. The 13 sector colors
+ * stay as small indicator dots only.
  */
 
 @theme inline {
@@ -19,21 +20,28 @@
   --font-sans: var(--font-body);
   --font-mono: var(--font-mono);
 
-  /* Neutrals — warm, not cold blue-gray */
+  /* Neutrals — "sea mist": a soft cool off-white canvas with pure-white
+   * cards floating on top. Not cream (too warm/dated), not stark white
+   * (too clinical). Cards separate from the page by tone AND a hairline. */
   --color-surface: #FFFFFF;
-  --color-canvas: #FAFAF7;
-  --color-sand: #F5F3EE;
-  --color-sand-deep: #EEEBE2;
-  --color-ink: #1C1F26;
+  --color-canvas: #F1F4F4;
+  --color-sand: #E7ECED;
+  --color-sand-deep: #DBE2E3;
+  --color-ink: #15181E;
   --color-body-text: #3A3F4A;
-  --color-muted-text: #6B7280;
-  --color-divider: #E5E3DC;
-  --color-rule: #D4D1C8;
+  --color-muted-text: #697079;
+  --color-divider: #E0E5E6;
+  --color-rule: #CCD3D4;
 
-  /* Warm teal as the one primary accent */
-  --color-primary-600: #0F766E;
-  --color-primary-500: #14857C;
-  --color-primary-100: #DDEFE9;
+  /* Harbor teal — links, hover states, interactive ink */
+  --color-primary-600: #1F5F6B;
+  --color-primary-500: #2A7383;
+  --color-primary-100: #E0EDF0;
+
+  /* Seafoam — the one accent surface; always carries ink text */
+  --color-seafoam: #9DC9D5;
+  --color-seafoam-deep: #7FB4C3;
+  --color-seafoam-tint: #E6F1F4;
 
   /* Warm secondary — used sparingly */
   --color-warm-600: #B45309;
@@ -92,38 +100,38 @@
 }
 
 :root {
-  --radius: 0.625rem; /* 10px — comfortable rounded corners */
-  --background: #FAFAF7;
-  --foreground: #1C1F26;
+  --radius: 0.5rem; /* 8px — controlled rounding; never pills */
+  --background: #F1F4F4;
+  --foreground: #15181E;
   --card: #FFFFFF;
-  --card-foreground: #1C1F26;
+  --card-foreground: #15181E;
   --popover: #FFFFFF;
-  --popover-foreground: #1C1F26;
-  --primary: #0F766E;
+  --popover-foreground: #15181E;
+  --primary: #1F5F6B;
   --primary-foreground: #FFFFFF;
-  --secondary: #F5F3EE;
-  --secondary-foreground: #1C1F26;
-  --muted: #F5F3EE;
-  --muted-foreground: #6B7280;
-  --accent: #DDEFE9;
-  --accent-foreground: #0F766E;
+  --secondary: #E7ECED;
+  --secondary-foreground: #15181E;
+  --muted: #E7ECED;
+  --muted-foreground: #697079;
+  --accent: #E6F1F4;
+  --accent-foreground: #1F5F6B;
   --destructive: #B54339;
-  --border: #E5E3DC;
-  --input: #E5E3DC;
-  --ring: #0F766E;
-  --chart-1: #0F766E;
+  --border: #E0E5E6;
+  --input: #E0E5E6;
+  --ring: #1F5F6B;
+  --chart-1: #1F5F6B;
   --chart-2: #C87941;
   --chart-3: #5C7F63;
   --chart-4: #8D74A3;
   --chart-5: #5B7A8F;
   --sidebar: #FFFFFF;
   --sidebar-foreground: #1C1F26;
-  --sidebar-primary: #0F766E;
+  --sidebar-primary: #1F5F6B;
   --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent: #F5F3EE;
   --sidebar-accent-foreground: #1C1F26;
   --sidebar-border: #E5E3DC;
-  --sidebar-ring: #0F766E;
+  --sidebar-ring: #1F5F6B;
 }
 
 @layer base {
@@ -140,7 +148,14 @@
     font-size: 16px;
     line-height: 1.6;
   }
-  h1, h2, h3, h4, h5, h6 {
+  h1, h2, h3 {
+    @apply text-ink;
+    font-family: var(--font-display), Georgia, 'Times New Roman', serif;
+    font-weight: 560;
+    letter-spacing: -0.01em;
+    font-variation-settings: 'SOFT' 40;
+  }
+  h4, h5, h6 {
     @apply text-ink;
     font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
     letter-spacing: -0.015em;
@@ -152,6 +167,10 @@
 }
 
 @layer utilities {
+  .font-display {
+    font-family: var(--font-display), Georgia, 'Times New Roman', serif;
+    font-variation-settings: 'SOFT' 40;
+  }
   .font-mono {
     font-family: var(--font-mono), ui-monospace, monospace;
   }

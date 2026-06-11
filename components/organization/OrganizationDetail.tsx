@@ -50,7 +50,7 @@ export function OrganizationDetail({ org, needs }: Props) {
               <span className="text-xs text-muted-text">{primarySector.name}</span>
             </div>
           )}
-          <h1 className="text-3xl md:text-5xl font-bold text-ink leading-tight mb-4">
+          <h1 className="font-display text-4xl md:text-[3.5rem] text-ink leading-[1.08] mb-5">
             {org.name}
           </h1>
           {mission && (
@@ -73,7 +73,7 @@ export function OrganizationDetail({ org, needs }: Props) {
                   {org.assistance_types.map((svc) => (
                     <span
                       key={svc}
-                      className="text-sm px-3 py-1.5 bg-sand border border-divider rounded-full text-body-text"
+                      className="text-sm px-3 py-1.5 bg-sand border border-divider rounded-md text-body-text"
                     >
                       {svc}
                     </span>
@@ -91,7 +91,7 @@ export function OrganizationDetail({ org, needs }: Props) {
                   {(org.who_served ?? []).map((w) => (
                     <span
                       key={w}
-                      className="text-sm px-3 py-1.5 bg-sand border border-divider rounded-full text-body-text"
+                      className="text-sm px-3 py-1.5 bg-sand border border-divider rounded-md text-body-text"
                     >
                       {w}
                     </span>
@@ -194,7 +194,7 @@ export function OrganizationDetail({ org, needs }: Props) {
               {needs.map((need) => (
                 <div
                   key={need.id}
-                  className="bg-surface border border-divider rounded-lg p-5 flex flex-col"
+                  className="bg-surface border border-divider rounded-xl p-5 flex flex-col"
                 >
                   {need.time_commitment && (
                     <p className="text-xs text-muted-text mb-2 flex items-center gap-1">
@@ -202,7 +202,7 @@ export function OrganizationDetail({ org, needs }: Props) {
                       {need.time_commitment}
                     </p>
                   )}
-                  <h3 className="font-semibold text-ink text-[17px] leading-snug mb-2">
+                  <h3 className="font-display text-[1.1rem] text-ink leading-snug mb-2">
                     {locale === 'es' && need.title_es ? need.title_es : need.title}
                   </h3>
                   <p className="text-sm text-body-text leading-relaxed line-clamp-3 mb-4 flex-1">

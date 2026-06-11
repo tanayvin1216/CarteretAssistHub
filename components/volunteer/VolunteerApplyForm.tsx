@@ -96,7 +96,7 @@ export function VolunteerApplyForm({ needContext, orgContext }: Props) {
               <span className="text-xs text-muted-text">{sector.name}</span>
             </div>
           )}
-          <h1 className="text-3xl md:text-4xl font-bold text-ink leading-tight mb-3">
+          <h1 className="font-display text-4xl md:text-[3rem] leading-[1.1] text-ink leading-tight mb-3">
             {needContext ? needContext.title : t('volunteer.applyGeneral')}
           </h1>
           {needContext?.organization && (
@@ -175,7 +175,7 @@ export function VolunteerApplyForm({ needContext, orgContext }: Props) {
             <button
               type="submit"
               disabled={submitting}
-              className="inline-flex items-center gap-2 h-11 px-5 bg-primary text-white text-sm font-semibold rounded-lg hover:bg-primary-500 transition-colors disabled:opacity-60 shadow-sm"
+              className="inline-flex items-center gap-2 h-11 px-5 bg-seafoam text-ink text-sm font-semibold rounded-lg hover:bg-seafoam-deep transition-colors disabled:opacity-60 shadow-sm"
             >
               {submitting ? t('common.loading') : t('volunteer.applyForm.submit')}
               <Send className="h-3.5 w-3.5" />
