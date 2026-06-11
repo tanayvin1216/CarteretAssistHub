@@ -139,6 +139,8 @@ export interface Organization {
   additional_sector_slugs: string[];
   mission: string | null;
   mission_es: string | null;
+  is_featured: boolean;
+  display_order: number | null;
 }
 
 export interface VolunteerNeed {

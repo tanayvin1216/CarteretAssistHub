@@ -61,6 +61,8 @@ export async function getOrganizationsBySector(supabase: Client, sectorSlug: str
     .select('*')
     .or(`sector_slug.eq.${sectorSlug},additional_sector_slugs.cs.{${sectorSlug}}`)
     .eq('is_active', true)
+    .order('is_featured', { ascending: false })
+    .order('display_order', { ascending: true, nullsFirst: false })
     .order('name');
   if (error) {
     console.error('getOrganizationsBySector error', error);
@@ -74,6 +76,8 @@ export async function getAllOrganizations(supabase: Client): Promise<Organizatio
     .from('organizations')
     .select('*')
     .eq('is_active', true)
+    .order('is_featured', { ascending: false })
+    .order('display_order', { ascending: true, nullsFirst: false })
     .order('name');
   if (error) {
     console.error('getAllOrganizations error', error);

@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { Plus, Search, Trash2, Pencil, Check, X } from 'lucide-react';
+import { Plus, Search, Trash2, Pencil, Check, X, Star } from 'lucide-react';
 import { toast } from 'sonner';
 import { createClient } from '@/lib/supabase/client';
 import type { Organization } from '@/types/database';
@@ -26,6 +26,8 @@ type Draft = {
   assistance_types: string[];
   spanish_available: boolean;
   is_active: boolean;
+  is_featured: boolean;
+  display_order: number | null;
   sector_slug: string | null;
 };
 
@@ -41,6 +43,8 @@ const EMPTY_DRAFT: Draft = {
   assistance_types: [],
   spanish_available: false,
   is_active: true,
+  is_featured: false,
+  display_order: null,
   sector_slug: null,
 };
 
@@ -78,8 +82,26 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
       assistance_types: o.assistance_types ?? [],
       spanish_available: o.spanish_available,
       is_active: o.is_active,
+      is_featured: o.is_featured ?? false,
+      display_order: o.display_order ?? null,
       sector_slug: o.sector_slug,
     });
+
+  const toggleFeatured = async (o: Organization) => {
+    const next = !o.is_featured;
+    setOrgs((cur) => cur.map((x) => (x.id === o.id ? { ...x, is_featured: next } : x)));
+    const supabase = createClient();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await (supabase.from('organizations') as any)
+      .update({ is_featured: next })
+      .eq('id', o.id);
+    if (error) {
+      setOrgs((cur) => cur.map((x) => (x.id === o.id ? { ...x, is_featured: o.is_featured } : x)));
+      toast.error('Update failed.');
+    } else {
+      toast.success(next ? 'Featured.' : 'Unfeatured.');
+    }
+  };
 
   const onSave = async () => {
     if (!editing) return;
@@ -100,6 +122,8 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
       assistance_types: editing.assistance_types,
       spanish_available: editing.spanish_available,
       is_active: editing.is_active,
+      is_featured: editing.is_featured,
+      display_order: editing.display_order,
       sector_slug: editing.sector_slug,
       sector_id: sectorId,
     };
@@ -184,10 +208,10 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
       <table className="w-full bg-card border border-divider rounded-sm overflow-hidden">
         <thead>
           <tr className="text-left text-[10px] uppercase tracking-[0.2em] text-muted-text border-b border-divider">
+            <th className="px-4 py-3 w-12"></th>
             <th className="px-4 py-3">Name</th>
             <th className="px-4 py-3 w-40">Sector</th>
             <th className="px-4 py-3 w-32">Town</th>
-            <th className="px-4 py-3 w-40">Phone</th>
             <th className="px-4 py-3 w-24">Status</th>
             <th className="px-4 py-3 w-24"></th>
           </tr>
@@ -195,7 +219,7 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
         <tbody>
           {filtered.length === 0 ? (
             <tr>
-              <td colSpan={6} className="px-4 py-10 text-sm text-muted-text text-center">
+              <td colSpan={7} className="px-4 py-10 text-sm text-muted-text text-center">
                 No organizations. Click <em>New organization</em> to add one.
               </td>
             </tr>
@@ -204,6 +228,18 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
               const sector = o.sector_slug ? sectorBySlug(o.sector_slug) : null;
               return (
                 <tr key={o.id} className="border-b border-divider hover:bg-sand/50">
+                  <td className="px-4 py-3">
+                    <button
+                      onClick={() => toggleFeatured(o)}
+                      aria-label={o.is_featured ? 'Unfeature' : 'Feature'}
+                      title={o.is_featured ? 'Featured — shown first' : 'Feature this org'}
+                      className="inline-flex items-center justify-center w-7 h-7 transition-colors"
+                    >
+                      <Star
+                        className={`h-4 w-4 ${o.is_featured ? 'fill-warm-600 text-warm-600' : 'text-rule hover:text-warm-600'}`}
+                      />
+                    </button>
+                  </td>
                   <td className="px-4 py-3">
                     <p className="text-base text-ink">{o.name}</p>
                     {o.mission && (
@@ -220,7 +256,6 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
                     )}
                   </td>
                   <td className="px-4 py-3 text-sm text-body-text">{o.town}</td>
-                  <td className="px-4 py-3 text-sm text-body-text">{o.phone}</td>
                   <td className="px-4 py-3">
                     {o.is_active ? (
                       <span className="text-[10px] uppercase tracking-[0.18em] text-sector-environment">Active</span>
@@ -357,6 +392,30 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
                   className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
                 />
               </DraftField>
+              <div className="grid grid-cols-2 gap-4">
+                <DraftField label="Display order (lower = first; blank = A–Z)">
+                  <input
+                    type="number"
+                    value={editing.display_order ?? ''}
+                    onChange={(e) =>
+                      setEditing({
+                        ...editing,
+                        display_order: e.target.value === '' ? null : Number(e.target.value),
+                      })
+                    }
+                    placeholder="—"
+                    className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
+                  />
+                </DraftField>
+                <label className="flex items-center gap-2 text-sm self-end pb-2.5">
+                  <input
+                    type="checkbox"
+                    checked={editing.is_featured}
+                    onChange={(e) => setEditing({ ...editing, is_featured: e.target.checked })}
+                  />
+                  Featured (pinned to top)
+                </label>
+              </div>
               <div className="flex items-center gap-6 pt-2">
                 <label className="flex items-center gap-2 text-sm">
                   <input

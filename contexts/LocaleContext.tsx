@@ -4,6 +4,9 @@ import { createContext, useCallback, useContext, useMemo, useState } from 'react
 import type { Locale, MessageKey } from '@/lib/i18n/dictionary';
 import { t as translate } from '@/lib/i18n/dictionary';
 
+/** Admin-editable copy overrides, keyed by locale then message key. */
+export type MessageOverrides = Partial<Record<Locale, Partial<Record<string, string>>>>;
+
 interface LocaleContextValue {
   locale: Locale;
   setLocale: (next: Locale) => void;
@@ -14,9 +17,11 @@ const LocaleContext = createContext<LocaleContextValue | null>(null);
 
 export function LocaleProvider({
   initialLocale,
+  overrides,
   children,
 }: {
   initialLocale: Locale;
+  overrides?: MessageOverrides;
   children: React.ReactNode;
 }) {
   const [locale, setLocaleState] = useState<Locale>(initialLocale);
@@ -30,9 +35,14 @@ export function LocaleProvider({
     () => ({
       locale,
       setLocale,
-      t: (key) => translate(locale, key),
+      // Admin override wins when present and non-empty; otherwise fall back to
+      // the hardcoded dictionary so a missing/blank row never blanks the page.
+      t: (key) => {
+        const override = overrides?.[locale]?.[key];
+        return override && override.trim() ? override : translate(locale, key);
+      },
     }),
-    [locale, setLocale],
+    [locale, setLocale, overrides],
   );
 
   return <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>;

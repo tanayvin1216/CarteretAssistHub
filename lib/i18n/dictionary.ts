@@ -61,6 +61,12 @@ export type MessageKey =
   | 'getHelp.lede'
   | 'getHelp.pickCategory'
   | 'getHelp.seeAll'
+  | 'about.eyebrow'
+  | 'about.title'
+  | 'about.lede'
+  | 'allies.eyebrow'
+  | 'allies.title'
+  | 'allies.lede'
   | 'volunteer.title'
   | 'volunteer.lede'
   | 'volunteer.empty'
@@ -157,6 +163,14 @@ export const messages: Record<Locale, Record<MessageKey, string>> = {
       'Pick a category. We\'ll show you organizations in Carteret County that can help — where they are, when they\'re open, and how to reach them.',
     'getHelp.pickCategory': 'Choose a category',
     'getHelp.seeAll': 'See every organization',
+    'about.eyebrow': 'About',
+    'about.title': 'About Assist Hub',
+    'about.lede':
+      'A single directory of the people and organizations taking care of Carteret County, NC.',
+    'allies.eyebrow': 'The network behind the network',
+    'allies.title': 'Allies & Funders',
+    'allies.lede':
+      'Local foundations, giving circles, and peer-support networks that fund and resource Carteret County non-profits. They don’t serve residents directly — they make sure the organizations that do can keep going.',
     'volunteer.title': 'Ways to volunteer',
     'volunteer.lede':
       'Roles posted by Carteret County non-profits. Apply to a specific role, or submit a general application and we\'ll match you.',
@@ -257,6 +271,14 @@ export const messages: Record<Locale, Record<MessageKey, string>> = {
       'Elija una categoría. Le mostraremos organizaciones del condado de Carteret que pueden ayudar — dónde están, cuándo están abiertas y cómo contactarlas.',
     'getHelp.pickCategory': 'Elegir una categoría',
     'getHelp.seeAll': 'Ver todas las organizaciones',
+    'about.eyebrow': 'Acerca de',
+    'about.title': 'Acerca de Assist Hub',
+    'about.lede':
+      'Un directorio único de las personas y organizaciones que cuidan del Condado de Carteret, NC.',
+    'allies.eyebrow': 'La red detrás de la red',
+    'allies.title': 'Aliados y Financiadores',
+    'allies.lede':
+      'Fundaciones locales, círculos de donación y redes de apoyo que financian y dan recursos a las organizaciones sin fines de lucro del Condado de Carteret. No atienden directamente a los residentes — se aseguran de que las organizaciones que sí lo hacen puedan seguir adelante.',
     'volunteer.title': 'Formas de ser voluntario',
     'volunteer.lede':
       'Puestos publicados por organizaciones sin fines de lucro del condado de Carteret. Postule a un puesto específico o envíe una solicitud general y lo emparejaremos.',

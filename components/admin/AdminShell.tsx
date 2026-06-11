@@ -10,6 +10,8 @@ import {
   HandHeart,
   Users,
   UserCog,
+  FileText,
+  Settings,
   LogOut,
   ExternalLink,
 } from 'lucide-react';
@@ -23,6 +25,8 @@ const NAV = [
   { href: '/admin/volunteer-needs', label: 'Volunteer roles', icon: HandHeart },
   { href: '/admin/applications', label: 'Applications', icon: Users },
   { href: '/admin/subcommittee-leads', label: 'Subcommittee leads', icon: UserCog },
+  { href: '/admin/content', label: 'Site content', icon: FileText },
+  { href: '/admin/settings', label: 'Settings', icon: Settings },
 ];
 
 export function AdminShell({
