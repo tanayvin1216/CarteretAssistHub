@@ -36,6 +36,7 @@ next-env.d.ts
 # editor
 .idea/
 .vscode/
+.claude/
 
 supabase/.temp/
 supabase/.branches/
