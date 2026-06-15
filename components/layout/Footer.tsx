@@ -63,6 +63,18 @@ export function Footer() {
         <div className="container-readable py-5 flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-muted-text">
           <p>{t('footer.copyright')}</p>
           <p>
+            Built by Tanay Vinaykya (
+            <a
+              href="https://tanayvin.com"
+              className="underline hover:text-primary"
+              target="_blank"
+              rel="noreferrer"
+            >
+              tanayvin.com
+            </a>
+            )
+          </p>
+          <p>
             A sister site of{' '}
             <a
               href={sisterSiteUrl}
