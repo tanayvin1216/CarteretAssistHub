@@ -129,11 +129,11 @@ export default function AlliesPage() {
             Email the committee and we&apos;ll get you listed.
           </p>
           <a
-            href="mailto:committee@carteretassisthub.org"
+            href="mailto:communityservicecarteret@gmail.com"
             className="inline-flex items-center gap-2 h-11 px-5 bg-seafoam text-ink text-sm font-semibold rounded-lg hover:bg-seafoam-deep transition-colors"
           >
             <Mail className="h-4 w-4" />
-            committee@carteretassisthub.org
+            communityservicecarteret@gmail.com
           </a>
           <div className="mt-8 pt-8 border-t border-divider flex items-center gap-4 flex-wrap">
             <Link

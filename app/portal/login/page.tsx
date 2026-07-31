@@ -44,11 +44,11 @@ export default function OrgPortalComingSoon() {
           <div className="bg-sand border border-divider rounded-lg p-4">
             <p className="text-xs font-semibold text-ink mb-2">Reach us in the meantime</p>
             <a
-              href="mailto:committee@carteretassisthub.org"
+              href="mailto:communityservicecarteret@gmail.com"
               className="inline-flex items-center gap-2 text-sm text-primary font-semibold hover:underline underline-offset-4"
             >
               <Mail className="h-4 w-4" />
-              committee@carteretassisthub.org
+              communityservicecarteret@gmail.com
             </a>
           </div>
           <p className="text-xs text-muted-text mt-6 pt-6 border-t border-divider">

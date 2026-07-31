@@ -59,11 +59,11 @@ export default function AboutPage() {
               we&apos;ll get you set up.
             </p>
             <a
-              href="mailto:committee@carteretassisthub.org"
+              href="mailto:communityservicecarteret@gmail.com"
               className="inline-flex items-center gap-2 h-11 px-5 bg-seafoam text-ink text-sm font-semibold rounded-lg hover:bg-seafoam-deep transition-colors"
             >
               <Mail className="h-4 w-4" />
-              committee@carteretassisthub.org
+              communityservicecarteret@gmail.com
             </a>
           </div>
 
