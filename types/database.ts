@@ -57,6 +57,14 @@ export type Database = {
         };
         Update: Partial<VolunteerApplication>;
       };
+      community_reports: {
+        Row: CommunityReport;
+        Insert: Omit<CommunityReport, 'id' | 'created_at'> & {
+          id?: string;
+          created_at?: string;
+        };
+        Update: Partial<CommunityReport>;
+      };
       profiles: {
         Row: Profile;
         Insert: Omit<Profile, 'created_at'> & { created_at?: string };
@@ -170,6 +178,22 @@ export interface VolunteerApplication {
   hours_per_week: string | null;
   availability: string | null;
   status: 'pending' | 'approved' | 'rejected' | 'contacted';
+  review_notes: string | null;
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+  created_at: string;
+}
+
+export interface CommunityReport {
+  id: string;
+  report_type: 'listing_issue' | 'unmet_need' | 'other';
+  sector_slug: string | null;
+  organization_id: string | null;
+  details: string;
+  reporter_name: string | null;
+  reporter_email: string | null;
+  reporter_phone: string | null;
+  status: 'new' | 'reviewing' | 'resolved' | 'dismissed';
   review_notes: string | null;
   reviewed_by: string | null;
   reviewed_at: string | null;

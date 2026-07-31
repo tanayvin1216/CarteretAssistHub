@@ -21,6 +21,7 @@ const NAV_ITEMS = [
   { href: '/volunteer', labelKey: 'nav.volunteer' as const },
   { href: '/allies', labelKey: 'nav.allies' as const },
   { href: '/about', labelKey: 'nav.about' as const },
+  { href: '/report', labelKey: 'nav.report' as const },
 ];
 
 /**

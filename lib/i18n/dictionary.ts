@@ -24,6 +24,7 @@ export type MessageKey =
   | 'nav.getHelp'
   | 'nav.about'
   | 'nav.allies'
+  | 'nav.report'
   | 'nav.signIn'
   | 'nav.signInOrg'
   | 'nav.signInOrgHint'
@@ -90,6 +91,31 @@ export type MessageKey =
   | 'volunteer.applyForm.submit'
   | 'volunteer.applyForm.success'
   | 'volunteer.applyForm.error'
+  | 'report.eyebrow'
+  | 'report.title'
+  | 'report.lede'
+  | 'report.form.type'
+  | 'report.type.listing_issue'
+  | 'report.type.listing_issueHint'
+  | 'report.type.unmet_need'
+  | 'report.type.unmet_needHint'
+  | 'report.type.other'
+  | 'report.type.otherHint'
+  | 'report.form.organization'
+  | 'report.form.organizationHint'
+  | 'report.form.sector'
+  | 'report.form.sectorHint'
+  | 'report.form.none'
+  | 'report.form.details'
+  | 'report.form.detailsHint'
+  | 'report.form.contactTitle'
+  | 'report.form.contactLede'
+  | 'report.form.name'
+  | 'report.form.email'
+  | 'report.form.phone'
+  | 'report.form.submit'
+  | 'report.form.success'
+  | 'report.form.error'
   | 'org.directions'
   | 'org.website'
   | 'org.phone'
@@ -122,6 +148,7 @@ export const messages: Record<Locale, Record<MessageKey, string>> = {
     'nav.getHelp': 'Get help',
     'nav.about': 'About',
     'nav.allies': 'Allies',
+    'nav.report': 'Report',
     'nav.signIn': 'Sign in',
     'nav.signInOrg': 'Organization',
     'nav.signInOrgHint': 'Update your listing & review applications',
@@ -197,6 +224,34 @@ export const messages: Record<Locale, Record<MessageKey, string>> = {
     'volunteer.applyForm.submit': 'Send application',
     'volunteer.applyForm.success': 'Sent. The organization will be in touch.',
     'volunteer.applyForm.error': 'Something went wrong. Please try again.',
+    'report.eyebrow': 'Tell the committee',
+    'report.title': 'Something we should know about?',
+    'report.lede':
+      'This directory is only as good as the county keeps it. If a listing is wrong, a program has closed, or you see a need nobody is covering — tell us. Reports go straight to the community service committee.',
+    'report.form.type': 'What are you reporting?',
+    'report.type.listing_issue': 'A listing is wrong or closed',
+    'report.type.listing_issueHint': 'Bad hours, disconnected phone, a program that no longer runs.',
+    'report.type.unmet_need': 'An unmet need in the county',
+    'report.type.unmet_needHint': 'A gap in coverage — something people need and nobody provides.',
+    'report.type.other': 'Something else',
+    'report.type.otherHint': 'Anything the committee should hear about.',
+    'report.form.organization': 'Which organization?',
+    'report.form.organizationHint': 'Leave blank if it isn\'t one of these.',
+    'report.form.sector': 'Which sector does this fall under?',
+    'report.form.sectorHint': 'Optional — helps us route it to the right subcommittee.',
+    'report.form.none': 'Not sure / not listed',
+    'report.form.details': 'What should we know?',
+    'report.form.detailsHint':
+      'Be as specific as you can — what you saw, when, and what should change.',
+    'report.form.contactTitle': 'How to reach you (optional)',
+    'report.form.contactLede':
+      'Leave this blank to report anonymously. We only use it if we need to follow up.',
+    'report.form.name': 'Your name',
+    'report.form.email': 'Email',
+    'report.form.phone': 'Phone',
+    'report.form.submit': 'Send report',
+    'report.form.success': 'Report sent. Thank you.',
+    'report.form.error': 'Something went wrong. Please try again.',
     'org.directions': 'Get directions',
     'org.website': 'Website',
     'org.phone': 'Phone',
@@ -214,7 +269,7 @@ export const messages: Record<Locale, Record<MessageKey, string>> = {
     'footer.contact': 'Get in touch',
     'footer.contactLede':
       'Run a non-profit, support other non-profits, or have a volunteer opportunity to post? Email the committee.',
-    'footer.contactEmail': 'committee@carteretassisthub.org',
+    'footer.contactEmail': 'communityservicecarteret@gmail.com',
     'footer.copyright': '© 2026 Carteret County Community Service Committee.',
     'common.loading': 'Loading…',
     'common.error': 'Something went wrong.',
@@ -230,6 +285,7 @@ export const messages: Record<Locale, Record<MessageKey, string>> = {
     'nav.getHelp': 'Obtener ayuda',
     'nav.about': 'Acerca de',
     'nav.allies': 'Aliados',
+    'nav.report': 'Reportar',
     'nav.signIn': 'Iniciar sesión',
     'nav.signInOrg': 'Organización',
     'nav.signInOrgHint': 'Actualizar su listado y revisar solicitudes',
@@ -305,6 +361,36 @@ export const messages: Record<Locale, Record<MessageKey, string>> = {
     'volunteer.applyForm.submit': 'Enviar solicitud',
     'volunteer.applyForm.success': 'Enviado. La organización se pondrá en contacto.',
     'volunteer.applyForm.error': 'Algo salió mal. Por favor, inténtelo de nuevo.',
+    'report.eyebrow': 'Informe al comité',
+    'report.title': '¿Hay algo que debamos saber?',
+    'report.lede':
+      'Este directorio solo funciona si el condado lo mantiene al día. Si un listado está incorrecto, un programa cerró, o usted ve una necesidad que nadie está cubriendo — díganos. Los reportes llegan directamente al comité de servicio comunitario.',
+    'report.form.type': '¿Qué desea reportar?',
+    'report.type.listing_issue': 'Un listado está incorrecto o cerrado',
+    'report.type.listing_issueHint':
+      'Horario equivocado, teléfono desconectado, un programa que ya no existe.',
+    'report.type.unmet_need': 'Una necesidad sin cubrir en el condado',
+    'report.type.unmet_needHint':
+      'Un vacío en la cobertura — algo que la gente necesita y nadie ofrece.',
+    'report.type.other': 'Otra cosa',
+    'report.type.otherHint': 'Cualquier cosa que el comité deba saber.',
+    'report.form.organization': '¿Cuál organización?',
+    'report.form.organizationHint': 'Déjelo en blanco si no es ninguna de estas.',
+    'report.form.sector': '¿A qué sector corresponde?',
+    'report.form.sectorHint': 'Opcional — nos ayuda a enviarlo al subcomité correcto.',
+    'report.form.none': 'No estoy seguro / no aparece',
+    'report.form.details': '¿Qué debemos saber?',
+    'report.form.detailsHint':
+      'Sea lo más específico posible — qué vio, cuándo, y qué debería cambiar.',
+    'report.form.contactTitle': 'Cómo comunicarnos con usted (opcional)',
+    'report.form.contactLede':
+      'Deje esto en blanco para reportar de forma anónima. Solo lo usamos si necesitamos dar seguimiento.',
+    'report.form.name': 'Su nombre',
+    'report.form.email': 'Correo electrónico',
+    'report.form.phone': 'Teléfono',
+    'report.form.submit': 'Enviar reporte',
+    'report.form.success': 'Reporte enviado. Gracias.',
+    'report.form.error': 'Algo salió mal. Inténtelo de nuevo.',
     'org.directions': 'Cómo llegar',
     'org.website': 'Sitio web',
     'org.phone': 'Teléfono',
@@ -322,7 +408,7 @@ export const messages: Record<Locale, Record<MessageKey, string>> = {
     'footer.contact': 'Comuníquese',
     'footer.contactLede':
       '¿Dirige una organización sin fines de lucro, apoya a otras, o tiene una oportunidad de voluntariado para publicar? Escríbale al comité.',
-    'footer.contactEmail': 'committee@carteretassisthub.org',
+    'footer.contactEmail': 'communityservicecarteret@gmail.com',
     'footer.copyright': '© 2026 Comité de Servicio Comunitario del Condado de Carteret.',
     'common.loading': 'Cargando…',
     'common.error': 'Algo salió mal.',

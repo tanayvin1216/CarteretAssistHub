@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 export default async function AdminOverviewPage() {
   const supabase = await createClient();
 
-  const [sectorsRes, orgsRes, needsRes, appsRes] = await Promise.all([
+  const [sectorsRes, orgsRes, needsRes, appsRes, reportsRes] = await Promise.all([
     supabase.from('sectors').select('id, slug, name, status, accent_color, numeral'),
     supabase.from('organizations').select('id', { count: 'exact', head: true }).eq('is_active', true),
     supabase.from('volunteer_needs').select('id', { count: 'exact', head: true }).eq('is_active', true),
@@ -16,11 +16,17 @@ export default async function AdminOverviewPage() {
       .from('volunteer_applications')
       .select('id, status', { count: 'exact' })
       .order('created_at', { ascending: false }),
+    supabase
+      .from('community_reports')
+      .select('id, status', { count: 'exact' })
+      .order('created_at', { ascending: false }),
   ]);
 
   const sectors = (sectorsRes.data ?? []) as Array<{ id: string; slug: string; name: string; status: string; accent_color: string; numeral: string }>;
   const applications = (appsRes.data ?? []) as Array<{ id: string; status: string }>;
   const pending = applications.filter((a) => a.status === 'pending').length;
+  const reports = (reportsRes.data ?? []) as Array<{ id: string; status: string }>;
+  const unreviewedReports = reports.filter((r) => r.status === 'new').length;
 
   return (
     <div className="px-8 py-10 max-w-6xl">
@@ -31,11 +37,12 @@ export default async function AdminOverviewPage() {
         Dashboard
       </h1>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-12">
         <Stat label="Sectors" value={sectors.length || 13} note={`${sectors.filter((s) => s.status === 'active').length} active`} />
         <Stat label="Organizations" value={orgsRes.count ?? 0} />
         <Stat label="Open volunteer roles" value={needsRes.count ?? 0} />
         <Stat label="Applications" value={appsRes.count ?? 0} note={pending > 0 ? `${pending} pending` : undefined} />
+        <Stat label="Reports" value={reportsRes.count ?? 0} note={unreviewedReports > 0 ? `${unreviewedReports} new` : undefined} />
       </div>
 
       <section>
