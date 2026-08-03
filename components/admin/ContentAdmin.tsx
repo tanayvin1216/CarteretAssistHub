@@ -37,14 +37,18 @@ export function ContentAdmin({ rows }: { rows: SiteContentRow[] }) {
   }, [overrides]);
 
   const [values, setValues] = useState<Record<string, FieldValue>>(initial);
+  // The saved baseline the dirty check compares against. Held in state rather
+  // than read straight off `initial` so a successful save can move it forward
+  // without mutating a memoized value.
+  const [baseline, setBaseline] = useState<Record<string, FieldValue>>(initial);
   const [saving, setSaving] = useState(false);
 
   const dirty = useMemo(
     () =>
       Object.keys(values).some(
-        (k) => values[k].en !== initial[k]?.en || values[k].es !== initial[k]?.es,
+        (k) => values[k].en !== baseline[k]?.en || values[k].es !== baseline[k]?.es,
       ),
-    [values, initial],
+    [values, baseline],
   );
 
   const setField = (key: string, locale: 'en' | 'es', text: string) =>
@@ -58,7 +62,7 @@ export function ContentAdmin({ rows }: { rows: SiteContentRow[] }) {
     const supabase = createClient();
     const { data: userData } = await supabase.auth.getUser();
     const changed = Object.keys(values).filter(
-      (k) => values[k].en !== initial[k]?.en || values[k].es !== initial[k]?.es,
+      (k) => values[k].en !== baseline[k]?.en || values[k].es !== baseline[k]?.es,
     );
     const payload = changed.map((key) => ({
       key,
@@ -78,7 +82,7 @@ export function ContentAdmin({ rows }: { rows: SiteContentRow[] }) {
     } else {
       toast.success(`Saved ${payload.length} field${payload.length === 1 ? '' : 's'}. Live in ~5 min.`);
       // Reflect saved state as the new baseline without a reload.
-      for (const key of changed) initial[key] = { ...values[key] };
+      setBaseline(values);
     }
   };
 
