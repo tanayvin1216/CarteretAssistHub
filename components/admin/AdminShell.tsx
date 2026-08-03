@@ -8,7 +8,6 @@ import {
   Boxes,
   Building2,
   HandHeart,
-  Users,
   Flag,
   UserCog,
   FileText,
@@ -24,7 +23,9 @@ const NAV = [
   { href: '/admin/sectors', label: 'Sectors', icon: Boxes },
   { href: '/admin/organizations', label: 'Organizations', icon: Building2 },
   { href: '/admin/volunteer-needs', label: 'Volunteer roles', icon: HandHeart },
-  { href: '/admin/applications', label: 'Applications', icon: Users },
+  // Applications are the organizations' to work now (migration 006), so the
+  // county sidebar no longer surfaces them. The route itself still resolves
+  // for admins who have the link.
   { href: '/admin/reports', label: 'Reports', icon: Flag },
   { href: '/admin/subcommittee-leads', label: 'Subcommittee leads', icon: UserCog },
   { href: '/admin/content', label: 'Site content', icon: FileText },
