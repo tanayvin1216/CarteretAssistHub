@@ -126,6 +126,11 @@ export type MessageKey =
   | 'org.hours'
   | 'org.spanishAvailable'
   | 'org.activeNeeds'
+  | 'pdf.link'
+  | 'pdf.title'
+  | 'pdf.lede'
+  | 'pdf.cta'
+  | 'pdf.note'
   | 'footer.mission'
   | 'footer.committee'
   | 'footer.quickLinks'
@@ -262,6 +267,12 @@ export const messages: Record<Locale, Record<MessageKey, string>> = {
     'org.hours': 'Hours',
     'org.spanishAvailable': 'Spanish-language services available',
     'org.activeNeeds': 'Open volunteer roles',
+    'pdf.link': 'Printed directory (PDF)',
+    'pdf.title': 'Take the whole directory with you',
+    'pdf.lede':
+      'Every organization in the county, grouped by sector, typeset as a printable booklet — for waiting rooms, food pantry tables, home visits, and anyone who cannot get online.',
+    'pdf.cta': 'Download the PDF',
+    'pdf.note': 'Built fresh each time you download it, so it always matches the site.',
     'footer.mission':
       'A project of the Carteret County Democratic Party — Community Service Committee, in partnership with local non-profit partners. Listing an organization is free.',
     'footer.committee': 'Community Service Committee',
@@ -401,6 +412,12 @@ export const messages: Record<Locale, Record<MessageKey, string>> = {
     'org.hours': 'Horario',
     'org.spanishAvailable': 'Servicios disponibles en español',
     'org.activeNeeds': 'Puestos de voluntariado abiertos',
+    'pdf.link': 'Directorio impreso (PDF)',
+    'pdf.title': 'Lleve el directorio completo con usted',
+    'pdf.lede':
+      'Todas las organizaciones del condado, agrupadas por sector, en un folleto listo para imprimir — para salas de espera, despensas de alimentos, visitas a domicilio y quienes no pueden conectarse.',
+    'pdf.cta': 'Descargar el PDF',
+    'pdf.note': 'Se genera en el momento de la descarga, así que siempre coincide con el sitio.',
     'footer.mission':
       'Un proyecto del Partido Demócrata del Condado de Carteret — Comité de Servicio Comunitario, en colaboración con organizaciones sin fines de lucro locales. Listar una organización es gratis.',
     'footer.committee': 'Comité de Servicio Comunitario',

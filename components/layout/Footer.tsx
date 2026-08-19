@@ -2,12 +2,14 @@
 
 import Link from 'next/link';
 import { Mail } from 'lucide-react';
-import { useTranslation } from '@/contexts/LocaleContext';
+import { useLocale, useTranslation } from '@/contexts/LocaleContext';
 import { useSiteSettings } from '@/contexts/SiteSettingsContext';
 
 export function Footer() {
   const { t } = useTranslation();
+  const locale = useLocale();
   const { sisterSiteUrl } = useSiteSettings();
+  const directoryPdfHref = locale === 'es' ? '/directory.pdf?lang=es' : '/directory.pdf';
   const contactEmail = t('footer.contactEmail');
   return (
     <footer className="mt-24 bg-sand border-t border-divider">
@@ -36,6 +38,16 @@ export function Footer() {
             <li><Link href="/get-help" className="text-body-text hover:text-primary">{t('nav.getHelp')}</Link></li>
             <li><Link href="/volunteer" className="text-body-text hover:text-primary">{t('nav.volunteer')}</Link></li>
             <li><Link href="/allies" className="text-body-text hover:text-primary">{t('nav.allies')}</Link></li>
+            <li>
+              <a
+                href={directoryPdfHref}
+                target="_blank"
+                rel="noopener"
+                className="text-body-text hover:text-primary"
+              >
+                {t('pdf.link')}
+              </a>
+            </li>
             <li><Link href="/about" className="text-body-text hover:text-primary">{t('nav.about')}</Link></li>
             <li><Link href="/portal/login" className="text-body-text hover:text-primary">{t('nav.signInOrg')}</Link></li>
             <li><Link href="/admin/login" className="text-body-text hover:text-primary">{t('nav.signInAdmin')}</Link></li>

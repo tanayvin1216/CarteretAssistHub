@@ -30,12 +30,17 @@ For residents:
 - Browse local organizations across thirteen sectors of need
 - Start from "I need help," pick a category, and filter by town or Spanish-language availability
 - See one countywide volunteer board and apply to a specific role or send a general application
+- Download the whole directory as a printable PDF, in English or Spanish
+- Report a listing that has gone stale, or a need nobody in the county is covering
 - Read every public page in English or Spanish
 
 For the committee and partner organizations (admin dashboard + org portal):
 
-- Organizations manage their own listings, hours, and volunteer needs
-- Admins manage sectors, organizations, roles, and applications, and feature or reorder listings
+- Organizations sign in at `/portal` and manage their own listing, hours, volunteer roles, and the
+  applications sent to them — sector placement and featured position stay with the committee
+- Admins create and revoke organization logins, manage sectors, organizations, roles, and
+  applications, and feature or reorder listings
+- Admins triage the reports residents file about stale listings and unmet needs
 - Edit site copy, branding, and the hero image in both languages without touching code
 
 ## Built with
@@ -46,6 +51,7 @@ For the committee and partner organizations (admin dashboard + org portal):
 - [Supabase](https://supabase.com/) — Postgres, auth, and row-level security, shared with Food Assist
 - [Radix UI](https://www.radix-ui.com/) primitives with [shadcn/ui](https://ui.shadcn.com/)
 - [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/) for forms and validation
+- [pdf-lib](https://pdf-lib.js.org/) for the printable directory, typeset on the server
 - Hosted on [Vercel](https://vercel.com/)
 
 ## Contact

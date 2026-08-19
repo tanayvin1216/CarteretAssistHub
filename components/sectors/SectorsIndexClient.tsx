@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Download } from 'lucide-react';
 import { useLocale, useTranslation } from '@/contexts/LocaleContext';
 import { SECTORS } from '@/lib/sectors';
 import type { Sector } from '@/types/database';
@@ -17,6 +17,7 @@ export function SectorsIndexClient({
 }) {
   const { t } = useTranslation();
   const locale = useLocale();
+  const directoryPdfHref = locale === 'es' ? '/directory.pdf?lang=es' : '/directory.pdf';
 
   const rows = SECTORS.map((meta) => {
     const db = sectors.find((s) => s.slug === meta.slug);
@@ -117,6 +118,34 @@ export function SectorsIndexClient({
               </li>
             ))}
           </ol>
+        </div>
+      </section>
+
+      <section className="bg-background">
+        <div className="container-readable pb-16 md:pb-24">
+          <div className="bg-sand border border-divider rounded-2xl p-7 md:p-10 flex flex-col md:flex-row md:items-center gap-7">
+            <div className="min-w-0 flex-1">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary-600 mb-3">
+                {t('pdf.link')}
+              </p>
+              <h2 className="font-display text-2xl md:text-[2rem] leading-tight text-ink mb-3">
+                {t('pdf.title')}
+              </h2>
+              <p className="text-sm md:text-base text-body-text leading-relaxed max-w-xl">
+                {t('pdf.lede')}
+              </p>
+              <p className="text-xs text-muted-text mt-3">{t('pdf.note')}</p>
+            </div>
+            <a
+              href={directoryPdfHref}
+              target="_blank"
+              rel="noopener"
+              className="inline-flex items-center justify-center gap-2 h-12 px-6 shrink-0 bg-seafoam text-ink text-sm font-semibold rounded-lg hover:bg-seafoam-deep transition-colors shadow-sm"
+            >
+              <Download className="h-4 w-4" />
+              {t('pdf.cta')}
+            </a>
+          </div>
         </div>
       </section>
     </div>

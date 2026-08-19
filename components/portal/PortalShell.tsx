@@ -5,14 +5,9 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import {
   LayoutDashboard,
-  Boxes,
   Building2,
   HandHeart,
-  Flag,
-  UserCog,
-  KeyRound,
-  FileText,
-  Settings,
+  Inbox,
   LogOut,
   ExternalLink,
 } from 'lucide-react';
@@ -20,24 +15,20 @@ import { toast } from 'sonner';
 import { createClient } from '@/lib/supabase/client';
 
 const NAV = [
-  { href: '/admin', label: 'Overview', icon: LayoutDashboard, exact: true },
-  { href: '/admin/sectors', label: 'Sectors', icon: Boxes },
-  { href: '/admin/organizations', label: 'Organizations', icon: Building2 },
-  { href: '/admin/volunteer-needs', label: 'Volunteer roles', icon: HandHeart },
-  // Applications are the organizations' to work now (migration 006), so the
-  // county sidebar no longer surfaces them. The route itself still resolves
-  // for admins who have the link.
-  { href: '/admin/reports', label: 'Reports', icon: Flag },
-  { href: '/admin/subcommittee-leads', label: 'Subcommittee leads', icon: UserCog },
-  { href: '/admin/org-accounts', label: 'Organization logins', icon: KeyRound },
-  { href: '/admin/content', label: 'Site content', icon: FileText },
-  { href: '/admin/settings', label: 'Settings', icon: Settings },
+  { href: '/portal', label: 'Overview', icon: LayoutDashboard, exact: true },
+  { href: '/portal/listing', label: 'Our listing', icon: Building2 },
+  { href: '/portal/roles', label: 'Volunteer roles', icon: HandHeart },
+  { href: '/portal/applications', label: 'Applications', icon: Inbox },
 ];
 
-export function AdminShell({
+export function PortalShell({
+  organizationName,
+  organizationId,
   userEmail,
   children,
 }: {
+  organizationName: string;
+  organizationId: string;
   userEmail: string;
   children: React.ReactNode;
 }) {
@@ -50,7 +41,7 @@ export function AdminShell({
     const supabase = createClient();
     await supabase.auth.signOut();
     toast.success('Signed out.');
-    router.push('/admin/login');
+    router.push('/portal/login');
     router.refresh();
   };
 
@@ -60,7 +51,7 @@ export function AdminShell({
         <div className="px-6 py-6 border-b border-white/10">
           <Link href="/" className="block">
             <p className="text-[10px] uppercase tracking-widest text-white/50 mb-2 font-semibold">
-              Admin
+              Organization portal
             </p>
             <div className="flex items-baseline gap-0.5">
               <span className="text-xl font-extrabold tracking-tight leading-none text-white">
@@ -71,6 +62,7 @@ export function AdminShell({
               </span>
             </div>
           </Link>
+          <p className="text-xs text-white/60 mt-3 leading-snug">{organizationName}</p>
         </div>
         <nav className="flex-1 p-3">
           {NAV.map((item) => {
@@ -94,11 +86,11 @@ export function AdminShell({
         </nav>
         <div className="p-3 border-t border-white/10 space-y-1">
           <Link
-            href="/"
+            href={`/organizations/${organizationId}`}
             className="flex items-center gap-3 px-3 py-2 text-xs text-white/60 hover:text-white transition-colors"
           >
             <ExternalLink className="h-3.5 w-3.5" />
-            Public site
+            View public page
           </Link>
           <button
             onClick={onSignOut}
@@ -108,9 +100,7 @@ export function AdminShell({
             <LogOut className="h-3.5 w-3.5" />
             {signingOut ? 'Signing out…' : 'Sign out'}
           </button>
-          <div className="px-3 pt-2 pb-1 text-[10px] text-white/30 break-all">
-            {userEmail}
-          </div>
+          <div className="px-3 pt-2 pb-1 text-[10px] text-white/30 break-all">{userEmail}</div>
         </div>
       </aside>
 

@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
+import { useForm, type FieldErrors } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 import { Send } from 'lucide-react';
@@ -34,12 +34,21 @@ export function ReportForm({ organizations }: { organizations: ReportOrganizatio
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm<CommunityReportInput>({
     resolver: zodResolver(communityReportSchema),
   });
 
   const reportType = watch('report_type');
+
+  // The organization picker only exists for listing_issue reports. React Hook
+  // Form keeps the value of an unmounted field, so without this a report that
+  // started as a listing issue would carry a stale organization after the
+  // reporter switched to "unmet need" or "something else".
+  useEffect(() => {
+    if (reportType !== 'listing_issue') setValue('organization_id', '');
+  }, [reportType, setValue]);
 
   const onSubmit = async (values: CommunityReportInput) => {
     setSubmitting(true);
@@ -60,8 +69,11 @@ export function ReportForm({ organizations }: { organizations: ReportOrganizatio
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .insert(payload as any);
       if (error) {
-        toast.error(t('report.form.error'));
-        console.error(error);
+        // Show what actually failed rather than a generic message — a missing
+        // table or a blocked insert is otherwise indistinguishable from a
+        // network blip, and the reporter has no way to tell us either.
+        toast.error(`${t('report.form.error')} (${error.message})`);
+        console.error('community_reports insert failed', error);
         setSubmitting(false);
         return;
       }
@@ -72,6 +84,13 @@ export function ReportForm({ organizations }: { organizations: ReportOrganizatio
       toast.error(t('report.form.error'));
       setSubmitting(false);
     }
+  };
+
+  // A validation failure on a field that isn't currently rendered would
+  // otherwise leave the submit button looking inert.
+  const onInvalid = (fieldErrors: FieldErrors<CommunityReportInput>) => {
+    const first = Object.values(fieldErrors).find((e) => e?.message)?.message;
+    toast.error(first ? String(first) : t('report.form.error'));
   };
 
   return (
@@ -92,7 +111,7 @@ export function ReportForm({ organizations }: { organizations: ReportOrganizatio
 
       <section>
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(onSubmit, onInvalid)}
           className="container-readable max-w-2xl py-10 md:py-12 space-y-6"
         >
           <fieldset>
