@@ -5,32 +5,12 @@ import { useDeferredValue, useMemo, useState } from 'react';
 import { ExternalLink, Globe, Mail, MapPin, Phone, Printer, Search, X } from 'lucide-react';
 import { useLocale, useTranslation } from '@/contexts/LocaleContext';
 import { SECTORS } from '@/lib/sectors';
+import { fold, localized, noteLines, phoneLinks } from '@/lib/resources';
 import type { Resource, ResourceCategory } from '@/types/database';
 
 interface Props {
   categories: ResourceCategory[];
   resources: Resource[];
-}
-
-/** Prefer the Spanish edition's wording when reading in Spanish, English otherwise. */
-function localized(en: string | null, es: string | null, locale: string): string {
-  const preferred = locale === 'es' ? es : en;
-  return (preferred ?? en ?? es ?? '').trim();
-}
-
-/** Strip accents and punctuation so "Martha's" matches "marthas" and "José" matches "jose". */
-function fold(value: string): string {
-  return value
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, ' ')
-    .trim();
-}
-
-/** `tel:` needs digits only; the booklet writes numbers as 252-726-0031. */
-function telHref(phone: string): string {
-  return `tel:${phone.replace(/[^\d+]/g, '')}`;
 }
 
 export function ResourceDirectory({ categories, resources }: Props) {
@@ -327,6 +307,7 @@ function ResourceCard({ resource: r, locale }: { resource: Resource; locale: str
   const notes = localized(r.notes, r.notes_es, locale);
   const sector = SECTORS.find((s) => s.slug === r.sector_slug);
   const sectorName = sector && (locale === 'es' ? sector.nameEs : sector.name);
+  const phones = phoneLinks(r.phone);
 
   return (
     <li className="bg-surface border border-divider rounded-xl p-5 flex flex-col print:break-inside-avoid">
@@ -355,26 +336,27 @@ function ResourceCard({ resource: r, locale }: { resource: Resource; locale: str
       {notes && (
         /* The booklet breaks some notes across lines; `|` marks that break. */
         <p className="mt-2 text-xs text-body-text leading-relaxed">
-          {notes.split('|').map((line, i) => (
+          {noteLines(notes).map((line, i) => (
             <span key={i} className="block">
-              {line.trim()}
+              {line}
             </span>
           ))}
         </p>
       )}
 
-      {(r.phone || r.website || r.email) && (
+      {(phones.length > 0 || r.website || r.email) && (
         <div className="mt-auto pt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs">
-          {r.phone && (
+          {phones.map((tel) => (
             <a
-              href={telHref(r.phone)}
+              key={tel.href}
+              href={tel.href}
               className="inline-flex items-center gap-1.5 font-medium text-primary hover:underline"
             >
               <Phone className="h-3 w-3" aria-hidden />
               <span className="sr-only">{t('resources.call')} </span>
-              {r.phone}
+              {tel.label}
             </a>
-          )}
+          ))}
           {r.website && (
             <a
               href={r.website}

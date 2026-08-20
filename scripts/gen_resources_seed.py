@@ -82,7 +82,7 @@ SPLIT_ROWS = {
         ['Association of Mexicans in North Carolina (AMEXCAN)',
          'https://www.amexcannc.org/ | 1410 Evans St., Ste. 1A, Greenville',
          '252-329-0593'],
-        ['ULECAN — Unión de Latinos del Este de Carolina del Norte',
+        ['Ulecan. Union De Latinos del Este de Carolina del Norte.',
          'ulecancarteret@gmail.com',
          'Susan Guijarro 252-723-1858, servicios integrales y variados'],
     ),
@@ -268,6 +268,9 @@ def emit(resources, slug, sector, order, erow, srow):
     website_es, address_es, loc_email_es = split_location(srow[1])
     phone, email, notes = split_contact(erow[2])
     phone_es, email_es, notes_es = split_contact(srow[2])
+    # English URL wins: the Spanish edition has four links whose *paths* were
+    # translated ("/230/Senior-Center" -> "/230/Centro para personas mayores"),
+    # which do not resolve. The English one is the working address.
     website = website or website_es
     email = email or email_es or loc_email or loc_email_es
     # A few entries carry their web address in the name instead of its own
@@ -281,6 +284,14 @@ def emit(resources, slug, sector, order, erow, srow):
     # one side is parse noise rather than data.
     if not address:
         address_es = None
+    # A middle cell with no digits in it is not an address — it is a service
+    # label ("Mobile Crisis"). Keep the words, but as a note, so the card does
+    # not put a map pin beside something nobody can drive to.
+    if address and not re.search(r'\d', address):
+        notes = f'{address}. {notes}' if notes else address
+        label_es = address_es or address
+        notes_es = f'{label_es}. {notes_es}' if notes_es else label_es
+        address = address_es = None
     resources.append({
         'category_slug': slug,
         'display_order': order,
