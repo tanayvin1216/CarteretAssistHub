@@ -25,6 +25,7 @@ export type MessageKey =
   | 'nav.about'
   | 'nav.allies'
   | 'nav.report'
+  | 'nav.resources'
   | 'nav.signIn'
   | 'nav.signInOrg'
   | 'nav.signInOrgHint'
@@ -62,6 +63,26 @@ export type MessageKey =
   | 'getHelp.lede'
   | 'getHelp.pickCategory'
   | 'getHelp.seeAll'
+  | 'getHelp.resourcesTitle'
+  | 'getHelp.resourcesLede'
+  | 'getHelp.resourcesCta'
+  | 'resources.title'
+  | 'resources.lede'
+  | 'resources.searchPlaceholder'
+  | 'resources.allCategories'
+  | 'resources.results'
+  | 'resources.result'
+  | 'resources.noResults'
+  | 'resources.clear'
+  | 'resources.jumpTo'
+  | 'resources.filterTown'
+  | 'resources.allTowns'
+  | 'resources.call'
+  | 'resources.visit'
+  | 'resources.email'
+  | 'resources.relatedSector'
+  | 'resources.source'
+  | 'resources.print'
   | 'about.eyebrow'
   | 'about.title'
   | 'about.lede'
@@ -154,6 +175,7 @@ export const messages: Record<Locale, Record<MessageKey, string>> = {
     'nav.about': 'About',
     'nav.allies': 'Allies',
     'nav.report': 'Report',
+    'nav.resources': 'Resources',
     'nav.signIn': 'Sign in',
     'nav.signInOrg': 'Organization',
     'nav.signInOrgHint': 'Update your listing & review applications',
@@ -195,6 +217,29 @@ export const messages: Record<Locale, Record<MessageKey, string>> = {
       'Pick a category. We\'ll show you organizations in Carteret County that can help — where they are, when they\'re open, and how to reach them.',
     'getHelp.pickCategory': 'Choose a category',
     'getHelp.seeAll': 'See every organization',
+    'getHelp.resourcesTitle': 'Looking for a specific service?',
+    'getHelp.resourcesLede':
+      'The Resource Aide directory lists every local service by need — food pantries, clinics, shelters, senior care, transportation, legal aid and more.',
+    'getHelp.resourcesCta': 'Browse the resource directory',
+    'resources.title': 'Carteret County resource directory',
+    'resources.lede':
+      'Every service in the county Resource Aide booklet, grouped by the kind of help you need. Search by name, town, or what you are looking for.',
+    'resources.searchPlaceholder': 'Search by name, town, or service…',
+    'resources.allCategories': 'All categories',
+    'resources.results': 'results',
+    'resources.result': 'result',
+    'resources.noResults': 'Nothing matches that search. Try a shorter word, or clear the filters.',
+    'resources.clear': 'Clear filters',
+    'resources.jumpTo': 'Jump to a category',
+    'resources.filterTown': 'Town',
+    'resources.allTowns': 'All towns',
+    'resources.call': 'Call',
+    'resources.visit': 'Website',
+    'resources.email': 'Email',
+    'resources.relatedSector': 'Related sector',
+    'resources.source':
+      'From the Carteret County and Surrounding Area Resource Aide, maintained by the Community Service Committee. Something out of date? Tell us.',
+    'resources.print': 'Print this directory',
     'about.eyebrow': 'About',
     'about.title': 'About Assist Hub',
     'about.lede':
@@ -297,6 +342,7 @@ export const messages: Record<Locale, Record<MessageKey, string>> = {
     'nav.about': 'Acerca de',
     'nav.allies': 'Aliados',
     'nav.report': 'Reportar',
+    'nav.resources': 'Recursos',
     'nav.signIn': 'Iniciar sesión',
     'nav.signInOrg': 'Organización',
     'nav.signInOrgHint': 'Actualizar su listado y revisar solicitudes',
@@ -338,6 +384,30 @@ export const messages: Record<Locale, Record<MessageKey, string>> = {
       'Elija una categoría. Le mostraremos organizaciones del condado de Carteret que pueden ayudar — dónde están, cuándo están abiertas y cómo contactarlas.',
     'getHelp.pickCategory': 'Elegir una categoría',
     'getHelp.seeAll': 'Ver todas las organizaciones',
+    'getHelp.resourcesTitle': '¿Busca un servicio específico?',
+    'getHelp.resourcesLede':
+      'El directorio de Centros de ayuda y recursos enumera todos los servicios locales según la necesidad: despensas de alimentos, clínicas, refugios, cuidado de personas mayores, transporte, asistencia legal y más.',
+    'getHelp.resourcesCta': 'Ver el directorio de recursos',
+    'resources.title': 'Directorio de recursos del condado de Carteret',
+    'resources.lede':
+      'Todos los servicios del folleto de Centros de ayuda y recursos del condado, agrupados según el tipo de ayuda que necesita. Busque por nombre, ciudad o el servicio que busca.',
+    'resources.searchPlaceholder': 'Buscar por nombre, ciudad o servicio…',
+    'resources.allCategories': 'Todas las categorías',
+    'resources.results': 'resultados',
+    'resources.result': 'resultado',
+    'resources.noResults':
+      'No hay coincidencias. Pruebe con una palabra más corta o borre los filtros.',
+    'resources.clear': 'Borrar filtros',
+    'resources.jumpTo': 'Ir a una categoría',
+    'resources.filterTown': 'Ciudad',
+    'resources.allTowns': 'Todas las ciudades',
+    'resources.call': 'Llamar',
+    'resources.visit': 'Sitio web',
+    'resources.email': 'Correo',
+    'resources.relatedSector': 'Sector relacionado',
+    'resources.source':
+      'Del folleto Centros de ayuda y recursos del condado de Carteret y sus alrededores, a cargo del Comité de Servicio Comunitario. ¿Algo desactualizado? Avísenos.',
+    'resources.print': 'Imprimir este directorio',
     'about.eyebrow': 'Acerca de',
     'about.title': 'Acerca de Assist Hub',
     'about.lede':

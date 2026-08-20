@@ -124,6 +124,25 @@ export function GetHelpClient({ sectors, organizations }: Props) {
               {t('getHelp.seeAll')}
               <ArrowRight className="h-4 w-4" />
             </button>
+
+            {/* The sectors above list partner organizations. Services that
+                belong to no sector — clinics, apartments, transportation —
+                live in the resource directory, so point there too. */}
+            <div className="mt-10 bg-sand border border-divider rounded-xl p-6 md:p-8">
+              <h2 className="font-display text-xl md:text-2xl text-ink leading-snug mb-2">
+                {t('getHelp.resourcesTitle')}
+              </h2>
+              <p className="text-sm text-body-text leading-relaxed max-w-2xl mb-5">
+                {t('getHelp.resourcesLede')}
+              </p>
+              <Link
+                href="/resources"
+                className="inline-flex items-center gap-2 h-10 px-4 bg-seafoam hover:bg-seafoam-deep text-ink text-[13.5px] font-semibold rounded-lg transition-colors group"
+              >
+                {t('getHelp.resourcesCta')}
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+            </div>
           </div>
         </section>
       )}

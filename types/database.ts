@@ -65,6 +65,24 @@ export type Database = {
         };
         Update: Partial<CommunityReport>;
       };
+      resource_categories: {
+        Row: ResourceCategory;
+        Insert: Omit<ResourceCategory, 'id' | 'created_at' | 'updated_at'> & {
+          id?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<ResourceCategory>;
+      };
+      resources: {
+        Row: Resource;
+        Insert: Omit<Resource, 'id' | 'created_at' | 'updated_at'> & {
+          id?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<Resource>;
+      };
       profiles: {
         Row: Profile;
         Insert: Omit<Profile, 'created_at'> & { created_at?: string };
@@ -198,6 +216,54 @@ export interface CommunityReport {
   reviewed_by: string | null;
   reviewed_at: string | null;
   created_at: string;
+}
+
+/**
+ * A section of the committee's Resource Aide booklet ("Food Assistance – Food
+ * Pantry", "Mobile Home Parks", …). `sector_slug` cross-links the category to
+ * one of the 13 sectors where one fits, and is null where none does.
+ */
+export interface ResourceCategory {
+  id: string;
+  slug: string;
+  name: string;
+  name_es: string | null;
+  description: string | null;
+  description_es: string | null;
+  sector_slug: string | null;
+  display_order: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+/**
+ * One entry in the Resource Aide booklet. Distinct from `Organization`:
+ * resources are service listings people look up for help, with no account,
+ * no volunteer needs, and no application pipeline.
+ *
+ * The `_es` columns hold the Spanish edition's wording. `notes` carries the
+ * entry's prose verbatim — hours, eligibility, "call ahead" — and may contain
+ * a `|` where the printed booklet broke the line.
+ */
+export interface Resource {
+  id: string;
+  category_id: string;
+  name: string;
+  name_es: string | null;
+  address: string | null;
+  address_es: string | null;
+  town: string | null;
+  website: string | null;
+  phone: string | null;
+  email: string | null;
+  notes: string | null;
+  notes_es: string | null;
+  sector_slug: string | null;
+  display_order: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface Profile {

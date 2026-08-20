@@ -22,8 +22,26 @@ supabase/migrations/004_assisthub_admin_scope.sql
 supabase/migrations/005_community_reports.sql      # public "report something" intake
 supabase/migrations/006_org_read_own_applications.sql
 supabase/migrations/007_org_portal.sql             # org self-service listing + roles
+supabase/migrations/008_resource_directory.sql    # bilingual Resource Aide directory
 supabase/seed.sql
 supabase/directory-seed.sql     # real Community Service Committee org directory + volunteer roles
+supabase/resources-seed.sql     # 245 services from the Resource Aid document (EN + ES)
+```
+
+The resource directory has a shortcut — migration 008 and its seed concatenated
+into one file, so it installs in a single paste:
+
+```bash
+# Supabase dashboard -> SQL Editor -> New query -> paste -> Run
+supabase/resource-directory-install.sql
+```
+
+Safe to run repeatedly. To rebuild it after the committee revises the Word
+document:
+
+```bash
+python3 scripts/gen_resources_seed.py
+node scripts/build_install_sql.mjs
 ```
 
 Or apply one at a time over the pooler:
@@ -31,6 +49,11 @@ Or apply one at a time over the pooler:
 ```bash
 node scripts/apply_migration.mjs supabase/migrations/007_org_portal.sql
 ```
+
+The `scripts/*.mjs` helpers connect over Postgres directly, so they need
+`npm install` to have been run (the `pg` driver is a devDependency) and a
+`DATABASE_URL` in `.env.local` — see `.env.example`. Without either, use the
+SQL editor in the dashboard instead; nothing in `scripts/` is required.
 
 To find out which migrations a database is actually carrying — the first thing to check when a
 feature "doesn't work" — run:
@@ -63,8 +86,10 @@ Create a new Supabase project, then run (in order):
 005_community_reports.sql
 006_org_read_own_applications.sql
 007_org_portal.sql
+008_resource_directory.sql
 supabase/seed.sql
 supabase/directory-seed.sql    -- real org directory + volunteer roles
+supabase/resources-seed.sql    -- Resource Aide directory (245 services, EN + ES)
 ```
 
 ### 1c. Create a county admin user
