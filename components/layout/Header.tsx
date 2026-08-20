@@ -18,6 +18,7 @@ import {
 const NAV_ITEMS = [
   { href: '/sectors', labelKey: 'nav.directory' as const },
   { href: '/get-help', labelKey: 'nav.getHelp' as const },
+  { href: '/resources', labelKey: 'nav.resources' as const },
   { href: '/volunteer', labelKey: 'nav.volunteer' as const },
   { href: '/allies', labelKey: 'nav.allies' as const },
   { href: '/about', labelKey: 'nav.about' as const },

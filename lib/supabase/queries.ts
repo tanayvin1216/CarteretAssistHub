@@ -1,5 +1,14 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
-import type { Database, Sector, SubcommitteeLead, Organization, VolunteerNeed, SectorActivity } from '@/types/database';
+import type {
+  Database,
+  Sector,
+  SubcommitteeLead,
+  Organization,
+  VolunteerNeed,
+  SectorActivity,
+  Resource,
+  ResourceCategory,
+} from '@/types/database';
 
 type Client = SupabaseClient<Database>;
 
@@ -138,4 +147,51 @@ export async function countByStatus(supabase: Client) {
     volunteerNeeds: needCount ?? 0,
     applications: appCount ?? 0,
   };
+}
+
+export async function getResourceCategories(supabase: Client): Promise<ResourceCategory[]> {
+  const { data, error } = await supabase
+    .from('resource_categories')
+    .select('*')
+    .eq('is_active', true)
+    .order('display_order', { ascending: true });
+  if (error) {
+    console.error('getResourceCategories error', error);
+    return [];
+  }
+  return data ?? [];
+}
+
+/**
+ * Every resource, in booklet order. The directory is ~250 rows of short text,
+ * so it ships whole to the client and filters there — that keeps search
+ * instant and avoids a round trip per keystroke.
+ */
+export async function getResources(supabase: Client): Promise<Resource[]> {
+  const { data, error } = await supabase
+    .from('resources')
+    .select('*')
+    .eq('is_active', true)
+    .order('display_order', { ascending: true })
+    .order('name');
+  if (error) {
+    console.error('getResources error', error);
+    return [];
+  }
+  return data ?? [];
+}
+
+/** Resources cross-linked to a sector, for the sector page's help panel. */
+export async function getResourcesBySector(supabase: Client, sectorSlug: string): Promise<Resource[]> {
+  const { data, error } = await supabase
+    .from('resources')
+    .select('*')
+    .eq('sector_slug', sectorSlug)
+    .eq('is_active', true)
+    .order('name');
+  if (error) {
+    console.error('getResourcesBySector error', error);
+    return [];
+  }
+  return data ?? [];
 }

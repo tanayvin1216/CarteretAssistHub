@@ -5,26 +5,12 @@
  * rows where sector = 'food_insecurity'. Reports counts, lists FoodAssist's
  * visible set for eyeballing, and FAILS (exit 1) on any leak or anomaly.
  *
- * Usage: node scripts/audit_partition.mjs   (reads SUPABASE_DB_PASSWORD from .env.local)
+ * Usage: node scripts/audit_partition.mjs   (needs DATABASE_URL in .env.local)
  */
-import { readFileSync } from 'node:fs';
-import pg from 'pg';
+import { connect } from './db.mjs';
 
-const env = {};
-for (const l of readFileSync('.env.local', 'utf8').split('\n')) {
-  if (!l.includes('=') || l.trim().startsWith('#')) continue;
-  const i = l.indexOf('=');
-  env[l.slice(0, i).trim()] = l.slice(i + 1).trim().replace(/^["']|["']$/g, '');
-}
-const m = readFileSync('supabase/.temp/pooler-url', 'utf8').trim()
-  .match(/^postgresql:\/\/([^@]+)@([^:/]+):(\d+)\/(.+)$/);
-const c = new pg.Client({
-  user: m[1], password: env.SUPABASE_DB_PASSWORD, host: m[2], port: +m[3],
-  database: m[4], ssl: { rejectUnauthorized: false },
-});
+const c = await connect();
 const rows = async (q) => (await c.query(q)).rows;
-
-await c.connect();
 let failed = false;
 try {
   const committee = (await rows(`SELECT count(*)::int n FROM organizations WHERE sector='other'`))[0].n;
