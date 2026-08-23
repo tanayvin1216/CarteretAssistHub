@@ -270,7 +270,10 @@ export interface Profile {
   id: string;
   email: string;
   name: string | null;
+  /** Shared with FoodAssist — both sites read it. */
   role: 'admin' | 'organization' | 'public';
   organization_id: string | null;
+  /** Assist Hub's own admin scope (migration 004). FoodAssist never reads it. */
+  assisthub_admin: boolean;
   created_at: string;
 }

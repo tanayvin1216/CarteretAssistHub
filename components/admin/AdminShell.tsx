@@ -11,10 +11,12 @@ import {
   Flag,
   UserCog,
   KeyRound,
+  Users,
   FileText,
   Settings,
   LogOut,
   ExternalLink,
+  LogIn,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { createClient } from '@/lib/supabase/client';
@@ -29,6 +31,7 @@ const NAV = [
   // for admins who have the link.
   { href: '/admin/reports', label: 'Reports', icon: Flag },
   { href: '/admin/subcommittee-leads', label: 'Subcommittee leads', icon: UserCog },
+  { href: '/admin/users', label: 'Users', icon: Users },
   { href: '/admin/org-accounts', label: 'Organization logins', icon: KeyRound },
   { href: '/admin/content', label: 'Site content', icon: FileText },
   { href: '/admin/settings', label: 'Settings', icon: Settings },
@@ -93,6 +96,15 @@ export function AdminShell({
           })}
         </nav>
         <div className="p-3 border-t border-white/10 space-y-1">
+          {/* Assisting an organization inside its own portal — you stay signed
+              in as yourself; see lib/portal/assist.ts. */}
+          <Link
+            href="/portal/select"
+            className="flex items-center gap-3 px-3 py-2 text-xs text-white/60 hover:text-white transition-colors"
+          >
+            <LogIn className="h-3.5 w-3.5" />
+            Open an org portal
+          </Link>
           <Link
             href="/"
             className="flex items-center gap-3 px-3 py-2 text-xs text-white/60 hover:text-white transition-colors"

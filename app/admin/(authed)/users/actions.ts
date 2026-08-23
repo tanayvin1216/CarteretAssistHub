@@ -6,7 +6,8 @@ import { requireAssistHubAdmin } from '@/lib/admin/guard';
 import { createAdminClient } from '@/lib/supabase/admin';
 
 /**
- * Server actions behind the "Organization logins" admin screen.
+ * Server actions behind the "Users" screen — every account on the database
+ * Assist Hub shares with FoodAssist.
  *
  * These hold the service-role key, so every one of them re-checks that the
  * caller is an Assist Hub admin. The layout gate at app/admin/(authed) is not
@@ -21,12 +22,14 @@ export interface ActionResult {
   secret?: { label: string; value: string };
 }
 
+export type AccountRole = 'admin' | 'organization' | 'public';
+
 /**
  * Passwords are generated here and shown to the admin once, rather than mailed
  * out: this project has no SMTP sender configured, so Supabase's invite email
  * would silently go nowhere. The admin hands the password over by whatever
- * channel they already use with that organization, and the org changes it on
- * first sign-in.
+ * channel they already use with that person, and they change it on first
+ * sign-in.
  */
 function generatePassword(): string {
   // base64url over 12 bytes — 16 characters, no ambiguous punctuation.
@@ -38,8 +41,8 @@ async function findUserIdByEmail(
   email: string,
 ): Promise<string | null> {
   const target = email.trim().toLowerCase();
-  // listUsers is the only email lookup the admin API offers. Ten pages of
-  // 200 is 2,000 accounts, far past anything this county project will hold.
+  // listUsers is the only email lookup the admin API offers. Ten pages of 200
+  // is 2,000 accounts, far past anything these two county sites will hold.
   for (let page = 1; page <= 10; page++) {
     const { data, error } = await admin.auth.admin.listUsers({ page, perPage: 200 });
     if (error) throw new Error(error.message);
@@ -50,28 +53,37 @@ async function findUserIdByEmail(
   return null;
 }
 
-export async function createOrgAccount(input: {
+/**
+ * An organization account is the pair profiles.role = 'organization' +
+ * organization_id — that is what the RLS policies in 006 and 007 key off, and
+ * what the portal door checks. Half of it is worse than neither: an
+ * organization row with no id can sign in and reach nothing, and an
+ * organization_id hung off a 'public' row is a partner quietly locked out.
+ */
+function normalizeAssignment(role: AccountRole, organizationId: string | null) {
+  return {
+    role,
+    organization_id: role === 'organization' ? organizationId : null,
+  };
+}
+
+export async function createUserAccount(input: {
   email: string;
-  organizationId: string;
   name: string;
+  role: AccountRole;
+  organizationId: string | null;
+  assisthubAdmin: boolean;
 }): Promise<ActionResult> {
   try {
     await requireAssistHubAdmin();
 
     const email = input.email.trim().toLowerCase();
     if (!email || !email.includes('@')) return { ok: false, message: 'Enter a valid email.' };
-    if (!input.organizationId) return { ok: false, message: 'Pick an organization.' };
+    if (input.role === 'organization' && !input.organizationId) {
+      return { ok: false, message: 'An organization account needs an organization.' };
+    }
 
     const admin = createAdminClient();
-
-    const { data: org, error: orgError } = await admin
-      .from('organizations')
-      .select('id, name')
-      .eq('id', input.organizationId)
-      .maybeSingle();
-    if (orgError) return { ok: false, message: orgError.message };
-    if (!org) return { ok: false, message: 'That organization no longer exists.' };
-
     const password = generatePassword();
     let userId: string;
     let created = true;
@@ -83,9 +95,9 @@ export async function createOrgAccount(input: {
     });
 
     if (createError) {
-      // Re-running this for an address that already has an account is a normal
-      // thing for an admin to do — attach the existing account to the org
-      // rather than making them go hunting for it.
+      // Re-running this for an address that already signs in somewhere on the
+      // shared database is a normal thing for an admin to do — adjust the
+      // existing account rather than making them go hunting for it.
       const existingId = await findUserIdByEmail(admin, email);
       if (!existingId) return { ok: false, message: createError.message };
       userId = existingId;
@@ -100,26 +112,26 @@ export async function createOrgAccount(input: {
       {
         id: userId,
         email,
-        name: input.name.trim() || (org as { name: string }).name,
-        role: 'organization',
-        organization_id: input.organizationId,
+        name: input.name.trim() || null,
+        ...normalizeAssignment(input.role, input.organizationId),
+        assisthub_admin: input.assisthubAdmin,
       },
       { onConflict: 'id' },
     );
     if (profileError) return { ok: false, message: profileError.message };
 
-    revalidatePath('/admin/org-accounts');
     revalidatePath('/admin/users');
+    revalidatePath('/admin/org-accounts');
 
     if (!created) {
       return {
         ok: true,
-        message: `${email} already had an account — it now represents ${(org as { name: string }).name}. Their existing password still works; use "New password" if they need one.`,
+        message: `${email} already had an account — its access has been updated. The existing password still works; use "New password" if they need one.`,
       };
     }
     return {
       ok: true,
-      message: `Account created for ${(org as { name: string }).name}.`,
+      message: `Account created for ${email}.`,
       secret: { label: `Temporary password for ${email}`, value: password },
     };
   } catch (e) {
@@ -127,7 +139,50 @@ export async function createOrgAccount(input: {
   }
 }
 
-export async function resetOrgPassword(userId: string): Promise<ActionResult> {
+export async function updateUserAccess(input: {
+  userId: string;
+  name: string;
+  role: AccountRole;
+  organizationId: string | null;
+  assisthubAdmin: boolean;
+}): Promise<ActionResult> {
+  try {
+    const caller = await requireAssistHubAdmin();
+
+    if (input.role === 'organization' && !input.organizationId) {
+      return { ok: false, message: 'An organization account needs an organization.' };
+    }
+
+    // Locking yourself out is a one-way door: with no Assist Hub admin left,
+    // there is no screen anywhere that can hand the flag back — it takes SQL.
+    if (input.userId === caller.userId && (!input.assisthubAdmin || input.role !== 'admin')) {
+      return {
+        ok: false,
+        message: 'You cannot take away your own admin access. Ask the other admin to do it.',
+      };
+    }
+
+    const admin = createAdminClient();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const profiles = admin.from('profiles') as any;
+    const { error } = await profiles
+      .update({
+        name: input.name.trim() || null,
+        ...normalizeAssignment(input.role, input.organizationId),
+        assisthub_admin: input.assisthubAdmin,
+      })
+      .eq('id', input.userId);
+    if (error) return { ok: false, message: error.message };
+
+    revalidatePath('/admin/users');
+    revalidatePath('/admin/org-accounts');
+    return { ok: true, message: 'Access updated.' };
+  } catch (e) {
+    return { ok: false, message: e instanceof Error ? e.message : 'Something went wrong.' };
+  }
+}
+
+export async function resetUserPassword(userId: string): Promise<ActionResult> {
   try {
     await requireAssistHubAdmin();
     const admin = createAdminClient();
@@ -144,23 +199,29 @@ export async function resetOrgPassword(userId: string): Promise<ActionResult> {
   }
 }
 
-export async function revokeOrgAccount(userId: string): Promise<ActionResult> {
+export async function removeUserAccess(userId: string): Promise<ActionResult> {
   try {
-    await requireAssistHubAdmin();
+    const caller = await requireAssistHubAdmin();
+    if (userId === caller.userId) {
+      return { ok: false, message: 'You cannot remove your own access.' };
+    }
+
     const admin = createAdminClient();
     // The sign-in itself is left intact and the profile is demoted instead:
     // deleting the auth user would orphan anything else on the shared database
     // that points at it (reviewed_by on applications and reports, updated_by on
-    // listings). Demoted, they can still sign in but the portal turns them away.
+    // listings). Demoted, they can still sign in but every gated screen — this
+    // admin, the portal, FoodAssist's own admin — turns them away.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const profiles = admin.from('profiles') as any;
     const { error } = await profiles
-      .update({ role: 'public', organization_id: null })
+      .update({ role: 'public', organization_id: null, assisthub_admin: false })
       .eq('id', userId);
     if (error) return { ok: false, message: error.message };
-    revalidatePath('/admin/org-accounts');
+
     revalidatePath('/admin/users');
-    return { ok: true, message: 'Access removed. They can no longer reach the portal.' };
+    revalidatePath('/admin/org-accounts');
+    return { ok: true, message: 'Access removed. The sign-in still exists but reaches nothing.' };
   } catch (e) {
     return { ok: false, message: e instanceof Error ? e.message : 'Something went wrong.' };
   }
