@@ -23,7 +23,7 @@ type Draft = {
   email?: string | null;
   website?: string | null;
   mission?: string | null;
-  assistance_types: string[];
+  assistance_types_text: string;
   spanish_available: boolean;
   is_active: boolean;
   is_featured: boolean;
@@ -40,7 +40,7 @@ const EMPTY_DRAFT: Draft = {
   email: '',
   website: '',
   mission: '',
-  assistance_types: [],
+  assistance_types_text: '',
   spanish_available: false,
   is_active: true,
   is_featured: false,
@@ -79,7 +79,7 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
       email: o.email,
       website: o.website,
       mission: o.mission,
-      assistance_types: o.assistance_types ?? [],
+      assistance_types_text: (o.assistance_types ?? []).join(', '),
       spanish_available: o.spanish_available,
       is_active: o.is_active,
       is_featured: o.is_featured ?? false,
@@ -119,7 +119,10 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
       email: editing.email || null,
       website: editing.website || null,
       mission: editing.mission || null,
-      assistance_types: editing.assistance_types,
+      assistance_types: editing.assistance_types_text
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean),
       spanish_available: editing.spanish_available,
       is_active: editing.is_active,
       is_featured: editing.is_featured,
@@ -379,16 +382,9 @@ export function OrganizationsAdmin({ organizations: initial, sectors }: Props) {
               </DraftField>
               <DraftField label="Services offered (comma-separated)">
                 <input
-                  value={editing.assistance_types.join(', ')}
-                  onChange={(e) =>
-                    setEditing({
-                      ...editing,
-                      assistance_types: e.target.value
-                        .split(',')
-                        .map((s) => s.trim())
-                        .filter(Boolean),
-                    })
-                  }
+                  value={editing.assistance_types_text}
+                  onChange={(e) => setEditing({ ...editing, assistance_types_text: e.target.value })}
+                  placeholder="e.g. Counseling, Detox, Outpatient treatment"
                   className="w-full h-10 px-3 bg-card border border-divider rounded-sm text-sm"
                 />
               </DraftField>

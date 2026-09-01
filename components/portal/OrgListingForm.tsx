@@ -38,8 +38,8 @@ interface Draft {
   mission_es: string;
   cost: string;
   hours_notes: string;
-  assistance_types: string[];
-  who_served: string[];
+  assistance_types_text: string;
+  who_served_text: string;
   spanish_available: boolean;
   is_active: boolean;
   operating_hours: HoursMap;
@@ -60,8 +60,8 @@ function toDraft(org: Organization): Draft {
     mission_es: org.mission_es ?? '',
     cost: org.cost ?? '',
     hours_notes: org.hours_notes ?? '',
-    assistance_types: org.assistance_types ?? [],
-    who_served: org.who_served ?? [],
+    assistance_types_text: (org.assistance_types ?? []).join(', '),
+    who_served_text: (org.who_served ?? []).join(', '),
     spanish_available: org.spanish_available ?? false,
     is_active: org.is_active ?? true,
     operating_hours: (org.operating_hours as HoursMap | null) ?? {},
@@ -117,8 +117,8 @@ export function OrgListingForm({ organization }: { organization: Organization })
       mission_es: draft.mission_es.trim() || null,
       cost: draft.cost.trim(),
       hours_notes: draft.hours_notes.trim() || null,
-      assistance_types: draft.assistance_types,
-      who_served: draft.who_served,
+      assistance_types: splitList(draft.assistance_types_text),
+      who_served: splitList(draft.who_served_text),
       spanish_available: draft.spanish_available,
       is_active: draft.is_active,
       operating_hours: Object.keys(draft.operating_hours).length ? draft.operating_hours : null,
@@ -321,15 +321,15 @@ export function OrgListingForm({ organization }: { organization: Organization })
         <Section title="What you offer">
           <Field label="Services (comma-separated)" hint="e.g. Food pantry, Utility assistance, Case management">
             <input
-              value={draft.assistance_types.join(', ')}
-              onChange={(e) => set('assistance_types', splitList(e.target.value))}
+              value={draft.assistance_types_text}
+              onChange={(e) => set('assistance_types_text', e.target.value)}
               className={FIELD}
             />
           </Field>
           <Field label="Who you serve (comma-separated)" hint="e.g. Families with children, Veterans, Seniors 60+">
             <input
-              value={draft.who_served.join(', ')}
-              onChange={(e) => set('who_served', splitList(e.target.value))}
+              value={draft.who_served_text}
+              onChange={(e) => set('who_served_text', e.target.value)}
               className={FIELD}
             />
           </Field>
